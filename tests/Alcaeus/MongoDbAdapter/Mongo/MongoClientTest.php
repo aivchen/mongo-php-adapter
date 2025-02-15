@@ -9,159 +9,7 @@ use Alcaeus\MongoDbAdapter\Tests\TestCase;
  */
 class MongoClientTest extends TestCase
 {
-    /**
-     * @dataProvider provideConnectionUri
-     */
-    public function testConnectionUri($uri, $expected)
-    {
-        $this->skipTestIf(extension_loaded('mongo'));
-        $this->assertSame($expected, (string) (new \MongoClient($uri, ['connect' => false])));
-    }
-
-    public function provideConnectionUri()
-    {
-        yield ['default', sprintf('mongodb://%s:%d', \MongoClient::DEFAULT_HOST, \MongoClient::DEFAULT_PORT)];
-        yield ['localhost', 'mongodb://localhost'];
-        yield ['mongodb://localhost', 'mongodb://localhost'];
-    }
-
-    public function testSerialize()
-    {
-        $this->assertIsString(serialize($this->getClient()));
-    }
-
-    public function testGetDb()
-    {
-        $client = $this->getClient();
-        $db = $client->selectDB('mongo-php-adapter');
-        $this->assertInstanceOf('\MongoDB', $db);
-        $this->assertSame('mongo-php-adapter', (string) $db);
-    }
-
-    public function testSelectDBWithEmptyName()
-    {
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('Database name cannot be empty');
-
-        $this->getClient()->selectDB('');
-    }
-
-    public function testSelectDBWithInvalidName()
-    {
-        $this->expectException(\Exception::class);
-        $this->expectExceptionMessage('Database name contains invalid characters');
-
-        $this->getClient()->selectDB('/');
-    }
-
-    public function testGetDbProperty()
-    {
-        $client = $this->getClient();
-        $db = $client->{'mongo-php-adapter'};
-        $this->assertInstanceOf('\MongoDB', $db);
-        $this->assertSame('mongo-php-adapter', (string) $db);
-    }
-
-    public function testGetCollection()
-    {
-        $client = $this->getClient();
-        $collection = $client->selectCollection('mongo-php-adapter', 'test');
-        $this->assertInstanceOf('MongoCollection', $collection);
-        $this->assertSame('mongo-php-adapter.test', (string) $collection);
-    }
-
-    public function testGetHosts()
-    {
-        $host = $this->getCurrentHost();
-        $client = $this->getClient();
-        $hosts = $client->getHosts();
-        $this->assertMatches(
-            [
-                "$host:27017;-;.;" . getmypid() => [
-                    'host' => $host,
-                    'port' => 27017,
-                    'health' => 1,
-                    'state' => 0,
-                ],
-            ],
-            $hosts
-        );
-    }
-
-    public function testGetHostsExceptionHandling()
-    {
-        $this->expectException(\MongoConnectionException::class);
-        $this->expectErrorMessageMatches('/fake_host/');
-
-        $client = $this->getClient(null, 'mongodb://fake_host');
-        $client->getHosts();
-    }
-
-    public function testReadPreference()
-    {
-        $client = $this->getClient();
-        $this->assertSame(['type' => \MongoClient::RP_PRIMARY], $client->getReadPreference());
-
-        $this->assertTrue($client->setReadPreference(\MongoClient::RP_SECONDARY, [['a' => 'b']]));
-        $this->assertSame(['type' => \MongoClient::RP_SECONDARY, 'tagsets' => [['a' => 'b']]], $client->getReadPreference());
-    }
-
-    public function testWriteConcern()
-    {
-        $client = $this->getClient();
-
-        $this->assertTrue($client->setWriteConcern('majority', 100));
-        $this->assertSame(['w' => 'majority', 'wtimeout' => 100], $client->getWriteConcern());
-    }
-
-    public function testListDBs()
-    {
-        $document = ['foo' => 'bar'];
-        $this->getCollection()->insert($document);
-        $databases = $this->getClient()->listDBs();
-
-        $this->assertSame(1.0, $databases['ok']);
-        $this->assertArrayHasKey('totalSize', $databases);
-        $this->assertArrayHasKey('databases', $databases);
-
-        foreach ($databases['databases'] as $database) {
-            $this->assertArrayHasKey('name', $database);
-            $this->assertArrayHasKey('empty', $database);
-            $this->assertArrayHasKey('sizeOnDisk', $database);
-
-            if ($database['name'] == 'mongo-php-adapter') {
-                $this->assertFalse($database['empty']);
-                return;
-            }
-        }
-
-        $this->fail('Could not find mongo-php-adapter database in list');
-    }
-
-    public function testNoPrefixUri()
-    {
-        $client = $this->getClient(null, 'localhost');
-        $this->assertNotNull($client);
-    }
-
-    /**
-     * @dataProvider dataReadPreferenceOptionsAreInherited
-     */
-    public function testReadPreferenceOptionsAreInherited($options, $uri, $expectedTagsets)
-    {
-        $client = $this->getClient($options, $uri);
-        $collection = $client->selectCollection('test', 'foo');
-
-        $this->assertSame(
-            [
-                'type' => \MongoClient::RP_SECONDARY_PREFERRED,
-                'tagsets' => $expectedTagsets
-            ],
-            $collection->getReadPreference()
-        );
-    }
-
-    public static function dataReadPreferenceOptionsAreInherited()
+    public static function provideReadPreferenceOptionsAreInheritedCases(): iterable
     {
         $options = [
             'readPreference' => \MongoClient::RP_SECONDARY_PREFERRED,
@@ -212,18 +60,7 @@ class MongoClientTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataWriteConcernOptionsAreInherited
-     */
-    public function testWriteConcernOptionsAreInherited($options, $uri)
-    {
-        $client = $this->getClient($options, $uri);
-        $collection = $client->selectCollection('test', 'foo');
-
-        $this->assertSame(['w' => 'majority', 'wtimeout' => 666], $collection->getWriteConcern());
-    }
-
-    public static function dataWriteConcernOptionsAreInherited()
+    public static function provideWriteConcernOptionsAreInheritedCases(): iterable
     {
         $options = [
             'w' => 'majority',
@@ -247,11 +84,187 @@ class MongoClientTest extends TestCase
             'overridden' => [
                 'options' => $options,
                 'uri' => 'mongodb://localhost/?' . self::makeOptionString($overriddenOptions),
-            ]
+            ],
         ];
     }
 
-    public function testConnectWithUsernameAndPassword()
+    /**
+     * @return string
+     */
+    private static function makeOptionString(array $options)
+    {
+        return implode('&', array_map(
+            static fn ($key, $value) => $key . '=' . $value,
+            array_keys($options),
+            array_values($options),
+        ));
+    }
+
+    /**
+     * @dataProvider provideConnectionUriCases
+     */
+    public function testConnectionUri($uri, $expected): void
+    {
+        $this->skipTestIf(\extension_loaded('mongo'));
+        self::assertSame($expected, (string) (new \MongoClient($uri, ['connect' => false])));
+    }
+
+    public function provideConnectionUriCases(): iterable
+    {
+        yield ['default', sprintf('mongodb://%s:%d', \MongoClient::DEFAULT_HOST, \MongoClient::DEFAULT_PORT)];
+        yield ['localhost', 'mongodb://localhost'];
+        yield ['mongodb://localhost', 'mongodb://localhost'];
+    }
+
+    public function testSerialize(): void
+    {
+        self::assertIsString(serialize($this->getClient()));
+    }
+
+    public function testGetDb(): void
+    {
+        $client = $this->getClient();
+        $db = $client->selectDB('mongo-php-adapter');
+        self::assertInstanceOf('\MongoDB', $db);
+        self::assertSame('mongo-php-adapter', (string) $db);
+    }
+
+    public function testSelectDBWithEmptyName(): void
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Database name cannot be empty');
+
+        $this->getClient()->selectDB('');
+    }
+
+    public function testSelectDBWithInvalidName(): void
+    {
+        $this->expectException(\Exception::class);
+        $this->expectExceptionMessage('Database name contains invalid characters');
+
+        $this->getClient()->selectDB('/');
+    }
+
+    public function testGetDbProperty(): void
+    {
+        $client = $this->getClient();
+        $db = $client->{'mongo-php-adapter'};
+        self::assertInstanceOf('\MongoDB', $db);
+        self::assertSame('mongo-php-adapter', (string) $db);
+    }
+
+    public function testGetCollection(): void
+    {
+        $client = $this->getClient();
+        $collection = $client->selectCollection('mongo-php-adapter', 'test');
+        self::assertInstanceOf('MongoCollection', $collection);
+        self::assertSame('mongo-php-adapter.test', (string) $collection);
+    }
+
+    public function testGetHosts(): void
+    {
+        $host = $this->getCurrentHost();
+        $client = $this->getClient();
+        $hosts = $client->getHosts();
+        $this->assertMatches(
+            [
+                "{$host}:27017;-;.;" . getmypid() => [
+                    'host' => $host,
+                    'port' => 27017,
+                    'health' => 1,
+                    'state' => 0,
+                ],
+            ],
+            $hosts,
+        );
+    }
+
+    public function testGetHostsExceptionHandling(): void
+    {
+        $this->expectException(\MongoConnectionException::class);
+        $this->expectErrorMessageMatches('/fake_host/');
+
+        $client = $this->getClient(null, 'mongodb://fake_host');
+        $client->getHosts();
+    }
+
+    public function testReadPreference(): void
+    {
+        $client = $this->getClient();
+        self::assertSame(['type' => \MongoClient::RP_PRIMARY], $client->getReadPreference());
+
+        self::assertTrue($client->setReadPreference(\MongoClient::RP_SECONDARY, [['a' => 'b']]));
+        self::assertSame(['type' => \MongoClient::RP_SECONDARY, 'tagsets' => [['a' => 'b']]], $client->getReadPreference());
+    }
+
+    public function testWriteConcern(): void
+    {
+        $client = $this->getClient();
+
+        self::assertTrue($client->setWriteConcern('majority', 100));
+        self::assertSame(['w' => 'majority', 'wtimeout' => 100], $client->getWriteConcern());
+    }
+
+    public function testListDBs(): void
+    {
+        $document = ['foo' => 'bar'];
+        $this->getCollection()->insert($document);
+        $databases = $this->getClient()->listDBs();
+
+        self::assertSame(1.0, $databases['ok']);
+        self::assertArrayHasKey('totalSize', $databases);
+        self::assertArrayHasKey('databases', $databases);
+
+        foreach ($databases['databases'] as $database) {
+            self::assertArrayHasKey('name', $database);
+            self::assertArrayHasKey('empty', $database);
+            self::assertArrayHasKey('sizeOnDisk', $database);
+
+            if ($database['name'] == 'mongo-php-adapter') {
+                self::assertFalse($database['empty']);
+
+                return;
+            }
+        }
+
+        self::fail('Could not find mongo-php-adapter database in list');
+    }
+
+    public function testNoPrefixUri(): void
+    {
+        $client = $this->getClient(null, 'localhost');
+        self::assertNotNull($client);
+    }
+
+    /**
+     * @dataProvider provideReadPreferenceOptionsAreInheritedCases
+     */
+    public function testReadPreferenceOptionsAreInherited($options, $uri, $expectedTagsets): void
+    {
+        $client = $this->getClient($options, $uri);
+        $collection = $client->selectCollection('test', 'foo');
+
+        self::assertSame(
+            [
+                'type' => \MongoClient::RP_SECONDARY_PREFERRED,
+                'tagsets' => $expectedTagsets,
+            ],
+            $collection->getReadPreference(),
+        );
+    }
+
+    /**
+     * @dataProvider provideWriteConcernOptionsAreInheritedCases
+     */
+    public function testWriteConcernOptionsAreInherited($options, $uri): void
+    {
+        $client = $this->getClient($options, $uri);
+        $collection = $client->selectCollection('test', 'foo');
+
+        self::assertSame(['w' => 'majority', 'wtimeout' => 666], $collection->getWriteConcern());
+    }
+
+    public function testConnectWithUsernameAndPassword(): void
     {
         $this->expectException(\MongoConnectionException::class);
         $this->expectExceptionMessage('Authentication failed');
@@ -264,13 +277,13 @@ class MongoClientTest extends TestCase
         $collection->insert($document);
     }
 
-    public function testConnectWithUsernameAndPasswordInConnectionUrl()
+    public function testConnectWithUsernameAndPasswordInConnectionUrl(): void
     {
         $host = $this->getCurrentHost();
         $this->expectException(\MongoConnectionException::class);
         $this->expectExceptionMessage('Authentication failed');
 
-        $client = $this->getClient([], "mongodb://alcaeus:mySuperSecurePassword@$host");
+        $client = $this->getClient([], "mongodb://alcaeus:mySuperSecurePassword@{$host}");
         $collection = $client->selectCollection('test', 'foo');
 
         $document = ['foo' => 'bar'];
@@ -278,25 +291,10 @@ class MongoClientTest extends TestCase
         $collection->insert($document);
     }
 
-    public function testConnectionUriOptionIntegerTypeCasting()
+    public function testConnectionUriOptionIntegerTypeCasting(): void
     {
         $client = new \MongoClient('mongodb://localhost/db?w=0&wtimeout=0', ['connect' => false]);
 
-        $this->assertSame(['w' => 0, 'wtimeout' => 0], $client->getWriteConcern());
-    }
-
-    /**
-     * @param array $options
-     * @return string
-     */
-    private static function makeOptionString(array $options)
-    {
-        return implode('&', array_map(
-            function ($key, $value) {
-                return $key . '=' . $value;
-            },
-            array_keys($options),
-            array_values($options)
-        ));
+        self::assertSame(['w' => 0, 'wtimeout' => 0], $client->getWriteConcern());
     }
 }

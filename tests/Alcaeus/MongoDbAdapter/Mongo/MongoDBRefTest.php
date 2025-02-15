@@ -9,31 +9,7 @@ use Alcaeus\MongoDbAdapter\Tests\TestCase;
  */
 class MongoDBRefTest extends TestCase
 {
-    public function testCreate()
-    {
-        $id = new \MongoId();
-        $ref = \MongoDBRef::create('foo', $id);
-        $this->assertSame(['$ref' => 'foo', '$id' => $id], $ref);
-    }
-
-    public function testCreateWithDatabase()
-    {
-        $id = new \MongoId();
-        $ref = \MongoDBRef::create('foo', $id, 'database');
-        $this->assertSame(['$ref' => 'foo', '$id' => $id, '$db' => 'database'], $ref);
-    }
-
-    /**
-     * @dataProvider dataCreateThroughMongoDB
-     */
-    public function testCreateThroughMongoDB($expected, $document_or_id)
-    {
-        $ref = $this->getDatabase()->createDBRef('test', $document_or_id);
-
-        $this->assertEquals($expected, $ref);
-    }
-
-    public static function dataCreateThroughMongoDB()
+    public static function provideCreateThroughMongoDBCases(): iterable
     {
         $id = new \MongoId();
         $validRef = ['$ref' => 'test', '$id' => $id];
@@ -42,6 +18,7 @@ class MongoDBRefTest extends TestCase
         $object->_id = $id;
 
         $objectWithoutId = new \stdClass();
+
         return [
             'simpleId' => [$validRef, $id],
             'arrayWithIdProperty' => [$validRef, ['_id' => $id]],
@@ -51,15 +28,7 @@ class MongoDBRefTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataIsRef
-     */
-    public function testIsRef($expected, $ref)
-    {
-        $this->assertSame($expected, \MongoDBRef::isRef($ref));
-    }
-
-    public static function dataIsRef()
+    public static function provideIsRefCases(): iterable
     {
         $objectRef = new \stdClass();
         $objectRef->{'$ref'} = 'coll';
@@ -75,7 +44,39 @@ class MongoDBRefTest extends TestCase
         ];
     }
 
-    public function testGet()
+    public function testCreate(): void
+    {
+        $id = new \MongoId();
+        $ref = \MongoDBRef::create('foo', $id);
+        self::assertSame(['$ref' => 'foo', '$id' => $id], $ref);
+    }
+
+    public function testCreateWithDatabase(): void
+    {
+        $id = new \MongoId();
+        $ref = \MongoDBRef::create('foo', $id, 'database');
+        self::assertSame(['$ref' => 'foo', '$id' => $id, '$db' => 'database'], $ref);
+    }
+
+    /**
+     * @dataProvider provideCreateThroughMongoDBCases
+     */
+    public function testCreateThroughMongoDB($expected, $document_or_id): void
+    {
+        $ref = $this->getDatabase()->createDBRef('test', $document_or_id);
+
+        self::assertEquals($expected, $ref);
+    }
+
+    /**
+     * @dataProvider provideIsRefCases
+     */
+    public function testIsRef($expected, $ref): void
+    {
+        self::assertSame($expected, \MongoDBRef::isRef($ref));
+    }
+
+    public function testGet(): void
     {
         $id = new \MongoId();
 
@@ -85,11 +86,11 @@ class MongoDBRefTest extends TestCase
         $db->selectCollection('test')->insert($document);
 
         $fetchedRef = \MongoDBRef::get($db, ['$ref' => 'test', '$id' => $id]);
-        $this->assertIsArray($fetchedRef);
-        $this->assertEquals($document, $fetchedRef);
+        self::assertIsArray($fetchedRef);
+        self::assertEquals($document, $fetchedRef);
     }
 
-    public function testGetThroughMongoDB()
+    public function testGetThroughMongoDB(): void
     {
         $id = new \MongoId();
 
@@ -99,25 +100,25 @@ class MongoDBRefTest extends TestCase
         $db->selectCollection('test')->insert($document);
 
         $fetchedRef = $db->getDBRef(['$ref' => 'test', '$id' => $id]);
-        $this->assertIsArray($fetchedRef);
-        $this->assertEquals($document, $fetchedRef);
+        self::assertIsArray($fetchedRef);
+        self::assertEquals($document, $fetchedRef);
     }
 
-    public function testGetWithNonExistingDocument()
+    public function testGetWithNonExistingDocument(): void
     {
         $db = $this->getDatabase();
 
-        $this->assertNull(\MongoDBRef::get($db, ['$ref' => 'test', '$id' => 'foo']));
+        self::assertNull(\MongoDBRef::get($db, ['$ref' => 'test', '$id' => 'foo']));
     }
 
-    public function testGetWithInvalidRef()
+    public function testGetWithInvalidRef(): void
     {
         $db = $this->getDatabase();
 
-        $this->assertNull(\MongoDBRef::get($db, []));
+        self::assertNull(\MongoDBRef::get($db, []));
     }
 
-    public function testGetWithDifferentDatabase()
+    public function testGetWithDifferentDatabase(): void
     {
         $database = $this->getDatabase();
         $collection = $this->getCollection();
@@ -134,6 +135,6 @@ class MongoDBRefTest extends TestCase
 
         $referencedDocument = $this->getClient()->selectDB('foo')->getDBRef($ref);
 
-        $this->assertEquals($document, $referencedDocument);
+        self::assertEquals($document, $referencedDocument);
     }
 }

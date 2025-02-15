@@ -28,13 +28,6 @@ trait WriteConcern
     protected $writeConcern;
 
     /**
-     * @param $wstring
-     * @param int $wtimeout
-     * @return bool
-     */
-    abstract public function setWriteConcern($wstring, $wtimeout = 0);
-
-    /**
      * @return array
      */
     public function getWriteConcern()
@@ -48,6 +41,12 @@ trait WriteConcern
             'wtimeout' => $this->writeConcern->getWtimeout(),
         ];
     }
+
+    /**
+     * @param int $wtimeout
+     * @return bool
+     */
+    abstract public function setWriteConcern($wstring, $wtimeout = 0);
 
     /**
      * @param string|int $wstring

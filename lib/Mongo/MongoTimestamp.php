@@ -28,13 +28,13 @@ class MongoTimestamp implements TypeInterface
     private static $globalInc = 0;
 
     /**
-     * @link http://php.net/manual/en/class.mongotimestamp.php#mongotimestamp.props.sec
+     * @see http://php.net/manual/en/class.mongotimestamp.php#mongotimestamp.props.sec
      * @var int
      */
     public $sec;
 
     /**
-     * @link http://php.net/manual/en/class.mongotimestamp.php#mongotimestamp.props.inc
+     * @see http://php.net/manual/en/class.mongotimestamp.php#mongotimestamp.props.inc
      * @var int
      */
     public $inc;
@@ -45,7 +45,7 @@ class MongoTimestamp implements TypeInterface
      * module is loaded and is incremented every time this constructor is called
      * (without the $inc parameter passed in).
      *
-     * @link http://php.net/manual/en/mongotimestamp.construct.php
+     * @see http://php.net/manual/en/mongotimestamp.construct.php
      * @param int $sec [optional] Number of seconds since January 1st, 1970
      * @param int $inc [optional] Increment
      */
@@ -66,7 +66,7 @@ class MongoTimestamp implements TypeInterface
 
         if (func_num_args() <= 1) {
             $inc = static::$globalInc;
-            static::$globalInc++;
+            ++static::$globalInc;
         }
 
         $this->sec = (int) $sec;
@@ -82,7 +82,7 @@ class MongoTimestamp implements TypeInterface
     }
 
     /**
-     * Converts this MongoTimestamp to the new BSON Timestamp type
+     * Converts this MongoTimestamp to the new BSON Timestamp type.
      *
      * @return Timestamp
      * @internal This method is not part of the ext-mongo API

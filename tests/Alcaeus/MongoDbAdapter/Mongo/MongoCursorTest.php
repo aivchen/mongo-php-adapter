@@ -5,7 +5,6 @@ namespace Alcaeus\MongoDbAdapter\Tests\Mongo;
 use Alcaeus\MongoDbAdapter\Tests\TestCase;
 use Alcaeus\MongoDbAdapter\TypeConverter;
 use Countable;
-use MongoCursorInterface;
 use MongoDB\Driver\ReadPreference;
 use MongoDB\Model\BSONDocument;
 use MongoDB\Operation\Find;
@@ -15,61 +14,182 @@ use MongoDB\Operation\Find;
  */
 class MongoCursorTest extends TestCase
 {
-    public function testSerialize()
+    public static function provideCursorAppliesOptionsCases(): iterable
+    {
+        function getMissingOptionCallback($optionName)
+        {
+            return static function ($value) use ($optionName) {
+                return
+                    \is_array($value)
+                    && !\array_key_exists($optionName, $value);
+            };
+        }
+
+        function getBasicCheckCallback($expected, $optionName)
+        {
+            return static function ($value) use ($expected, $optionName) {
+                return
+                    \is_array($value)
+                    && \array_key_exists($optionName, $value)
+                    && $value[$optionName] == $expected;
+            };
+        }
+
+        function getModifierCheckCallback($expected, $modifierName)
+        {
+            return static function ($value) use ($expected, $modifierName) {
+                return
+                    \is_array($value)
+                    && \is_array($value['modifiers'])
+                    && \array_key_exists($modifierName, $value['modifiers'])
+                    && $value['modifiers'][$modifierName] == $expected;
+            };
+        }
+
+        $tests = [
+            'allowPartialResults' => [
+                getBasicCheckCallback(true, 'allowPartialResults'),
+                static function (\MongoCursor $cursor): void {
+                    $cursor->partial(true);
+                },
+            ],
+            'batchSize' => [
+                getBasicCheckCallback(10, 'batchSize'),
+                static function (\MongoCursor $cursor): void {
+                    $cursor->batchSize(10);
+                },
+            ],
+            'cursorTypeNonTailable' => [
+                getMissingOptionCallback('cursorType'),
+                static function (\MongoCursor $cursor): void {
+                    $cursor
+                        ->tailable(false)
+                        ->awaitData(true);
+                },
+            ],
+            'cursorTypeTailable' => [
+                getBasicCheckCallback(Find::TAILABLE, 'cursorType'),
+                static function (\MongoCursor $cursor): void {
+                    $cursor->tailable(true);
+                },
+            ],
+            'cursorTypeTailableAwait' => [
+                getBasicCheckCallback(Find::TAILABLE_AWAIT, 'cursorType'),
+                static function (\MongoCursor $cursor): void {
+                    $cursor->tailable(true)->awaitData(true);
+                },
+            ],
+            'hint' => [
+                getModifierCheckCallback('index_name', '$hint'),
+                static function (\MongoCursor $cursor): void {
+                    $cursor->hint('index_name');
+                },
+            ],
+            'limit' => [
+                getBasicCheckCallback(5, 'limit'),
+                static function (\MongoCursor $cursor): void {
+                    $cursor->limit(5);
+                },
+            ],
+            'maxTimeMS' => [
+                getBasicCheckCallback(100, 'maxTimeMS'),
+                static function (\MongoCursor $cursor): void {
+                    $cursor->maxTimeMS(100);
+                },
+            ],
+            'noCursorTimeout' => [
+                getBasicCheckCallback(true, 'noCursorTimeout'),
+                static function (\MongoCursor $cursor): void {
+                    $cursor->immortal(true);
+                },
+            ],
+            'slaveOkay' => [
+                getBasicCheckCallback(new ReadPreference(ReadPreference::SECONDARY_PREFERRED), 'readPreference'),
+                static function (\MongoCursor $cursor): void {
+                    $cursor->slaveOkay(true);
+                },
+            ],
+            'slaveOkayWithReadPreferenceSet' => [
+                getBasicCheckCallback(new ReadPreference(ReadPreference::SECONDARY), 'readPreference'),
+                static function (\MongoCursor $cursor): void {
+                    $cursor
+                        ->setReadPreference(\MongoClient::RP_SECONDARY)
+                        ->slaveOkay(true);
+                },
+            ],
+            'projectionDefaultFields' => [
+                getBasicCheckCallback(new BSONDocument(['_id' => false, 'foo' => true]), 'projection'),
+            ],
+            'projectionDifferentFields' => [
+                getBasicCheckCallback(new BSONDocument(['_id' => false, 'foo' => true, 'bar' => true]), 'projection'),
+                static function (\MongoCursor $cursor): void {
+                    $cursor->fields(['_id' => false, 'foo' => true, 'bar' => true]);
+                },
+            ],
+            'readPreferencePrimary' => [
+                getBasicCheckCallback(new ReadPreference(ReadPreference::PRIMARY), 'readPreference'),
+                static function (\MongoCursor $cursor): void {
+                    $cursor->setReadPreference(\MongoClient::RP_PRIMARY);
+                },
+            ],
+            'skip' => [
+                getBasicCheckCallback(5, 'skip'),
+                static function (\MongoCursor $cursor): void {
+                    $cursor->skip(5);
+                },
+            ],
+            'sort' => [
+                getBasicCheckCallback(['foo' => -1], 'sort'),
+                static function (\MongoCursor $cursor): void {
+                    $cursor->sort(['foo' => -1]);
+                },
+            ],
+        ];
+
+        return $tests;
+    }
+
+    public function testSerialize(): void
     {
         $this->prepareData();
         $cursor = $this->getCollection()->find(['foo' => 'bar']);
-        $this->assertIsString(serialize($cursor));
+        self::assertIsString(serialize($cursor));
     }
 
-    public function testCursorConvertsTypes()
+    public function testCursorConvertsTypes(): void
     {
         $this->prepareData();
 
         $collection = $this->getCollection();
         $cursor = $collection->find(['foo' => 'bar']);
-        $this->assertCount(2, $cursor);
+        self::assertCount(2, $cursor);
 
         $this->assertCursorIteration($cursor);
     }
 
-    public function testCursorHandlesHasNextBeforeIteration()
+    public function testCursorHandlesHasNextBeforeIteration(): void
     {
         $this->prepareData();
 
         $collection = $this->getCollection();
         $cursor = $collection->find(['foo' => 'bar']);
-        $this->assertTrue($cursor->hasNext());
+        self::assertTrue($cursor->hasNext());
 
         $this->assertCursorIteration($cursor);
     }
 
-    private function assertCursorIteration($cursor)
-    {
-        $iterated = 0;
-        foreach ($cursor as $key => $item) {
-            $this->assertSame($iterated, $cursor->info()['at']);
-            $this->assertInstanceOf('MongoId', $item['_id']);
-            $this->assertEquals($key, (string) $item['_id']);
-            $this->assertSame('bar', $item['foo']);
-            $iterated++;
-        }
-
-        $this->assertSame(2, $iterated);
-    }
-
-    public function testCount()
+    public function testCount(): void
     {
         $this->prepareData();
 
         $collection = $this->getCollection();
         $cursor = $collection->find(['foo' => 'bar'])->limit(1);
 
-        $this->assertSame(2, $cursor->count());
-        $this->assertSame(1, $cursor->count(true));
+        self::assertSame(2, $cursor->count());
+        self::assertSame(1, $cursor->count(true));
     }
 
-    public function testCountCannotConnect()
+    public function testCountCannotConnect(): void
     {
         $client = $this->getClient(['connect' => false], 'mongodb://localhost:28888');
         $cursor = $client->selectCollection('mongo-php-adapter', 'test')->find();
@@ -79,7 +199,7 @@ class MongoCursorTest extends TestCase
         $cursor->count();
     }
 
-    public function testCountAfterIteration()
+    public function testCountAfterIteration(): void
     {
         $this->prepareData();
 
@@ -88,101 +208,101 @@ class MongoCursorTest extends TestCase
 
         // Ensure the generator is consumed and thus closed
         iterator_to_array($cursor);
-        $this->assertSame(2, $cursor->count(true));
+        self::assertSame(2, $cursor->count(true));
     }
 
-    public function testNextStartsWithFirstItem()
+    public function testNextStartsWithFirstItem(): void
     {
         $this->prepareData();
 
         $collection = $this->getCollection();
         $cursor = $collection->find(['foo' => 'bar']);
 
-        $this->assertTrue($cursor->hasNext());
+        self::assertTrue($cursor->hasNext());
         $item = $cursor->getNext();
-        $this->assertNotNull($item);
-        $this->assertInstanceOf('MongoId', $item['_id']);
-        $this->assertSame('bar', $item['foo']);
+        self::assertNotNull($item);
+        self::assertInstanceOf('MongoId', $item['_id']);
+        self::assertSame('bar', $item['foo']);
 
-        $this->assertTrue($cursor->hasNext());
+        self::assertTrue($cursor->hasNext());
         $item = $cursor->getNext();
-        $this->assertNotNull($item);
-        $this->assertInstanceOf('MongoId', $item['_id']);
-        $this->assertSame('bar', $item['foo']);
+        self::assertNotNull($item);
+        self::assertInstanceOf('MongoId', $item['_id']);
+        self::assertSame('bar', $item['foo']);
 
-        $this->assertFalse($cursor->hasNext());
+        self::assertFalse($cursor->hasNext());
         $item = $cursor->getNext();
-        $this->assertNull($item);
+        self::assertNull($item);
 
         $cursor->reset();
 
-        $this->assertTrue($cursor->hasNext());
+        self::assertTrue($cursor->hasNext());
         $item = $cursor->getNext();
-        $this->assertNotNull($item);
-        $this->assertInstanceOf('MongoId', $item['_id']);
-        $this->assertSame('bar', $item['foo']);
+        self::assertNotNull($item);
+        self::assertInstanceOf('MongoId', $item['_id']);
+        self::assertSame('bar', $item['foo']);
 
         $item = $cursor->getNext();
-        $this->assertNotNull($item);
-        $this->assertInstanceOf('MongoId', $item['_id']);
-        $this->assertSame('bar', $item['foo']);
+        self::assertNotNull($item);
+        self::assertInstanceOf('MongoId', $item['_id']);
+        self::assertSame('bar', $item['foo']);
     }
 
-    public function testIteratorInterface()
+    public function testIteratorInterface(): void
     {
         $this->prepareData();
 
         $collection = $this->getCollection();
         $cursor = $collection->find(['foo' => 'bar']);
 
-        $this->assertFalse($cursor->valid(), 'Cursor should be invalid to start with');
-        $this->assertNull($cursor->current(), 'Cursor should be invalid to start with');
-        $this->assertNull($cursor->key(), 'Cursor should be invalid to start with');
+        self::assertFalse($cursor->valid(), 'Cursor should be invalid to start with');
+        self::assertNull($cursor->current(), 'Cursor should be invalid to start with');
+        self::assertNull($cursor->key(), 'Cursor should be invalid to start with');
 
         $cursor->next();
-        $this->assertTrue($cursor->valid(), 'Cursor should be valid');
+        self::assertTrue($cursor->valid(), 'Cursor should be valid');
 
         $item = $cursor->current();
-        $this->assertNotNull($item);
-        $this->assertInstanceOf('MongoId', $item['_id']);
-        $this->assertSame('bar', $item['foo']);
+        self::assertNotNull($item);
+        self::assertInstanceOf('MongoId', $item['_id']);
+        self::assertSame('bar', $item['foo']);
 
         $cursor->next();
 
         $item = $cursor->current();
-        $this->assertNotNull($item);
-        $this->assertInstanceOf('MongoId', $item['_id']);
-        $this->assertSame('bar', $item['foo']);
+        self::assertNotNull($item);
+        self::assertInstanceOf('MongoId', $item['_id']);
+        self::assertSame('bar', $item['foo']);
 
         $cursor->next();
 
-        $this->assertNull($cursor->current(), 'Cursor should return null at the end');
-        $this->assertFalse($cursor->valid(), 'Cursor should be invalid');
+        self::assertNull($cursor->current(), 'Cursor should return null at the end');
+        self::assertFalse($cursor->valid(), 'Cursor should be invalid');
 
         $cursor->rewind();
 
         $item = $cursor->current();
-        $this->assertNotNull($item);
-        $this->assertInstanceOf('MongoId', $item['_id']);
-        $this->assertSame('bar', $item['foo']);
+        self::assertNotNull($item);
+        self::assertInstanceOf('MongoId', $item['_id']);
+        self::assertSame('bar', $item['foo']);
     }
 
     /**
-     * @dataProvider getCursorOptions
+     * @dataProvider provideCursorAppliesOptionsCases
      */
-    public function testCursorAppliesOptions($checkOptionCallback, \Closure $applyOptionCallback = null)
+    public function testCursorAppliesOptions($checkOptionCallback, ?\Closure $applyOptionCallback = null): void
     {
-        $this->skipTestIf(extension_loaded('mongo'));
+        $this->skipTestIf(\extension_loaded('mongo'));
 
         $query = ['foo' => 'bar'];
         $projection = ['_id' => false, 'foo' => true];
 
         $collectionMock = $this->getCollectionMock();
         $collectionMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('find')
-            ->with($this->equalTo(TypeConverter::fromLegacy($query)), $this->callback($checkOptionCallback))
-            ->will($this->returnValue(new \ArrayIterator([])));
+            ->with(self::equalTo(TypeConverter::fromLegacy($query)), self::callback($checkOptionCallback))
+            ->willReturn(new \ArrayIterator([]));
 
         $collection = $this->getCollection('test');
         $cursor = $collection->find($query, $projection);
@@ -200,142 +320,7 @@ class MongoCursorTest extends TestCase
         iterator_to_array($cursor);
     }
 
-    public static function getCursorOptions()
-    {
-        function getMissingOptionCallback($optionName)
-        {
-            return function ($value) use ($optionName) {
-                return
-                    is_array($value) &&
-                    ! array_key_exists($optionName, $value);
-            };
-        }
-
-        function getBasicCheckCallback($expected, $optionName)
-        {
-            return function ($value) use ($expected, $optionName) {
-                return
-                    is_array($value) &&
-                    array_key_exists($optionName, $value) &&
-                    $value[$optionName] == $expected;
-            };
-        }
-
-        function getModifierCheckCallback($expected, $modifierName)
-        {
-            return function ($value) use ($expected, $modifierName) {
-                return
-                    is_array($value) &&
-                    is_array($value['modifiers']) &&
-                    array_key_exists($modifierName, $value['modifiers']) &&
-                    $value['modifiers'][$modifierName] == $expected;
-            };
-        }
-
-        $tests = [
-            'allowPartialResults' => [
-                getBasicCheckCallback(true, 'allowPartialResults'),
-                function (\MongoCursor $cursor) {
-                    $cursor->partial(true);
-                },
-            ],
-            'batchSize' => [
-                getBasicCheckCallback(10, 'batchSize'),
-                function (\MongoCursor $cursor) {
-                    $cursor->batchSize(10);
-                },
-            ],
-            'cursorTypeNonTailable' => [
-                getMissingOptionCallback('cursorType'),
-                function (\MongoCursor $cursor) {
-                    $cursor
-                        ->tailable(false)
-                        ->awaitData(true);
-                },
-            ],
-            'cursorTypeTailable' => [
-                getBasicCheckCallback(Find::TAILABLE, 'cursorType'),
-                function (\MongoCursor $cursor) {
-                    $cursor->tailable(true);
-                },
-            ],
-            'cursorTypeTailableAwait' => [
-                getBasicCheckCallback(Find::TAILABLE_AWAIT, 'cursorType'),
-                function (\MongoCursor $cursor) {
-                    $cursor->tailable(true)->awaitData(true);
-                },
-            ],
-            'hint' => [
-                getModifierCheckCallback('index_name', '$hint'),
-                function (\MongoCursor $cursor) {
-                    $cursor->hint('index_name');
-                },
-            ],
-            'limit' => [
-                getBasicCheckCallback(5, 'limit'),
-                function (\MongoCursor $cursor) {
-                    $cursor->limit(5);
-                }
-            ],
-            'maxTimeMS' => [
-                getBasicCheckCallback(100, 'maxTimeMS'),
-                function (\MongoCursor $cursor) {
-                    $cursor->maxTimeMS(100);
-                },
-            ],
-            'noCursorTimeout' => [
-                getBasicCheckCallback(true, 'noCursorTimeout'),
-                function (\MongoCursor $cursor) {
-                    $cursor->immortal(true);
-                },
-            ],
-            'slaveOkay' => [
-                getBasicCheckCallback(new ReadPreference(ReadPreference::SECONDARY_PREFERRED), 'readPreference'),
-                function (\MongoCursor $cursor) {
-                    $cursor->slaveOkay(true);
-                },
-            ],
-            'slaveOkayWithReadPreferenceSet' => [
-                getBasicCheckCallback(new ReadPreference(ReadPreference::SECONDARY), 'readPreference'),
-                function (\MongoCursor $cursor) {
-                    $cursor
-                        ->setReadPreference(\MongoClient::RP_SECONDARY)
-                        ->slaveOkay(true);
-                },
-            ],
-            'projectionDefaultFields' => [
-                getBasicCheckCallback(new BSONDocument(['_id' => false, 'foo' => true]), 'projection'),
-            ],
-            'projectionDifferentFields' => [
-                getBasicCheckCallback(new BSONDocument(['_id' => false, 'foo' => true, 'bar' => true]), 'projection'),
-                function (\MongoCursor $cursor) {
-                    $cursor->fields(['_id' => false, 'foo' => true, 'bar' => true]);
-                },
-            ],
-            'readPreferencePrimary' => [
-                getBasicCheckCallback(new ReadPreference(ReadPreference::PRIMARY), 'readPreference'),
-                function (\MongoCursor $cursor) {
-                    $cursor->setReadPreference(\MongoClient::RP_PRIMARY);
-                },
-            ],
-            'skip' => [
-                getBasicCheckCallback(5, 'skip'),
-                function (\MongoCursor $cursor) {
-                    $cursor->skip(5);
-                },
-            ],
-            'sort' => [
-                getBasicCheckCallback(['foo' => -1], 'sort'),
-                function (\MongoCursor $cursor) {
-                    $cursor->sort(['foo' => -1]);
-                },
-            ],
-        ];
-
-        return $tests;
-    }
-
-    public function testCursorInfo()
+    public function testCursorInfo(): void
     {
         $this->prepareData();
 
@@ -353,7 +338,7 @@ class MongoCursorTest extends TestCase
             'started_iterating' => false,
         ];
 
-        $this->assertSame($expected, $cursor->info());
+        self::assertSame($expected, $cursor->info());
 
         // Ensure cursor started iterating
         iterator_to_array($cursor);
@@ -366,13 +351,13 @@ class MongoCursorTest extends TestCase
             'server' => $this->getCurrentHost() . ':27017;-;.;' . getmypid(),
             'host' => $this->getCurrentHost(),
             'port' => 27017,
-            'connection_type_desc' => 'STANDALONE'
+            'connection_type_desc' => 'STANDALONE',
         ];
 
-        $this->assertSame($expected, $cursor->info());
+        self::assertSame($expected, $cursor->info());
     }
 
-    public function testCursorInfoWithBatchSize()
+    public function testCursorInfoWithBatchSize(): void
     {
         $this->prepareData();
         $host = $this->getCurrentHost();
@@ -391,7 +376,7 @@ class MongoCursorTest extends TestCase
             'started_iterating' => false,
         ];
 
-        $this->assertSame($expected, $cursor->info());
+        self::assertSame($expected, $cursor->info());
 
         // Ensure cursor started iterating
         iterator_to_array($cursor);
@@ -401,25 +386,25 @@ class MongoCursorTest extends TestCase
             'id' => 0,
             'at' => 1,
             'numReturned' => 1,
-            'server' => "$host:27017;-;.;" . getmypid(),
+            'server' => "{$host}:27017;-;.;" . getmypid(),
             'host' => $host,
             'port' => 27017,
-            'connection_type_desc' => 'STANDALONE'
+            'connection_type_desc' => 'STANDALONE',
         ];
 
-        $this->assertSame($expected, $cursor->info());
+        self::assertSame($expected, $cursor->info());
     }
 
-    public function testReadPreferenceIsInherited()
+    public function testReadPreferenceIsInherited(): void
     {
         $collection = $this->getCollection();
         $collection->setReadPreference(\MongoClient::RP_SECONDARY, [['a' => 'b']]);
 
         $cursor = $collection->find(['foo' => 'bar']);
-        $this->assertSame(['type' => \MongoClient::RP_SECONDARY, 'tagsets' => [['a' => 'b']]], $cursor->getReadPreference());
+        self::assertSame(['type' => \MongoClient::RP_SECONDARY, 'tagsets' => [['a' => 'b']]], $cursor->getReadPreference());
     }
 
-    public function testExplain()
+    public function testExplain(): void
     {
         $this->prepareData();
 
@@ -432,7 +417,7 @@ class MongoCursorTest extends TestCase
                 'namespace' => 'mongo-php-adapter.test',
                 'indexFilterSet' => false,
                 'parsedQuery' => [
-                    'foo' => ['$eq' => 'bar']
+                    'foo' => ['$eq' => 'bar'],
                 ],
                 'winningPlan' => ['$$exists' => true],
                 'rejectedPlans' => ['$$exists' => true],
@@ -453,7 +438,7 @@ class MongoCursorTest extends TestCase
         $this->assertMatches($expected, $cursor->explain());
     }
 
-    public function testExplainWithEmptyProjection()
+    public function testExplainWithEmptyProjection(): void
     {
         $this->prepareData();
 
@@ -466,7 +451,7 @@ class MongoCursorTest extends TestCase
                 'namespace' => 'mongo-php-adapter.test',
                 'indexFilterSet' => false,
                 'parsedQuery' => [
-                    'foo' => ['$eq' => 'bar']
+                    'foo' => ['$eq' => 'bar'],
                 ],
                 'winningPlan' => ['$$exists' => true],
                 'rejectedPlans' => ['$$exists' => true],
@@ -487,7 +472,7 @@ class MongoCursorTest extends TestCase
         $this->assertMatches($expected, $cursor->explain());
     }
 
-    public function testExplainConvertsQuery()
+    public function testExplainConvertsQuery(): void
     {
         $this->prepareData();
 
@@ -518,19 +503,18 @@ class MongoCursorTest extends TestCase
         $this->assertMatches($expected, $cursor->explain());
     }
 
-    public function testInterfaces()
+    public function testInterfaces(): void
     {
         $collection = $this->getCollection();
         $cursor = $collection->find();
 
-        $this->assertInstanceOf(MongoCursorInterface::class, $cursor);
+        self::assertInstanceOf(\MongoCursorInterface::class, $cursor);
 
         // The countable interface is necessary for compatibility with PHP 7.3+, but not implemented by MongoCursor
-        if (! extension_loaded('mongo')) {
-            $this->assertInstanceOf(Countable::class, $cursor);
+        if (!\extension_loaded('mongo')) {
+            self::assertInstanceOf(\Countable::class, $cursor);
         }
     }
-
 
     /**
      * @return \PHPUnit_Framework_MockObject_MockObject
@@ -538,5 +522,19 @@ class MongoCursorTest extends TestCase
     protected function getCollectionMock()
     {
         return $this->createMock('MongoDB\Collection', [], [], '', false);
+    }
+
+    private function assertCursorIteration($cursor): void
+    {
+        $iterated = 0;
+        foreach ($cursor as $key => $item) {
+            self::assertSame($iterated, $cursor->info()['at']);
+            self::assertInstanceOf('MongoId', $item['_id']);
+            self::assertEquals($key, (string) $item['_id']);
+            self::assertSame('bar', $item['foo']);
+            ++$iterated;
+        }
+
+        self::assertSame(2, $iterated);
     }
 }

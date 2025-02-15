@@ -22,10 +22,9 @@ use MongoDB\Driver\WriteResult;
 /**
  * @internal
  */
-class ExceptionConverter
+final class ExceptionConverter
 {
     /**
-     * @param Exception\Exception $e
      * @param string $fallbackClass
      *
      * @return \MongoException
@@ -41,19 +40,18 @@ class ExceptionConverter
         $message = $e->getMessage();
         $code = $e->getCode();
 
-        switch (get_class($e)) {
+        switch (\get_class($e)) {
             case Exception\AuthenticationException::class:
             case Exception\ConnectionException::class:
             case Exception\ConnectionTimeoutException::class:
             case Exception\SSLConnectionException::class:
                 $class = 'MongoConnectionException';
                 break;
-
             case Exception\BulkWriteException::class:
             case Exception\WriteException::class:
                 $writeResult = $e->getWriteResult();
                 // attempt to retrieve write error
-                if ($writeResult instanceof WriteResult && is_array($writeResult->getWriteErrors()) && $writeResult->getWriteErrors() !== []) {
+                if ($writeResult instanceof WriteResult && \is_array($writeResult->getWriteErrors()) && $writeResult->getWriteErrors() !== []) {
                     $writeError = $writeResult->getWriteErrors()[0];
                     if ($writeError instanceof WriteError) {
                         $message = $writeError->getMessage();
@@ -68,11 +66,11 @@ class ExceptionConverter
                     case 12582:
                         $class = 'MongoDuplicateKeyException';
                         break;
+
                     default:
                         $class = 'MongoCursorException';
                 }
                 break;
-
             case Exception\ExecutionTimeoutException::class:
                 $class = 'MongoExecutionTimeoutException';
                 break;
@@ -93,9 +91,8 @@ class ExceptionConverter
     }
 
     /**
-     * Converts an exception to
+     * Converts an exception to.
      *
-     * @param Exception\Exception $e
      * @return array
      */
     public static function toResultArray(Exception\Exception $e)

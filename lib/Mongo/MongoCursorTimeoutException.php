@@ -17,7 +17,4 @@ if (class_exists('MongoCursorTimeoutException', false)) {
     return;
 }
 
-class MongoCursorTimeoutException extends MongoCursorException
-{
-
-}
+class MongoCursorTimeoutException extends MongoCursorException {}

@@ -29,9 +29,7 @@ class MongoCommandCursor extends AbstractCursor implements MongoCursorInterface
 
     /**
      * MongoCommandCursor constructor.
-     * @param MongoClient $connection
      * @param string $ns
-     * @param array $command
      */
     public function __construct(MongoClient $connection, $ns, array $command = [])
     {
@@ -41,14 +39,20 @@ class MongoCommandCursor extends AbstractCursor implements MongoCursorInterface
     }
 
     /**
-     * @param MongoClient $connection
      * @param string $hash
-     * @param array $document
      * @return MongoCommandCursor
      */
     public static function createFromDocument(MongoClient $connection, $hash, array $document)
     {
         throw new \Exception('Not implemented');
+    }
+
+    /**
+     * @return array
+     */
+    public function __sleep()
+    {
+        return ['command'] + parent::__sleep();
     }
 
     /**
@@ -118,14 +122,6 @@ class MongoCommandCursor extends AbstractCursor implements MongoCursorInterface
     }
 
     /**
-     * @return array
-     */
-    public function __sleep()
-    {
-        return ['command'] + parent::__sleep();
-    }
-
-    /**
      * @see https://github.com/mongodb/mongo-php-driver-legacy/blob/1.6.14/db.c#L51
      * @return bool
      */
@@ -148,12 +144,11 @@ class MongoCommandCursor extends AbstractCursor implements MongoCursorInterface
             case 'geoSearch':
             case 'parallelCollectionScan':
                 return true;
-
             case 'mapreduce':
             case 'mapReduce':
-                return (isset($this->command['out']) &&
-                    is_array($this->command['out']) &&
-                    array_key_exists('inline', $this->command['out']));
+                return isset($this->command['out'])
+                    && is_array($this->command['out'])
+                    && array_key_exists('inline', $this->command['out']);
 
             default:
                 return false;

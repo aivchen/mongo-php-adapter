@@ -6,23 +6,22 @@ use Alcaeus\MongoDbAdapter\Tests\TestCase;
 
 class MongoLogTest extends Testcase
 {
-    public function testSetCallback()
+    public function testSetCallback(): void
     {
-        $foo = function () {
-        };
-        $this->assertTrue(\MongoLog::setCallback($foo));
-        $this->assertSame($foo, \MongoLog::getCallback());
+        $foo = static function (): void {};
+        self::assertTrue(\MongoLog::setCallback($foo));
+        self::assertSame($foo, \MongoLog::getCallback());
     }
 
-    public function testLevel()
+    public function testLevel(): void
     {
         \MongoLog::setLevel(2);
-        $this->assertSame(2, \MongoLog::getLevel(2));
+        self::assertSame(2, \MongoLog::getLevel(2));
     }
 
-    public function testModule()
+    public function testModule(): void
     {
         \MongoLog::setModule(2);
-        $this->assertSame(2, \MongoLog::getModule(2));
+        self::assertSame(2, \MongoLog::getModule(2));
     }
 }

@@ -18,7 +18,6 @@ namespace Alcaeus\MongoDbAdapter;
 use Alcaeus\MongoDbAdapter\Helper\ReadPreference;
 use MongoDB\Collection;
 use MongoDB\Driver\Cursor;
-use ReturnTypeWillChange;
 
 /**
  * @internal
@@ -30,7 +29,7 @@ abstract class AbstractCursor
     /**
      * @var int|null
      */
-    protected $batchSize = null;
+    protected $batchSize;
 
     /**
      * @var Collection
@@ -73,21 +72,6 @@ abstract class AbstractCursor
     protected $cursorNeedsAdvancing = true;
 
     /**
-     * @var mixed
-     */
-    private $current = null;
-
-    /**
-     * @var mixed
-     */
-    private $key = null;
-
-    /**
-     * @var mixed
-     */
-    private $valid = false;
-
-    /**
      * @var int
      */
     protected $position = 0;
@@ -100,21 +84,17 @@ abstract class AbstractCursor
         'readPreference',
     ];
 
-    /**
-     * @return Cursor
-     */
-    abstract protected function ensureCursor();
+    private $current;
+
+    private $key;
+
+    private $valid = false;
 
     /**
-     * @return array
-     */
-    abstract protected function getCursorInfo();
-
-    /**
-     * Create a new cursor
-     * @link http://www.php.net/manual/en/mongocursor.construct.php
-     * @param \MongoClient $connection Database connection.
-     * @param string $ns Full name of database and collection.
+     * Create a new cursor.
+     * @see http://www.php.net/manual/en/mongocursor.construct.php
+     * @param \MongoClient $connection database connection
+     * @param string $ns full name of database and collection
      */
     public function __construct(\MongoClient $connection, $ns)
     {
@@ -133,38 +113,38 @@ abstract class AbstractCursor
     }
 
     /**
-     * Returns the current element
-     * @link http://www.php.net/manual/en/mongocursor.current.php
+     * Returns the current element.
+     * @see http://www.php.net/manual/en/mongocursor.current.php
      * @return array
      */
-    #[ReturnTypeWillChange]
+    #[\ReturnTypeWillChange]
     public function current()
     {
         return $this->current;
     }
 
     /**
-     * Returns the current result's _id
-     * @link http://www.php.net/manual/en/mongocursor.key.php
-     * @return string The current result's _id as a string.
+     * Returns the current result's _id.
+     * @see http://www.php.net/manual/en/mongocursor.key.php
+     * @return string the current result's _id as a string
      */
-    #[ReturnTypeWillChange]
+    #[\ReturnTypeWillChange]
     public function key()
     {
         return $this->key;
     }
 
     /**
-     * Advances the cursor to the next result, and returns that result
-     * @link http://www.php.net/manual/en/mongocursor.next.php
+     * Advances the cursor to the next result, and returns that result.
+     * @see http://www.php.net/manual/en/mongocursor.next.php
+     * @return array Returns the next object
      * @throws \MongoConnectionException
      * @throws \MongoCursorTimeoutException
-     * @return array Returns the next object
      */
-    #[ReturnTypeWillChange]
+    #[\ReturnTypeWillChange]
     public function next()
     {
-        if (! $this->startedIterating) {
+        if (!$this->startedIterating) {
             $this->ensureIterator();
             $this->startedIterating = true;
         } else {
@@ -173,20 +153,19 @@ abstract class AbstractCursor
             }
 
             $this->cursorNeedsAdvancing = true;
-            $this->position++;
+            ++$this->position;
         }
 
         return $this->storeIteratorState();
     }
 
     /**
-     * Returns the cursor to the beginning of the result set
+     * Returns the cursor to the beginning of the result set.
      * @throws \MongoConnectionException
      * @throws \MongoCursorTimeoutException
-     * @return void
      */
-    #[ReturnTypeWillChange]
-    public function rewind()
+    #[\ReturnTypeWillChange]
+    public function rewind(): void
     {
         // We can recreate the cursor to allow it to be rewound
         $this->reset();
@@ -198,10 +177,10 @@ abstract class AbstractCursor
 
     /**
      * Checks if the cursor is reading a valid result.
-     * @link http://www.php.net/manual/en/mongocursor.valid.php
-     * @return boolean If the current result is not null.
+     * @see http://www.php.net/manual/en/mongocursor.valid.php
+     * @return bool if the current result is not null
      */
-    #[ReturnTypeWillChange]
+    #[\ReturnTypeWillChange]
     public function valid()
     {
         return $this->valid;
@@ -210,9 +189,9 @@ abstract class AbstractCursor
     /**
      * Limits the number of elements returned in one batch.
      *
-     * @link http://docs.php.net/manual/en/mongocursor.batchsize.php
+     * @see http://docs.php.net/manual/en/mongocursor.batchsize.php
      * @param int|null $batchSize The number of results to return per batch
-     * @return $this Returns this cursor.
+     * @return $this returns this cursor
      */
     public function batchSize($batchSize)
     {
@@ -222,9 +201,9 @@ abstract class AbstractCursor
     }
 
     /**
-     * Checks if there are documents that have not been sent yet from the database for this cursor
-     * @link http://www.php.net/manual/en/mongocursor.dead.php
-     * @return boolean Returns if there are more results that have not been sent to the client, yet.
+     * Checks if there are documents that have not been sent yet from the database for this cursor.
+     * @see http://www.php.net/manual/en/mongocursor.dead.php
+     * @return bool returns if there are more results that have not been sent to the client, yet
      */
     public function dead()
     {
@@ -240,10 +219,10 @@ abstract class AbstractCursor
     }
 
     /**
-     * @link http://www.php.net/manual/en/mongocursor.setreadpreference.php
+     * @see http://www.php.net/manual/en/mongocursor.setreadpreference.php
      * @param string $readPreference
      * @param array $tags
-     * @return $this Returns this cursor.
+     * @return $this returns this cursor
      */
     public function setReadPreference($readPreference, $tags = null)
     {
@@ -253,19 +232,28 @@ abstract class AbstractCursor
     }
 
     /**
-     * Sets a client-side timeout for this query
-     * @link http://www.php.net/manual/en/mongocursor.timeout.php
+     * Sets a client-side timeout for this query.
+     * @see http://www.php.net/manual/en/mongocursor.timeout.php
      * @param int $ms The number of milliseconds for the cursor to wait for a response. By default, the cursor will wait forever.
      * @return $this Returns this cursor
      */
     public function timeout($ms)
     {
         trigger_error('The ' . __METHOD__ . ' method is not implemented in mongo-php-adapter', E_USER_WARNING);
+
         return $this;
     }
 
     /**
-     * Applies all options set on the cursor, overwriting any options that have already been set
+     * @return array
+     */
+    public function __sleep()
+    {
+        return ['batchSize', 'connection', 'iterator', 'ns', 'optionNames', 'position', 'startedIterating'];
+    }
+
+    /**
+     * Applies all options set on the cursor, overwriting any options that have already been set.
      *
      * @param array $optionNames Array of option names to be applied (will be read from properties)
      * @return array
@@ -280,7 +268,7 @@ abstract class AbstractCursor
 
         foreach ($optionNames as $option) {
             $converter = 'convert' . ucfirst($option);
-            $value = method_exists($this, $converter) ? $this->$converter() : $this->$option;
+            $value = method_exists($this, $converter) ? $this->{$converter}() : $this->{$option};
 
             if ($value === null) {
                 continue;
@@ -306,7 +294,6 @@ abstract class AbstractCursor
     }
 
     /**
-     * @param \Traversable $traversable
      * @return CursorIterator
      */
     protected function wrapTraversable(\Traversable $traversable)
@@ -317,7 +304,7 @@ abstract class AbstractCursor
     /**
      * @throws \MongoCursorException
      */
-    protected function errorIfOpened()
+    protected function errorIfOpened(): void
     {
         if ($this->cursor === null) {
             return;
@@ -349,6 +336,7 @@ abstract class AbstractCursor
                 case \MongoDB\Driver\Server::TYPE_RS_SECONDARY:
                     $typeString = 'SECONDARY';
                     break;
+
                 default:
                     $typeString = 'STANDALONE';
             }
@@ -371,31 +359,23 @@ abstract class AbstractCursor
     /**
      * @throws \Exception
      */
-    protected function notImplemented()
+    protected function notImplemented(): void
     {
         throw new \Exception('Not implemented');
     }
 
     /**
-     * Clears the cursor
+     * Clears the cursor.
      *
      * This is generic but implemented as protected since it's only exposed in MongoCursor
      */
-    protected function reset()
+    protected function reset(): void
     {
         $this->startedIterating = false;
         $this->cursorNeedsAdvancing = true;
         $this->cursor = null;
         $this->iterator = null;
         $this->storeIteratorState();
-    }
-
-    /**
-     * @return array
-     */
-    public function __sleep()
-    {
-        return ['batchSize', 'connection', 'iterator', 'ns', 'optionNames', 'position', 'startedIterating'];
     }
 
     /**
@@ -406,10 +386,11 @@ abstract class AbstractCursor
      */
     protected function storeIteratorState()
     {
-        if (! $this->startedIterating) {
+        if (!$this->startedIterating) {
             $this->current = null;
             $this->key = null;
             $this->valid = false;
+
             return null;
         }
 
@@ -423,4 +404,14 @@ abstract class AbstractCursor
 
         return $this->current;
     }
+
+    /**
+     * @return Cursor
+     */
+    abstract protected function ensureCursor();
+
+    /**
+     * @return array
+     */
+    abstract protected function getCursorInfo();
 }

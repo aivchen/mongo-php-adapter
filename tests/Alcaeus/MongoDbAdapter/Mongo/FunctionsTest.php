@@ -12,34 +12,34 @@ class FunctionsTest extends TestCase
     /**
      * @return array Returns tupels: [$encoded, $decoded]
      */
-    public static function data()
+    public static function data(): iterable
     {
         // The encoded values were retrieved by encoding data with the legacy driver and encoding them base64
         $simpleArray = ['foo' => 'bar'];
-        $simpleArrayEncoded = "EgAAAAJmb28ABAAAAGJhcgAA";
+        $simpleArrayEncoded = 'EgAAAAJmb28ABAAAAGJhcgAA';
 
         $arrayWithObjectId = ['_id' => new \MongoId('1234567890abcdef12345678')];
-        $arrayWithObjectIdEncoded = "FgAAAAdfaWQAEjRWeJCrze8SNFZ4AA==";
+        $arrayWithObjectIdEncoded = 'FgAAAAdfaWQAEjRWeJCrze8SNFZ4AA==';
 
         return [
-            'simpleArray' => [base64_decode($simpleArrayEncoded), $simpleArray],
-            'arrayWithObjectId' => [base64_decode($arrayWithObjectIdEncoded), $arrayWithObjectId],
+            'simpleArray' => [base64_decode($simpleArrayEncoded, true), $simpleArray],
+            'arrayWithObjectId' => [base64_decode($arrayWithObjectIdEncoded, true), $arrayWithObjectId],
         ];
     }
 
     /**
      * @dataProvider data
      */
-    public function testEncode($encoded, $decoded)
+    public function testEncode($encoded, $decoded): void
     {
-        $this->assertEquals($encoded, bson_encode($decoded));
+        self::assertEquals($encoded, bson_encode($decoded));
     }
 
     /**
      * @dataProvider data
      */
-    public function testDecode($encoded, $decoded)
+    public function testDecode($encoded, $decoded): void
     {
-        $this->assertEquals($decoded, bson_decode($encoded));
+        self::assertEquals($decoded, bson_decode($encoded));
     }
 }

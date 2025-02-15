@@ -2,40 +2,31 @@
 
 namespace Alcaeus\MongoDbAdapter\Tests;
 
-use MongoDB\BSON;
 use Alcaeus\MongoDbAdapter\TypeConverter;
+use MongoDB\BSON;
 use MongoDB\Model\BSONDocument;
 
 class TypeConverterTest extends TestCase
 {
-    /**
-     * @dataProvider converterData
-     */
-    public function testFromLegacy($legacyValue, $modernValue)
-    {
-        $this->skipTestIf(extension_loaded('mongo'));
-        $this->assertEquals($modernValue, TypeConverter::fromLegacy($legacyValue));
-    }
-
-    public static function converterData()
+    public static function provideFromLegacyCases(): iterable
     {
         $id = str_repeat('0123', 6);
 
         return [
             'objectId' => [
-                new \MongoId($id), new BSON\ObjectID($id)
+                new \MongoId($id), new BSON\ObjectID($id),
             ],
             'numericArray' => [
-                ['foo', 'bar'], ['foo', 'bar']
+                ['foo', 'bar'], ['foo', 'bar'],
             ],
             'hashWithNumericKeys' => [
-                (object) ['foo', 'bar'], new BSONDocument(['foo', 'bar'])
+                (object) ['foo', 'bar'], new BSONDocument(['foo', 'bar']),
             ],
             'hash' => [
-                ['foo' => 'bar'], new BSONDocument(['foo' => 'bar'])
+                ['foo' => 'bar'], new BSONDocument(['foo' => 'bar']),
             ],
             'nestedArrays' => [
-                [['foo' => 'bar']], [new BSONDocument(['foo' => 'bar'])]
+                [['foo' => 'bar']], [new BSONDocument(['foo' => 'bar'])],
             ],
             'dateTime'            => [
                 \DateTime::createFromFormat('Y-m-d\TH:i:sP', '2021-06-30T12:34:56-7'),
@@ -48,15 +39,7 @@ class TypeConverterTest extends TestCase
         ];
     }
 
-    /**
-     * @dataProvider dataIsNumericArray
-     */
-    public function testIsNumericArray($expected, $array)
-    {
-        $this->assertSame($expected, TypeConverter::isNumericArray($array));
-    }
-
-    public static function dataIsNumericArray()
+    public static function provideIsNumericArrayCases(): iterable
     {
         return [
             'emptyArray' => [true, []],
@@ -65,5 +48,22 @@ class TypeConverterTest extends TestCase
             'arrayWithStringKeys' => [false, ['foo' => 'bar']],
             'arrayWithRandomNumbers' => [false, [15 => 'foo', 20 => 'bar']],
         ];
+    }
+
+    /**
+     * @dataProvider provideFromLegacyCases
+     */
+    public function testFromLegacy($legacyValue, $modernValue): void
+    {
+        $this->skipTestIf(\extension_loaded('mongo'));
+        self::assertEquals($modernValue, TypeConverter::fromLegacy($legacyValue));
+    }
+
+    /**
+     * @dataProvider provideIsNumericArrayCases
+     */
+    public function testIsNumericArray($expected, $array): void
+    {
+        self::assertSame($expected, TypeConverter::isNumericArray($array));
     }
 }

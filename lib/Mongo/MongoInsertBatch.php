@@ -18,7 +18,7 @@ if (class_exists('MongoInsertBatch', false)) {
 }
 
 /**
- * Constructs a batch of INSERT operations
+ * Constructs a batch of INSERT operations.
  *
  * @see http://php.net/manual/en/class.mongoinsertbatch.php
  * @see http://php.net/manual/en/class.mongowritebatch.php
@@ -26,11 +26,9 @@ if (class_exists('MongoInsertBatch', false)) {
 class MongoInsertBatch extends MongoWriteBatch
 {
     /**
-     * Creates a new batch of insert operations
+     * Creates a new batch of insert operations.
      *
      * @see http://php.net/manual/en/mongoinsertbatch.construct.php
-     * @param MongoCollection $collection
-     * @param array $writeOptions
      */
     public function __construct(MongoCollection $collection, array $writeOptions = [])
     {

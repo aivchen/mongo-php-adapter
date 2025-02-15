@@ -2,27 +2,24 @@
 
 namespace Alcaeus\MongoDbAdapter;
 
-use IteratorIterator;
 use MongoDB\BSON\ObjectID;
-use Traversable;
-use ReturnTypeWillChange;
 
 /**
  * @internal
  */
-final class CursorIterator extends IteratorIterator
+final class CursorIterator extends \IteratorIterator
 {
     /** @var bool */
     private $useIdAsKey;
 
-    public function __construct(Traversable $iterator, $useIdAsKey = false)
+    public function __construct(\Traversable $iterator, $useIdAsKey = false)
     {
         parent::__construct($iterator);
 
         $this->useIdAsKey = $useIdAsKey;
     }
 
-    #[ReturnTypeWillChange]
+    #[\ReturnTypeWillChange]
     public function key()
     {
         if (!$this->useIdAsKey) {
@@ -31,7 +28,7 @@ final class CursorIterator extends IteratorIterator
 
         $current = $this->current();
 
-        if (!isset($current->_id) || (is_object($current->_id) && !$current->_id instanceof ObjectID)) {
+        if (!isset($current->_id) || (\is_object($current->_id) && !$current->_id instanceof ObjectID)) {
             return parent::key();
         }
 

@@ -25,12 +25,13 @@ trait WriteConcernConverter
     protected function createWriteConcernFromParameters($wstring, $wtimeout)
     {
         // Convert legacy write concern
-        if (is_bool($wstring)) {
+        if (\is_bool($wstring)) {
             $wstring = (int) $wstring;
         }
 
-        if (! is_string($wstring) && ! is_int($wstring)) {
-            trigger_error("w for WriteConcern must be a string or integer", E_USER_WARNING);
+        if (!\is_string($wstring) && !\is_int($wstring)) {
+            trigger_error('w for WriteConcern must be a string or integer', E_USER_WARNING);
+
             return false;
         }
 
@@ -44,8 +45,8 @@ trait WriteConcernConverter
      */
     protected function createWriteConcernFromArray($writeConcernArray)
     {
-        $wstring = isset($writeConcernArray['w']) ? $writeConcernArray['w'] : 1;
-        $wtimeout = isset($writeConcernArray['wtimeout']) ? $writeConcernArray['wtimeout'] : 0;
+        $wstring = $writeConcernArray['w'] ?? 1;
+        $wtimeout = $writeConcernArray['wtimeout'] ?? 0;
 
         return $this->createWriteConcernFromParameters($wstring, $wtimeout);
     }

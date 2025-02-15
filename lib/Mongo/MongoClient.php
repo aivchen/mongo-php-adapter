@@ -17,28 +17,28 @@ if (class_exists('MongoClient', false)) {
     return;
 }
 
-use Alcaeus\MongoDbAdapter\Helper;
 use Alcaeus\MongoDbAdapter\ExceptionConverter;
+use Alcaeus\MongoDbAdapter\Helper;
 use MongoDB\Client;
 
 /**
  * A connection between PHP and MongoDB. This class is used to create and manage connections
  * See MongoClient::__construct() and the section on connecting for more information about creating connections.
- * @link http://www.php.net/manual/en/class.mongoclient.php
+ * @see http://www.php.net/manual/en/class.mongoclient.php
  */
 class MongoClient
 {
     use Helper\ReadPreference;
     use Helper\WriteConcern;
 
-    const VERSION = '1.6.12';
-    const DEFAULT_HOST = "localhost";
-    const DEFAULT_PORT = 27017;
-    const RP_PRIMARY = "primary";
-    const RP_PRIMARY_PREFERRED = "primaryPreferred";
-    const RP_SECONDARY = "secondary";
-    const RP_SECONDARY_PREFERRED = "secondaryPreferred";
-    const RP_NEAREST = "nearest";
+    public const VERSION = '1.6.12';
+    public const DEFAULT_HOST = 'localhost';
+    public const DEFAULT_PORT = 27017;
+    public const RP_PRIMARY = 'primary';
+    public const RP_PRIMARY_PREFERRED = 'primaryPreferred';
+    public const RP_SECONDARY = 'secondary';
+    public const RP_SECONDARY_PREFERRED = 'secondaryPreferred';
+    public const RP_NEAREST = 'nearest';
 
     /**
      * @var bool
@@ -46,9 +46,6 @@ class MongoClient
      */
     public $connected = false;
 
-    /**
-     * @var
-     */
     public $status;
 
     /**
@@ -56,9 +53,6 @@ class MongoClient
      */
     protected $server;
 
-    /**
-     * @var
-     */
     protected $persistent;
 
     /**
@@ -72,12 +66,12 @@ class MongoClient
     private $manager;
 
     /**
-     * Creates a new database connection object
+     * Creates a new database connection object.
      *
-     * @link http://php.net/manual/en/mongo.construct.php
-     * @param string $server The server name.
-     * @param array $options An array of options for the connection.
-     * @param array $driverOptions An array of options for the MongoDB driver.
+     * @see http://php.net/manual/en/mongo.construct.php
+     * @param string $server the server name
+     * @param array $options an array of options for the connection
+     * @param array $driverOptions an array of options for the MongoDB driver
      * @throws MongoConnectionException
      */
     public function __construct($server = 'default', array $options = ['connect' => true], array $driverOptions = [])
@@ -93,7 +87,7 @@ class MongoClient
         $this->applyConnectionOptions($server, $options);
 
         $this->server = $server;
-        if (false === strpos($this->server, '://')) {
+        if (strpos($this->server, '://') === false) {
             $this->server = 'mongodb://' . $this->server;
         }
         $client = new Client($this->server, $options, $driverOptions + ['driver' => ['name' => 'mongo-php-adapter']]);
@@ -117,83 +111,7 @@ class MongoClient
     }
 
     /**
-     * @return void
-     */
-    private function setClient(Client $client)
-    {
-        $this->client = $client;
-        $info = $client->__debugInfo();
-        $this->manager = $info['manager'];
-    }
-
-
-    /**
-     * Closes this database connection
-     *
-     * @link http://www.php.net/manual/en/mongoclient.close.php
-     * @param  boolean|string $connection
-     * @return boolean If the connection was successfully closed.
-     */
-    public function close($connection = null)
-    {
-        $this->connected = false;
-
-        return false;
-    }
-
-    /**
-     * Connects to a database server
-     *
-     * @link http://www.php.net/manual/en/mongoclient.connect.php
-     *
-     * @throws MongoConnectionException
-     * @return boolean If the connection was successful.
-     */
-    public function connect()
-    {
-        $this->connected = true;
-
-        return true;
-    }
-
-    /**
-     * Drops a database
-     *
-     * @link http://www.php.net/manual/en/mongoclient.dropdb.php
-     * @param mixed $db The database to drop. Can be a MongoDB object or the name of the database.
-     * @return array The database response.
-     * @deprecated Use MongoDB::drop() instead.
-     */
-    public function dropDB($db)
-    {
-        return $this->selectDB($db)->drop();
-    }
-
-    /**
-     * Gets a database
-     *
-     * @link http://php.net/manual/en/mongoclient.get.php
-     * @param string $dbname The database name.
-     * @return MongoDB The database name.
-     */
-    public function __get($dbname)
-    {
-        return $this->selectDB($dbname);
-    }
-
-    /**
-     * Gets the client for this object
-     *
-     * @internal This part is not of the ext-mongo API and should not be used
-     * @return Client
-     */
-    public function getClient()
-    {
-        return $this->client;
-    }
-
-    /**
-     * Get connections
+     * Get connections.
      *
      * Returns an array of all open connections, and information about each of the servers
      *
@@ -205,7 +123,72 @@ class MongoClient
     }
 
     /**
-     * Get hosts
+     * Closes this database connection.
+     *
+     * @see http://www.php.net/manual/en/mongoclient.close.php
+     * @param  bool|string $connection
+     * @return bool if the connection was successfully closed
+     */
+    public function close($connection = null)
+    {
+        $this->connected = false;
+
+        return false;
+    }
+
+    /**
+     * Connects to a database server.
+     *
+     * @see http://www.php.net/manual/en/mongoclient.connect.php
+     *
+     * @return bool if the connection was successful
+     * @throws MongoConnectionException
+     */
+    public function connect()
+    {
+        $this->connected = true;
+
+        return true;
+    }
+
+    /**
+     * Drops a database.
+     *
+     * @see http://www.php.net/manual/en/mongoclient.dropdb.php
+     * @param mixed $db The database to drop. Can be a MongoDB object or the name of the database.
+     * @return array the database response
+     * @deprecated use MongoDB::drop() instead
+     */
+    public function dropDB($db)
+    {
+        return $this->selectDB($db)->drop();
+    }
+
+    /**
+     * Gets a database.
+     *
+     * @see http://php.net/manual/en/mongoclient.get.php
+     * @param string $dbname the database name
+     * @return MongoDB the database name
+     */
+    public function __get($dbname)
+    {
+        return $this->selectDB($dbname);
+    }
+
+    /**
+     * Gets the client for this object.
+     *
+     * @internal This part is not of the ext-mongo API and should not be used
+     * @return Client
+     */
+    public function getClient()
+    {
+        return $this->client;
+    }
+
+    /**
+     * Get hosts.
      *
      * This method is only useful with a connection to a replica set. It returns the status of all of the hosts in the
      * set. Without a replica set, it will just return an array with one element containing the host that you are
@@ -236,6 +219,7 @@ class MongoClient
                 case \MongoDB\Driver\Server::TYPE_RS_SECONDARY:
                     $state = 2;
                     break;
+
                 default:
                     $state = 0;
             }
@@ -254,11 +238,11 @@ class MongoClient
     }
 
     /**
-     * Kills a specific cursor on the server
+     * Kills a specific cursor on the server.
      *
-     * @link http://www.php.net/manual/en/mongoclient.killcursor.php
-     * @param string $server_hash The server hash that has the cursor.
-     * @param int|MongoInt64 $id The ID of the cursor to kill.
+     * @see http://www.php.net/manual/en/mongoclient.killcursor.php
+     * @param string $server_hash the server hash that has the cursor
+     * @param int|MongoInt64 $id the ID of the cursor to kill
      * @return bool
      */
     public function killCursor($server_hash, $id)
@@ -267,9 +251,9 @@ class MongoClient
     }
 
     /**
-     * Lists all of the databases available
+     * Lists all of the databases available.
      *
-     * @link http://php.net/manual/en/mongoclient.listdbs.php
+     * @see http://php.net/manual/en/mongoclient.listdbs.php
      * @return array Returns an associative array containing three fields. The first field is databases, which in turn contains an array. Each element of the array is an associative array corresponding to a database, giving the database's name, size, and if it's empty. The other two fields are totalSize (in bytes) and ok, which is 1 if this method ran successfully.
      */
     public function listDBs()
@@ -299,13 +283,13 @@ class MongoClient
     }
 
     /**
-     * Gets a database collection
+     * Gets a database collection.
      *
-     * @link http://www.php.net/manual/en/mongoclient.selectcollection.php
-     * @param string $db The database name.
-     * @param string $collection The collection name.
-     * @return MongoCollection Returns a new collection object.
-     * @throws Exception Throws Exception if the database or collection name is invalid.
+     * @see http://www.php.net/manual/en/mongoclient.selectcollection.php
+     * @param string $db the database name
+     * @param string $collection the collection name
+     * @return MongoCollection returns a new collection object
+     * @throws Exception throws Exception if the database or collection name is invalid
      */
     public function selectCollection($db, $collection)
     {
@@ -313,11 +297,11 @@ class MongoClient
     }
 
     /**
-     * Gets a database
+     * Gets a database.
      *
-     * @link http://www.php.net/manual/en/mongo.selectdb.php
-     * @param string $name The database name.
-     * @return MongoDB Returns a new db object.
+     * @see http://www.php.net/manual/en/mongo.selectdb.php
+     * @param string $name the database name
+     * @return MongoDB returns a new db object
      * @throws InvalidArgumentException
      */
     public function selectDB($name)
@@ -325,27 +309,21 @@ class MongoClient
         return new MongoDB($this, $name);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setReadPreference($readPreference, $tags = null)
     {
         return $this->setReadPreferenceFromParameters($readPreference, $tags);
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setWriteConcern($wstring, $wtimeout = 0)
     {
         return $this->setWriteConcernFromParameters($wstring, $wtimeout);
     }
 
     /**
-     * String representation of this connection
+     * String representation of this connection.
      *
-     * @link http://www.php.net/manual/en/mongoclient.tostring.php
-     * @return string Returns hostname and port for this connection.
+     * @see http://www.php.net/manual/en/mongoclient.tostring.php
+     * @return string returns hostname and port for this connection
      */
     public function __toString()
     {
@@ -353,9 +331,26 @@ class MongoClient
     }
 
     /**
-     * Forces a connection by executing the ping command
+     * @return array
      */
-    private function forceConnect()
+    public function __sleep()
+    {
+        return [
+            'connected', 'status', 'server', 'persistent',
+        ];
+    }
+
+    private function setClient(Client $client): void
+    {
+        $this->client = $client;
+        $info = $client->__debugInfo();
+        $this->manager = $info['manager'];
+    }
+
+    /**
+     * Forces a connection by executing the ping command.
+     */
+    private function forceConnect(): void
     {
         try {
             $command = new \MongoDB\Driver\Command(['ping' => 1]);
@@ -365,23 +360,12 @@ class MongoClient
         }
     }
 
-    private function notImplemented()
+    private function notImplemented(): void
     {
         throw new \Exception('Not implemented');
     }
 
     /**
-     * @return array
-     */
-    public function __sleep()
-    {
-        return [
-            'connected', 'status', 'server', 'persistent'
-        ];
-    }
-
-    /**
-     * @param $server
      * @return array
      */
     private function extractUrlOptions($server)
@@ -413,7 +397,6 @@ class MongoClient
     }
 
     /**
-     * @param $readPreferenceTagString
      * @return array
      */
     private function getReadPreferenceTags($readPreferenceTagString)
@@ -429,9 +412,8 @@ class MongoClient
 
     /**
      * @param string $server
-     * @param array $options
      */
-    private function applyConnectionOptions($server, array $options)
+    private function applyConnectionOptions($server, array $options): void
     {
         $urlOptions = $this->extractUrlOptions($server);
 
@@ -446,7 +428,7 @@ class MongoClient
         }
 
         // Special handling for readPreferenceTags which are merged
-        if (isset($options['readPreferenceTags']) && isset($urlOptions['readPreferenceTags'])) {
+        if (isset($options['readPreferenceTags'], $urlOptions['readPreferenceTags'])) {
             $options['readPreferenceTags'] = array_merge($urlOptions['readPreferenceTags'], $options['readPreferenceTags']);
             unset($urlOptions['readPreferenceTags']);
         }
@@ -456,8 +438,8 @@ class MongoClient
         if (isset($urlOptions['slaveOkay'])) {
             $this->setReadPreferenceFromSlaveOkay($urlOptions['slaveOkay']);
         } elseif (isset($urlOptions['readPreference']) || isset($urlOptions['readPreferenceTags'])) {
-            $readPreference = isset($urlOptions['readPreference']) ? $urlOptions['readPreference'] : null;
-            $tags = isset($urlOptions['readPreferenceTags']) ? $urlOptions['readPreferenceTags'] : null;
+            $readPreference = $urlOptions['readPreference'] ?? null;
+            $tags = $urlOptions['readPreferenceTags'] ?? null;
             $this->setReadPreferenceFromParameters($readPreference, $tags);
         }
 

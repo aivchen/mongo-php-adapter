@@ -2,25 +2,25 @@
 
 namespace Alcaeus\MongoDbAdapter\Tests;
 
-use MongoDB\Driver\Exception;
 use Alcaeus\MongoDbAdapter\ExceptionConverter;
+use MongoDB\Driver\Exception;
 use PHPUnit\Framework\TestCase;
 
 class ExceptionConverterTest extends TestCase
 {
     /**
-     * @dataProvider exceptionProvider
+     * @dataProvider provideConvertExceptionCases
      */
-    public function testConvertException($e, $expectedClass)
+    public function testConvertException($e, $expectedClass): void
     {
         $exception = ExceptionConverter::toLegacy($e);
-        $this->assertInstanceOf($expectedClass, $exception);
-        $this->assertSame($e->getMessage(), $exception->getMessage());
-        $this->assertSame($e->getCode(), $exception->getCode());
-        $this->assertSame($e, $exception->getPrevious());
+        self::assertInstanceOf($expectedClass, $exception);
+        self::assertSame($e->getMessage(), $exception->getMessage());
+        self::assertSame($e->getCode(), $exception->getCode());
+        self::assertSame($e, $exception->getPrevious());
     }
 
-    public function exceptionProvider()
+    public function provideConvertExceptionCases(): iterable
     {
         return [
             // Driver

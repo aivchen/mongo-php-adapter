@@ -6,13 +6,13 @@ use Alcaeus\MongoDbAdapter\Tests\TestCase;
 
 class MongoDeleteBatchTest extends TestCase
 {
-    public function testSerialize()
+    public function testSerialize(): void
     {
         $batch = new \MongoDeleteBatch($this->getCollection());
-        $this->assertIsString(serialize($batch));
+        self::assertIsString(serialize($batch));
     }
 
-    public function testDeleteOne()
+    public function testDeleteOne(): void
     {
         $collection = $this->getCollection();
         $batch = new \MongoDeleteBatch($collection);
@@ -22,20 +22,20 @@ class MongoDeleteBatchTest extends TestCase
         unset($document['_id']);
         $collection->insert($document);
 
-        $this->assertTrue($batch->add(['q' => ['foo' => 'bar'], 'limit' => 1]));
+        self::assertTrue($batch->add(['q' => ['foo' => 'bar'], 'limit' => 1]));
 
         $expected = [
             'nRemoved' => 1,
             'ok' => true,
         ];
 
-        $this->assertSame($expected, $batch->execute());
+        self::assertSame($expected, $batch->execute());
 
         $newCollection = $this->getCheckDatabase()->selectCollection('test');
-        $this->assertSame(1, $newCollection->count());
+        self::assertSame(1, $newCollection->count());
     }
 
-    public function testDeleteMany()
+    public function testDeleteMany(): void
     {
         $collection = $this->getCollection();
         $batch = new \MongoDeleteBatch($collection);
@@ -45,20 +45,20 @@ class MongoDeleteBatchTest extends TestCase
         unset($document['_id']);
         $collection->insert($document);
 
-        $this->assertTrue($batch->add(['q' => ['foo' => 'bar'], 'limit' => 0]));
+        self::assertTrue($batch->add(['q' => ['foo' => 'bar'], 'limit' => 0]));
 
         $expected = [
             'nRemoved' => 2,
             'ok' => true,
         ];
 
-        $this->assertSame($expected, $batch->execute());
+        self::assertSame($expected, $batch->execute());
 
         $newCollection = $this->getCheckDatabase()->selectCollection('test');
-        $this->assertSame(0, $newCollection->count());
+        self::assertSame(0, $newCollection->count());
     }
 
-    public function testDeleteManyWithoutAck()
+    public function testDeleteManyWithoutAck(): void
     {
         $collection = $this->getCollection();
         $batch = new \MongoDeleteBatch($collection);
@@ -68,20 +68,20 @@ class MongoDeleteBatchTest extends TestCase
         unset($document['_id']);
         $collection->insert($document);
 
-        $this->assertTrue($batch->add(['q' => ['foo' => 'bar'], 'limit' => 0]));
+        self::assertTrue($batch->add(['q' => ['foo' => 'bar'], 'limit' => 0]));
 
         $expected = [
             'nRemoved' => 0,
             'ok' => true,
         ];
 
-        $this->assertSame($expected, $batch->execute(['w' => 0]));
+        self::assertSame($expected, $batch->execute(['w' => 0]));
         sleep(1);
         $newCollection = $this->getCheckDatabase()->selectCollection('test');
-        $this->assertSame(0, $newCollection->count());
+        self::assertSame(0, $newCollection->count());
     }
 
-    public function testValidateItem()
+    public function testValidateItem(): void
     {
         $collection = $this->getCollection();
         $batch = new \MongoDeleteBatch($collection);

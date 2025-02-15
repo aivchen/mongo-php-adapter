@@ -13,10 +13,10 @@ class MongoRegexTest extends TestCase
     public function testCreate()
     {
         $regex = new \MongoRegex('/abc/i');
-        $this->assertSame('abc', $regex->regex);
-        $this->assertSame('i', $regex->flags);
+        self::assertSame('abc', $regex->regex);
+        self::assertSame('i', $regex->flags);
 
-        $this->assertSame('/abc/i', (string) $regex);
+        self::assertSame('/abc/i', (string) $regex);
 
         return $regex;
     }
@@ -24,24 +24,24 @@ class MongoRegexTest extends TestCase
     /**
      * @depends testCreate
      */
-    public function testConvertToBson(\MongoRegex $regex)
+    public function testConvertToBson(\MongoRegex $regex): void
     {
         $this->skipTestUnless($regex instanceof TypeInterface);
 
         $bsonRegex = $regex->toBSONType();
-        $this->assertInstanceOf('MongoDB\BSON\Regex', $bsonRegex);
-        $this->assertSame('abc', $bsonRegex->getPattern());
-        $this->assertSame('i', $bsonRegex->getFlags());
+        self::assertInstanceOf('MongoDB\BSON\Regex', $bsonRegex);
+        self::assertSame('abc', $bsonRegex->getPattern());
+        self::assertSame('i', $bsonRegex->getFlags());
     }
 
-    public function testCreateWithBsonType()
+    public function testCreateWithBsonType(): void
     {
-        $this->skipTestUnless(in_array(TypeInterface::class, class_implements('MongoRegex')));
+        $this->skipTestUnless(\in_array(TypeInterface::class, class_implements('MongoRegex'), true));
 
         $bsonRegex = new \MongoDB\BSON\Regex('abc', 'i');
         $regex = new \MongoRegex($bsonRegex);
 
-        $this->assertSame('abc', $regex->regex);
-        $this->assertSame('i', $regex->flags);
+        self::assertSame('abc', $regex->regex);
+        self::assertSame('i', $regex->flags);
     }
 }

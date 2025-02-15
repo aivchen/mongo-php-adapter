@@ -1,5 +1,5 @@
 composer.lock
-.phpcs-cache
+.php-cs-fixer.cache
 .phpunit.result.cache
 vendor/
 tests/scripts/

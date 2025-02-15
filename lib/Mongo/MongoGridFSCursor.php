@@ -21,53 +21,53 @@ class MongoGridFSCursor extends MongoCursor implements Countable
 {
     /**
      * @static
-     * @var $slaveOkay
      */
     public static $slaveOkay;
 
     /**
-     * @link http://php.net/manual/en/class.mongogridfscursor.php#mongogridfscursor.props.gridfs
-     * @var $gridfs
+     * @see http://php.net/manual/en/class.mongogridfscursor.php#mongogridfscursor.props.gridfs
      */
     protected $gridfs;
 
     /**
-     * Create a new cursor
+     * Create a new cursor.
      *
-     * @link http://php.net/manual/en/mongogridfscursor.construct.php
+     * @see http://php.net/manual/en/mongogridfscursor.construct.php
      * @param MongoGridFS $gridfs Related GridFS collection
      * @param MongoClient $connection Database connection
      * @param string $ns Full name of database and collection
      * @param array $query Database query
      * @param array $fields Fields to return
      */
-    public function __construct(MongoGridFS $gridfs, MongoClient $connection, $ns, array $query = array(), array $fields = array())
+    public function __construct(MongoGridFS $gridfs, MongoClient $connection, $ns, array $query = [], array $fields = [])
     {
         $this->gridfs = $gridfs;
         parent::__construct($connection, $ns, $query, $fields);
     }
 
     /**
-     * Returns the current file
+     * Returns the current file.
      *
-     * @link http://php.net/manual/en/mongogridfscursor.current.php
+     * @see http://php.net/manual/en/mongogridfscursor.current.php
      * @return MongoGridFSFile The current file
      */
     public function current()
     {
         $file = parent::current();
+
         return ($file !== null) ? new MongoGridFSFile($this->gridfs, $file) : null;
     }
 
     /**
-     * Returns the current result's filename
+     * Returns the current result's filename.
      *
-     * @link http://php.net/manual/en/mongogridfscursor.key.php
+     * @see http://php.net/manual/en/mongogridfscursor.key.php
      * @return string The current results filename
      */
     public function key()
     {
         $file = $this->current();
+
         return ($file !== null) ? (string) $file->file['_id'] : null;
     }
 }

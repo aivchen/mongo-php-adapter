@@ -18,7 +18,7 @@ if (class_exists('MongoUpdateBatch', false)) {
 }
 
 /**
- * Constructs a batch of UPDATE operations
+ * Constructs a batch of UPDATE operations.
  *
  * @see http://php.net/manual/en/class.mongoupdatebatch.php
  * @see http://php.net/manual/en/class.mongowritebatch.php
@@ -26,11 +26,9 @@ if (class_exists('MongoUpdateBatch', false)) {
 class MongoUpdateBatch extends MongoWriteBatch
 {
     /**
-     * Creates a new batch of update operations
+     * Creates a new batch of update operations.
      *
      * @see http://php.net/manual/en/mongoupdatebatch.construct.php
-     * @param MongoCollection $collection
-     * @param array $writeOptions
      */
     public function __construct(MongoCollection $collection, array $writeOptions = [])
     {

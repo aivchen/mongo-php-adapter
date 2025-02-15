@@ -10,12 +10,12 @@ use MongoDB\Driver\ReadPreference;
  */
 class MongoDBTest extends TestCase
 {
-    public function testSerialize()
+    public function testSerialize(): void
     {
-        $this->assertIsString(serialize($this->getDatabase()));
+        self::assertIsString(serialize($this->getDatabase()));
     }
 
-    public function testEmptyDatabaseName()
+    public function testEmptyDatabaseName(): void
     {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Database name cannot be empty');
@@ -23,7 +23,7 @@ class MongoDBTest extends TestCase
         new \MongoDB($this->getClient(), '');
     }
 
-    public function testInvalidDatabaseName()
+    public function testInvalidDatabaseName(): void
     {
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Database name contains invalid characters');
@@ -31,15 +31,15 @@ class MongoDBTest extends TestCase
         new \MongoDB($this->getClient(), '/');
     }
 
-    public function testGetCollection()
+    public function testGetCollection(): void
     {
         $db = $this->getDatabase();
         $collection = $db->selectCollection('test');
-        $this->assertInstanceOf('MongoCollection', $collection);
-        $this->assertSame('mongo-php-adapter.test', (string) $collection);
+        self::assertInstanceOf('MongoCollection', $collection);
+        self::assertSame('mongo-php-adapter.test', (string) $collection);
     }
 
-    public function testSelectCollectionEmptyName()
+    public function testSelectCollectionEmptyName(): void
     {
         $database = $this->getDatabase();
 
@@ -49,40 +49,41 @@ class MongoDBTest extends TestCase
         $database->selectCollection('');
     }
 
-    public function testSelectCollectionWithNullBytes()
+    public function testSelectCollectionWithNullBytes(): void
     {
         $database = $this->getDatabase();
 
         $this->expectException(\Exception::class);
         $this->expectExceptionMessage('Collection name cannot contain null bytes');
 
-        $database->selectCollection('foo' . chr(0));
+        $database->selectCollection('foo' . \chr(0));
     }
 
-    public function testCreateCollectionWithoutOptions()
+    public function testCreateCollectionWithoutOptions(): void
     {
         $database = $this->getDatabase();
 
         $collection = $database->createCollection('test');
-        $this->assertInstanceOf('MongoCollection', $collection);
+        self::assertInstanceOf('MongoCollection', $collection);
 
         $checkDatabase = $this->getCheckDatabase();
         foreach ($checkDatabase->listCollections() as $collectionInfo) {
             if ($collectionInfo->getName() === 'test') {
-                $this->assertFalse($collectionInfo->isCapped());
+                self::assertFalse($collectionInfo->isCapped());
+
                 return;
             }
         }
 
-        $this->fail('Did not find expected collection');
+        self::fail('Did not find expected collection');
     }
 
-    public function testCreateCollection()
+    public function testCreateCollection(): void
     {
         $database = $this->getDatabase();
 
         $collection = $database->createCollection('test', ['capped' => true, 'size' => 100]);
-        $this->assertInstanceOf('MongoCollection', $collection);
+        self::assertInstanceOf('MongoCollection', $collection);
 
         $document = ['foo' => 'bar'];
         $collection->insert($document);
@@ -90,34 +91,35 @@ class MongoDBTest extends TestCase
         $checkDatabase = $this->getCheckDatabase();
         foreach ($checkDatabase->listCollections() as $collectionInfo) {
             if ($collectionInfo->getName() === 'test') {
-                $this->assertTrue($collectionInfo->isCapped());
+                self::assertTrue($collectionInfo->isCapped());
+
                 return;
             }
         }
     }
 
-    public function testCreateCollectionInvalidParameters()
+    public function testCreateCollectionInvalidParameters(): void
     {
         $database = $this->getDatabase();
 
-        $this->assertInstanceOf('MongoCollection', $database->createCollection('test', ['capped' => 2, 'size' => 100]));
+        self::assertInstanceOf('MongoCollection', $database->createCollection('test', ['capped' => 2, 'size' => 100]));
     }
 
-    public function testGetCollectionProperty()
+    public function testGetCollectionProperty(): void
     {
         $db = $this->getDatabase();
         $collection = $db->test;
-        $this->assertInstanceOf('MongoCollection', $collection);
-        $this->assertSame('mongo-php-adapter.test', (string) $collection);
+        self::assertInstanceOf('MongoCollection', $collection);
+        self::assertSame('mongo-php-adapter.test', (string) $collection);
     }
 
-    public function testCommand()
+    public function testCommand(): void
     {
         $db = $this->getDatabase();
-        $this->assertEquals(['ok' => 1], $db->command(['ping' => 1]));
+        self::assertEquals(['ok' => 1], $db->command(['ping' => 1]));
     }
 
-    public function testCommandError()
+    public function testCommandError(): void
     {
         $db = $this->getDatabase();
         $expected = [
@@ -130,132 +132,132 @@ class MongoDBTest extends TestCase
         $this->assertMatches($expected, $db->command(['listDatabases' => 1]));
     }
 
-    public function testCommandCursorTimeout()
+    public function testCommandCursorTimeout(): void
     {
         $database = $this->getDatabase();
 
         $this->failMaxTimeMS();
 
         $result = $database->command([
-            "count" => "test",
-            "query" => array("a" => 1),
-            "maxTimeMS" => 100,
+            'count' => 'test',
+            'query' => ['a' => 1],
+            'maxTimeMS' => 100,
         ]);
 
-        $this->assertSame([
+        self::assertSame([
             'ok' => 0.0,
             'errmsg' => 'operation exceeded time limit',
             'code' => 50,
         ], $result);
     }
 
-    public function testReadPreference()
+    public function testReadPreference(): void
     {
         $database = $this->getDatabase();
-        $this->assertSame(['type' => \MongoClient::RP_PRIMARY], $database->getReadPreference());
-        $this->assertFalse($database->getSlaveOkay());
+        self::assertSame(['type' => \MongoClient::RP_PRIMARY], $database->getReadPreference());
+        self::assertFalse($database->getSlaveOkay());
 
-        $this->assertTrue($database->setReadPreference(\MongoClient::RP_SECONDARY, [['a' => 'b']]));
-        $this->assertSame(['type' => \MongoClient::RP_SECONDARY, 'tagsets' => [['a' => 'b']]], $database->getReadPreference());
-        $this->assertTrue($database->getSlaveOkay());
+        self::assertTrue($database->setReadPreference(\MongoClient::RP_SECONDARY, [['a' => 'b']]));
+        self::assertSame(['type' => \MongoClient::RP_SECONDARY, 'tagsets' => [['a' => 'b']]], $database->getReadPreference());
+        self::assertTrue($database->getSlaveOkay());
 
-        $this->assertTrue($database->setSlaveOkay(true));
-        $this->assertSame(['type' => \MongoClient::RP_SECONDARY_PREFERRED, 'tagsets' => [['a' => 'b']]], $database->getReadPreference());
+        self::assertTrue($database->setSlaveOkay(true));
+        self::assertSame(['type' => \MongoClient::RP_SECONDARY_PREFERRED, 'tagsets' => [['a' => 'b']]], $database->getReadPreference());
 
-        $this->assertTrue($database->setSlaveOkay(false));
+        self::assertTrue($database->setSlaveOkay(false));
         // Only test a subset since we don't keep tagsets around for RP_PRIMARY
         $this->assertMatches(['type' => \MongoClient::RP_PRIMARY], $database->getReadPreference());
     }
 
-    public function testReadPreferenceIsSetInDriver()
+    public function testReadPreferenceIsSetInDriver(): void
     {
-        $this->skipTestIf(extension_loaded('mongo'));
+        $this->skipTestIf(\extension_loaded('mongo'));
 
         $database = $this->getDatabase();
 
-        $this->assertTrue($database->setReadPreference(\MongoClient::RP_SECONDARY, [['a' => 'b']]));
+        self::assertTrue($database->setReadPreference(\MongoClient::RP_SECONDARY, [['a' => 'b']]));
 
         // Only way to check whether options are passed down is through debugInfo
         $readPreference = $database->getDb()->__debugInfo()['readPreference'];
 
-        $this->assertSame(ReadPreference::SECONDARY, $readPreference->getModeString());
-        $this->assertSame([['a' => 'b']], $readPreference->getTagSets());
+        self::assertSame(ReadPreference::SECONDARY, $readPreference->getModeString());
+        self::assertSame([['a' => 'b']], $readPreference->getTagSets());
     }
 
-    public function testReadPreferenceIsInherited()
+    public function testReadPreferenceIsInherited(): void
     {
         $client = $this->getClient();
         $client->setReadPreference(\MongoClient::RP_SECONDARY, [['a' => 'b']]);
 
         $database = $client->selectDB('test');
-        $this->assertSame(['type' => \MongoClient::RP_SECONDARY, 'tagsets' => [['a' => 'b']]], $database->getReadPreference());
+        self::assertSame(['type' => \MongoClient::RP_SECONDARY, 'tagsets' => [['a' => 'b']]], $database->getReadPreference());
     }
 
-    public function testWriteConcern()
+    public function testWriteConcern(): void
     {
         $database = $this->getDatabase();
 
-        $this->assertTrue($database->setWriteConcern('majority', 100));
-        $this->assertSame(['w' => 'majority', 'wtimeout' => 100], $database->getWriteConcern());
+        self::assertTrue($database->setWriteConcern('majority', 100));
+        self::assertSame(['w' => 'majority', 'wtimeout' => 100], $database->getWriteConcern());
     }
 
-    public function testWriteConcernIsSetInDriver()
+    public function testWriteConcernIsSetInDriver(): void
     {
-        $this->skipTestIf(extension_loaded('mongo'));
+        $this->skipTestIf(\extension_loaded('mongo'));
 
         $database = $this->getDatabase();
-        $this->assertTrue($database->setWriteConcern(2, 100));
+        self::assertTrue($database->setWriteConcern(2, 100));
 
         // Only way to check whether options are passed down is through debugInfo
         $writeConcern = $database->getDb()->__debugInfo()['writeConcern'];
 
-        $this->assertSame(2, $writeConcern->getW());
-        $this->assertSame(100, $writeConcern->getWtimeout());
+        self::assertSame(2, $writeConcern->getW());
+        self::assertSame(100, $writeConcern->getWtimeout());
     }
 
-    public function testWriteConcernIsInherited()
+    public function testWriteConcernIsInherited(): void
     {
         $client = $this->getClient();
         $client->setWriteConcern(2, 100);
 
         $database = $client->selectDB('test');
-        $this->assertSame(['w' => 2, 'wtimeout' => 100], $database->getWriteConcern());
+        self::assertSame(['w' => 2, 'wtimeout' => 100], $database->getWriteConcern());
     }
 
-    public function testProfilingLevel()
+    public function testProfilingLevel(): void
     {
-        $this->assertSame(\MongoDB::PROFILING_OFF, $this->getDatabase()->getProfilingLevel());
-        $this->assertSame(\MongoDB::PROFILING_OFF, $this->getDatabase()->setProfilingLevel(\MongoDB::PROFILING_SLOW));
+        self::assertSame(\MongoDB::PROFILING_OFF, $this->getDatabase()->getProfilingLevel());
+        self::assertSame(\MongoDB::PROFILING_OFF, $this->getDatabase()->setProfilingLevel(\MongoDB::PROFILING_SLOW));
 
-        $this->assertSame(\MongoDB::PROFILING_SLOW, $this->getDatabase()->getProfilingLevel());
-        $this->assertSame(\MongoDB::PROFILING_SLOW, $this->getDatabase()->setProfilingLevel(\MongoDB::PROFILING_ON));
-        $this->assertSame(\MongoDB::PROFILING_ON, $this->getDatabase()->getProfilingLevel());
+        self::assertSame(\MongoDB::PROFILING_SLOW, $this->getDatabase()->getProfilingLevel());
+        self::assertSame(\MongoDB::PROFILING_SLOW, $this->getDatabase()->setProfilingLevel(\MongoDB::PROFILING_ON));
+        self::assertSame(\MongoDB::PROFILING_ON, $this->getDatabase()->getProfilingLevel());
     }
 
-    public function testForceError()
+    public function testForceError(): void
     {
         $result = $this->getDatabase()->forceError();
-        $this->assertSame(0.0, $result['ok']);
+        self::assertSame(0.0, $result['ok']);
     }
 
-    public function testExecute()
+    public function testExecute(): void
     {
         $this->skipTestIf(version_compare($this->getServerVersion(), '4.2.0', '>='), 'Eval no longer works on MongoDB 4.2.0 and newer');
 
         $db = $this->getDatabase();
         $document = ['foo' => 'bar'];
         $this->getCollection()->insert($document);
-        $this->assertEquals(['ok' => 1, 'retval' => 1], $db->execute("return db.test.count();"));
+        self::assertEquals(['ok' => 1, 'retval' => 1], $db->execute('return db.test.count();'));
     }
 
-    public function testGetCollectionNames()
+    public function testGetCollectionNames(): void
     {
         $document = ['foo' => 'bar'];
         $this->getCollection()->insert($document);
-        $this->assertContains('test', $this->getDatabase()->getCollectionNames());
+        self::assertContains('test', $this->getDatabase()->getCollectionNames());
     }
 
-    public function testGetCollectionNamesExecutionTimeoutException()
+    public function testGetCollectionNamesExecutionTimeoutException(): void
     {
         $document = ['foo' => 'bar'];
         $this->getCollection()->insert($document);
@@ -268,7 +270,7 @@ class MongoDBTest extends TestCase
         $database->getCollectionNames(['maxTimeMS' => 1]);
     }
 
-    public function testGetCollectionInfo()
+    public function testGetCollectionInfo(): void
     {
         $document = ['foo' => 'bar'];
         $this->getCollection()->insert($document);
@@ -277,7 +279,7 @@ class MongoDBTest extends TestCase
             if ($collectionInfo['name'] === 'test') {
                 $expected = [
                     'name' => 'test',
-                    'options' => []
+                    'options' => [],
                 ];
 
                 if (version_compare($this->getServerVersion(), '3.4.0', '>=')) {
@@ -293,14 +295,15 @@ class MongoDBTest extends TestCase
                     ];
                 }
                 $this->assertMatches($expected, $collectionInfo);
+
                 return;
             }
         }
 
-        $this->fail('The test collection was not found');
+        self::fail('The test collection was not found');
     }
 
-    public function testGetCollectionInfoExecutionTimeoutException()
+    public function testGetCollectionInfoExecutionTimeoutException(): void
     {
         $document = ['foo' => 'bar'];
         $this->getCollection()->insert($document);
@@ -314,22 +317,22 @@ class MongoDBTest extends TestCase
         $database->getCollectionInfo(['maxTimeMS' => 1]);
     }
 
-    public function testListCollections()
+    public function testListCollections(): void
     {
         $document = ['foo' => 'bar'];
         $this->getCollection()->insert($document);
         foreach ($this->getDatabase()->listCollections() as $collection) {
-            $this->assertInstanceOf('MongoCollection', $collection);
+            self::assertInstanceOf('MongoCollection', $collection);
 
             if ($collection->getName() === 'test') {
                 return;
             }
         }
 
-        $this->fail('The test collection was not found');
+        self::fail('The test collection was not found');
     }
 
-    public function testGetCollectionNamesDoesNotListSystemCollections()
+    public function testGetCollectionNamesDoesNotListSystemCollections(): void
     {
         // Enable profiling to ensure we have a system.profile collection
         $this->getDatabase()->setProfilingLevel(\MongoDB::PROFILING_ON);
@@ -339,13 +342,13 @@ class MongoDBTest extends TestCase
             $this->getCollection()->insert($document);
 
             $collectionNames = $this->getDatabase()->getCollectionNames();
-            $this->assertNotContains('system.profile', $collectionNames);
+            self::assertNotContains('system.profile', $collectionNames);
         } finally {
             $this->getDatabase()->setProfilingLevel(\MongoDB::PROFILING_OFF);
         }
     }
 
-    public function testGetCollectionNamesWithSystemCollections()
+    public function testGetCollectionNamesWithSystemCollections(): void
     {
         // Enable profiling to ensure we have a system.profile collection
         $this->getDatabase()->setProfilingLevel(\MongoDB::PROFILING_ON);
@@ -355,13 +358,13 @@ class MongoDBTest extends TestCase
             $this->getCollection()->insert($document);
 
             $collectionNames = $this->getDatabase()->getCollectionNames(['includeSystemCollections' => true]);
-            $this->assertContains('system.profile', $collectionNames);
+            self::assertContains('system.profile', $collectionNames);
         } finally {
             $this->getDatabase()->setProfilingLevel(\MongoDB::PROFILING_OFF);
         }
     }
 
-    public function testListCollectionsExecutionTimeoutException()
+    public function testListCollectionsExecutionTimeoutException(): void
     {
         $this->failMaxTimeMS();
 
@@ -370,29 +373,29 @@ class MongoDBTest extends TestCase
         $this->getDatabase()->listCollections(['maxTimeMS' => 1]);
     }
 
-    public function testDrop()
+    public function testDrop(): void
     {
         $document = ['foo' => 'bar'];
         $this->getCollection()->insert($document);
-        $this->assertSame(['dropped' => 'mongo-php-adapter', 'ok' => 1.0], $this->getDatabase()->drop());
+        self::assertSame(['dropped' => 'mongo-php-adapter', 'ok' => 1.0], $this->getDatabase()->drop());
     }
 
-    public function testDropCollection()
+    public function testDropCollection(): void
     {
         $document = ['foo' => 'bar'];
         $this->getCollection()->insert($document);
         $expected = [
             'ns' => (string) $this->getCollection(),
             'nIndexesWas' => 1,
-            'ok' => 1.0
+            'ok' => 1.0,
         ];
-        $this->assertEquals($expected, $this->getDatabase()->dropCollection('test'));
+        self::assertEquals($expected, $this->getDatabase()->dropCollection('test'));
     }
 
-    public function testRepair()
+    public function testRepair(): void
     {
         $this->skipTestIf(version_compare($this->getServerVersion(), '4.2.0', '>='), 'The "repairDatabase" has been removed in MongoDB 4.2.0');
 
-        $this->assertSame(['ok' => 1.0], $this->getDatabase()->repair());
+        self::assertSame(['ok' => 1.0], $this->getDatabase()->repair());
     }
 }

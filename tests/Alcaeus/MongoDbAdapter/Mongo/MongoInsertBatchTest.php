@@ -6,70 +6,70 @@ use Alcaeus\MongoDbAdapter\Tests\TestCase;
 
 class MongoInsertBatchTest extends TestCase
 {
-    public function testSerialize()
+    public function testSerialize(): void
     {
         $batch = new \MongoInsertBatch($this->getCollection());
-        $this->assertIsString(serialize($batch));
+        self::assertIsString(serialize($batch));
     }
 
-    public function testInsertBatch()
+    public function testInsertBatch(): void
     {
         $batch = new \MongoInsertBatch($this->getCollection());
 
-        $this->assertTrue($batch->add(['foo' => 'bar']));
-        $this->assertTrue($batch->add(['bar' => 'foo']));
+        self::assertTrue($batch->add(['foo' => 'bar']));
+        self::assertTrue($batch->add(['bar' => 'foo']));
 
         $expected = [
             'nInserted' => 2,
             'ok' => true,
         ];
 
-        $this->assertSame($expected, $batch->execute());
+        self::assertSame($expected, $batch->execute());
 
         $newCollection = $this->getCheckDatabase()->selectCollection('test');
-        $this->assertSame(2, $newCollection->count());
+        self::assertSame(2, $newCollection->count());
         $record = $newCollection->findOne();
-        $this->assertNotNull($record);
-        $this->assertSame('bar', $record->foo);
+        self::assertNotNull($record);
+        self::assertSame('bar', $record->foo);
     }
 
-    public function testInsertBatchWithoutAck()
+    public function testInsertBatchWithoutAck(): void
     {
         $batch = new \MongoInsertBatch($this->getCollection());
 
-        $this->assertTrue($batch->add(['foo' => 'bar']));
-        $this->assertTrue($batch->add(['bar' => 'foo']));
+        self::assertTrue($batch->add(['foo' => 'bar']));
+        self::assertTrue($batch->add(['bar' => 'foo']));
 
         $expected = [
             'nInserted' => 0,
             'ok' => true,
         ];
 
-        $this->assertSame($expected, $batch->execute(['w' => 0]));
+        self::assertSame($expected, $batch->execute(['w' => 0]));
         sleep(1);
 
         $newCollection = $this->getCheckDatabase()->selectCollection('test');
-        $this->assertSame(2, $newCollection->count());
+        self::assertSame(2, $newCollection->count());
         $record = $newCollection->findOne();
-        $this->assertNotNull($record);
-        $this->assertSame('bar', $record->foo);
+        self::assertNotNull($record);
+        self::assertSame('bar', $record->foo);
     }
 
-    public function testInsertBatchError()
+    public function testInsertBatchError(): void
     {
         $collection = $this->getCollection();
         $batch = new \MongoInsertBatch($collection);
         $collection->createIndex(['foo' => 1], ['unique' => true]);
 
-        $this->assertTrue($batch->add(['foo' => 'bar']));
-        $this->assertTrue($batch->add(['foo' => 'bar']));
+        self::assertTrue($batch->add(['foo' => 'bar']));
+        self::assertTrue($batch->add(['foo' => 'bar']));
 
         $expected = [
             'writeErrors' => [
                 [
                     'index' => 1,
                     'code' => 11000,
-                ]
+                ],
             ],
             'nInserted' => 1,
             'ok' => true,
@@ -77,10 +77,10 @@ class MongoInsertBatchTest extends TestCase
 
         try {
             $batch->execute();
-            $this->fail('Expected MongoWriteConcernException');
+            self::fail('Expected MongoWriteConcernException');
         } catch (\MongoWriteConcernException $e) {
-            $this->assertSame('Failed write', $e->getMessage());
-            $this->assertSame(911, $e->getCode());
+            self::assertSame('Failed write', $e->getMessage());
+            self::assertSame(911, $e->getCode());
             $this->assertMatches($expected, $e->getDocument());
         }
     }

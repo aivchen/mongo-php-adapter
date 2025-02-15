@@ -19,24 +19,24 @@ if (class_exists('MongoGridFS', false)) {
 
 class MongoGridFS extends MongoCollection
 {
-    const ASCENDING = 1;
-    const DESCENDING = -1;
+    public const ASCENDING = 1;
+    public const DESCENDING = -1;
 
     /**
-     * @link http://php.net/manual/en/class.mongogridfs.php#mongogridfs.props.chunks
-     * @var $chunks MongoCollection
+     * @see http://php.net/manual/en/class.mongogridfs.php#mongogridfs.props.chunks
+     * @var MongoCollection
      */
     public $chunks;
 
     /**
-     * @link http://php.net/manual/en/class.mongogridfs.php#mongogridfs.props.filesname
-     * @var $filesName string
+     * @see http://php.net/manual/en/class.mongogridfs.php#mongogridfs.props.filesname
+     * @var string
      */
     protected $filesName;
 
     /**
-     * @link http://php.net/manual/en/class.mongogridfs.php#mongogridfs.props.chunksname
-     * @var $chunksName string
+     * @see http://php.net/manual/en/class.mongogridfs.php#mongogridfs.props.chunksname
+     * @var string
      */
     protected $chunksName;
 
@@ -54,16 +54,16 @@ class MongoGridFS extends MongoCollection
      * information, the second containing chunks of the actual file. By default,
      * fs.files and fs.chunks are the collection names used.
      *
-     * @link http://php.net/manual/en/mongogridfs.construct.php
+     * @see http://php.net/manual/en/mongogridfs.construct.php
      * @param MongoDB $db Database
      * @param string $prefix [optional] <p>Optional collection name prefix.</p>
      * @param mixed $chunks  [optional]
      * @throws \Exception
      */
-    public function __construct(MongoDB $db, $prefix = "fs", $chunks = null)
+    public function __construct(MongoDB $db, $prefix = 'fs', $chunks = null)
     {
         if ($chunks) {
-            trigger_error("The 'chunks' argument is deprecated and ignored", E_USER_DEPRECATED);
+            @trigger_error("The 'chunks' argument is deprecated and ignored", E_USER_DEPRECATED);
         }
         if (empty($prefix)) {
             throw new \Exception('MongoGridFS::__construct(): invalid prefix');
@@ -80,36 +80,37 @@ class MongoGridFS extends MongoCollection
     }
 
     /**
-     * Delete a file from the database
+     * Delete a file from the database.
      *
-     * @link http://php.net/manual/en/mongogridfs.delete.php
+     * @see http://php.net/manual/en/mongogridfs.delete.php
      * @param mixed $id _id of the file to remove
-     * @return boolean Returns true if the remove was successfully sent to the database.
+     * @return bool returns true if the remove was successfully sent to the database
      */
     public function delete($id)
     {
         $this->createChunksIndex();
 
         $this->chunks->remove(['files_id' => $id], ['justOne' => false]);
+
         return parent::remove(['_id' => $id]);
     }
 
     /**
-     * Drops the files and chunks collections
-     * @link http://php.net/manual/en/mongogridfs.drop.php
+     * Drops the files and chunks collections.
+     * @see http://php.net/manual/en/mongogridfs.drop.php
      * @return array The database response
      */
     public function drop()
     {
         $this->chunks->drop();
+
         return parent::drop();
     }
 
     /**
-     * @link http://php.net/manual/en/mongogridfs.find.php
+     * @see http://php.net/manual/en/mongogridfs.find.php
      * @param array $query The query
      * @param array $fields Fields to return
-     * @param array $options Options for the find command
      * @return MongoGridFSCursor A MongoGridFSCursor
      */
     public function find(array $query = [], array $fields = [])
@@ -121,29 +122,30 @@ class MongoGridFS extends MongoCollection
     }
 
     /**
-     * Returns a single file matching the criteria
+     * Returns a single file matching the criteria.
      *
-     * @link http://www.php.net/manual/en/mongogridfs.findone.php
-     * @param mixed $query The fields for which to search or a filename to search for.
-     * @param array $fields Fields of the results to return.
+     * @see http://www.php.net/manual/en/mongogridfs.findone.php
+     * @param mixed $query the fields for which to search or a filename to search for
+     * @param array $fields fields of the results to return
      * @param array $options Options for the find command
      * @return MongoGridFSFile|null
      */
     public function findOne($query = [], array $fields = [], array $options = [])
     {
-        if (! is_array($query)) {
+        if (!is_array($query)) {
             $query = ['filename' => (string) $query];
         }
 
         $items = iterator_to_array($this->find($query, $fields)->limit(1));
+
         return count($items) ? current($items) : null;
     }
 
     /**
-     * Retrieve a file from the database
+     * Retrieve a file from the database.
      *
-     * @link http://www.php.net/manual/en/mongogridfs.get.php
-     * @param mixed $id _id of the file to find.
+     * @see http://www.php.net/manual/en/mongogridfs.get.php
+     * @param mixed $id _id of the file to find
      * @return MongoGridFSFile|null
      */
     public function get($id)
@@ -152,12 +154,12 @@ class MongoGridFS extends MongoCollection
     }
 
     /**
-     * Stores a file in the database
+     * Stores a file in the database.
      *
-     * @link http://php.net/manual/en/mongogridfs.put.php
+     * @see http://php.net/manual/en/mongogridfs.put.php
      * @param string $filename The name of the file
      * @param array $extra Other metadata to add to the file saved
-     * @param array $options An array of options for the insert operations executed against the chunks and files collections.
+     * @param array $options an array of options for the insert operations executed against the chunks and files collections
      * @return mixed Returns the _id of the saved object
      */
     public function put($filename, array $extra = [], array $options = [])
@@ -166,13 +168,13 @@ class MongoGridFS extends MongoCollection
     }
 
     /**
-     * Removes files from the collections
+     * Removes files from the collections.
      *
-     * @link http://www.php.net/manual/en/mongogridfs.remove.php
-     * @param array $criteria Description of records to remove.
-     * @param array $options Options for remove.
+     * @see http://www.php.net/manual/en/mongogridfs.remove.php
+     * @param array $criteria description of records to remove
+     * @param array $options options for remove
+     * @return bool
      * @throws MongoCursorException
-     * @return boolean
      */
     public function remove(array $criteria = [], array $options = [])
     {
@@ -184,12 +186,13 @@ class MongoGridFS extends MongoCollection
             $ids[] = $file['_id'];
         }
         $this->chunks->remove(['files_id' => ['$in' => $ids]], ['justOne' => false] + $options);
+
         return parent::remove(['_id' => ['$in' => $ids]], ['justOne' => false] + $options);
     }
 
     /**
-     * Chunkifies and stores bytes in the database
-     * @link http://php.net/manual/en/mongogridfs.storebytes.php
+     * Chunkifies and stores bytes in the database.
+     * @see http://php.net/manual/en/mongogridfs.storebytes.php
      * @param string $bytes A string of bytes to store
      * @param array $extra Other metadata to add to the file saved
      * @param array $options Options for the store. "safe": Check that this store succeeded
@@ -214,6 +217,7 @@ class MongoGridFS extends MongoCollection
             $this->insertChunksFromBytes($bytes, $file);
         } catch (MongoException $e) {
             $this->delete($file['_id']);
+
             throw new MongoGridFSException('Could not store file: ' . $e->getMessage(), $e->getCode(), $e);
         }
 
@@ -221,9 +225,9 @@ class MongoGridFS extends MongoCollection
     }
 
     /**
-     * Stores a file in the database
+     * Stores a file in the database.
      *
-     * @link http://php.net/manual/en/mongogridfs.storefile.php
+     * @see http://php.net/manual/en/mongogridfs.storefile.php
      * @param string $filename The name of the file
      * @param array $extra Other metadata to add to the file saved
      * @param array $options Options for the store. "safe": Check that this store succeeded
@@ -244,16 +248,17 @@ class MongoGridFS extends MongoCollection
             ];
 
             $handle = fopen($filename, 'r');
-            if (! $handle) {
+            if (!$handle) {
                 throw new MongoGridFSException('could not open file: ' . $filename);
             }
-        } elseif (! is_resource($filename)) {
+        } elseif (!is_resource($filename)) {
             throw new \Exception('first argument must be a string or stream resource');
         } else {
             $handle = $filename;
         }
 
         $md5 = null;
+
         try {
             $file = $this->insertFile($record, $options);
         } catch (MongoException $e) {
@@ -264,16 +269,16 @@ class MongoGridFS extends MongoCollection
             $length = $this->insertChunksFromFile($handle, $file, $md5);
         } catch (MongoException $e) {
             $this->delete($file['_id']);
+
             throw new MongoGridFSException('Could not store file: ' . $e->getMessage(), $e->getCode(), $e);
         }
 
-
         // Add length and MD5 if they were not present before
         $update = [];
-        if (! isset($record['length'])) {
+        if (!isset($record['length'])) {
             $update['length'] = $length;
         }
-        if (! isset($record['md5'])) {
+        if (!isset($record['md5'])) {
             try {
                 $update['md5'] = $md5;
             } catch (MongoException $e) {
@@ -284,11 +289,12 @@ class MongoGridFS extends MongoCollection
         if (count($update)) {
             try {
                 $result = $this->update(['_id' => $file['_id']], ['$set' => $update]);
-                if (! $this->isOKResult($result)) {
+                if (!$this->isOKResult($result)) {
                     throw new MongoGridFSException('Could not store file');
                 }
             } catch (MongoException $e) {
                 $this->delete($file['_id']);
+
                 throw new MongoGridFSException('Could not store file: ' . $e->getMessage(), $e->getCode(), $e);
             }
         }
@@ -297,20 +303,20 @@ class MongoGridFS extends MongoCollection
     }
 
     /**
-     * Saves an uploaded file directly from a POST to the database
+     * Saves an uploaded file directly from a POST to the database.
      *
-     * @link http://www.php.net/manual/en/mongogridfs.storeupload.php
-     * @param string $name The name attribute of the uploaded file, from <input type="file" name="something"/>.
-     * @param array $metadata An array of extra fields for the uploaded file.
-     * @return mixed Returns the _id of the uploaded file.
+     * @see http://www.php.net/manual/en/mongogridfs.storeupload.php
+     * @param string $name the name attribute of the uploaded file, from <input type="file" name="something"/>
+     * @param array $metadata an array of extra fields for the uploaded file
+     * @return mixed returns the _id of the uploaded file
      * @throws MongoGridFSException
      */
     public function storeUpload($name, array $metadata = [])
     {
-        if (! isset($_FILES[$name]) || $_FILES[$name]['error'] !== UPLOAD_ERR_OK) {
-            throw new MongoGridFSException("Could not find uploaded file $name");
+        if (!isset($_FILES[$name]) || $_FILES[$name]['error'] !== UPLOAD_ERR_OK) {
+            throw new MongoGridFSException("Could not find uploaded file {$name}");
         }
-        if (! isset($_FILES[$name]['tmp_name'])) {
+        if (!isset($_FILES[$name]['tmp_name'])) {
             throw new MongoGridFSException("Couldn't find tmp_name in the \$_FILES array. Are you sure the upload worked?");
         }
 
@@ -325,16 +331,24 @@ class MongoGridFS extends MongoCollection
             }
 
             return null;
-        } else {
-            $metadata += ['filename' => array_pop($uploadedFile['name'])];
-            return $this->storeFile(array_pop($uploadedFile['tmp_name']), $metadata);
         }
+        $metadata += ['filename' => array_pop($uploadedFile['name'])];
+
+        return $this->storeFile(array_pop($uploadedFile['tmp_name']), $metadata);
     }
 
     /**
-     * Creates the index on the chunks collection
+     * @return array
      */
-    private function createChunksIndex()
+    public function __sleep()
+    {
+        return ['chunks', 'chunksName', 'database', 'defaultChunkSize', 'filesName', 'prefix'] + parent::__sleep();
+    }
+
+    /**
+     * Creates the index on the chunks collection.
+     */
+    private function createChunksIndex(): void
     {
         try {
             $this->chunks->createIndex(['files_id' => 1, 'n' => 1], ['unique' => true]);
@@ -343,9 +357,8 @@ class MongoGridFS extends MongoCollection
     }
 
     /**
-     * Inserts a single chunk into the database
+     * Inserts a single chunk into the database.
      *
-     * @param mixed $fileId
      * @param string $data
      * @param int $chunkNumber
      * @return array|bool
@@ -360,7 +373,7 @@ class MongoGridFS extends MongoCollection
 
         $result = $this->chunks->insert($chunk);
 
-        if (! $this->isOKResult($result)) {
+        if (!$this->isOKResult($result)) {
             throw new \MongoException('error inserting chunk');
         }
 
@@ -368,12 +381,12 @@ class MongoGridFS extends MongoCollection
     }
 
     /**
-     * Splits a string into chunks and writes them to the database
+     * Splits a string into chunks and writes them to the database.
      *
      * @param string $bytes
      * @param array $record
      */
-    private function insertChunksFromBytes($bytes, $record)
+    private function insertChunksFromBytes($bytes, $record): void
     {
         $chunkSize = $record['chunkSize'];
         $fileId = $record['_id'];
@@ -386,7 +399,7 @@ class MongoGridFS extends MongoCollection
     }
 
     /**
-     * Reads chunks from a file and writes them to the database
+     * Reads chunks from a file and writes them to the database.
      *
      * @param resource $handle
      * @param array $record
@@ -405,7 +418,8 @@ class MongoGridFS extends MongoCollection
         $hash = hash_init('md5');
 
         rewind($handle);
-        while (! feof($handle)) {
+
+        while (!feof($handle)) {
             $data = stream_get_contents($handle, $chunkSize);
             hash_update($hash, $data);
             $this->insertChunk($fileId, $data, $i++);
@@ -419,10 +433,8 @@ class MongoGridFS extends MongoCollection
     }
 
     /**
-     * Writes a file record to the database
+     * Writes a file record to the database.
      *
-     * @param $record
-     * @param array $options
      * @return array
      */
     private function insertFile($record, array $options = [])
@@ -435,7 +447,7 @@ class MongoGridFS extends MongoCollection
 
         $result = $this->insert($record, $options);
 
-        if (! $this->isOKResult($result)) {
+        if (!$this->isOKResult($result)) {
             throw new \MongoException('error inserting file');
         }
 
@@ -444,15 +456,7 @@ class MongoGridFS extends MongoCollection
 
     private function isOKResult($result)
     {
-        return (is_array($result) && $result['ok'] == 1.0) ||
-               (is_bool($result) && $result);
-    }
-
-    /**
-     * @return array
-     */
-    public function __sleep()
-    {
-        return ['chunks', 'chunksName', 'database', 'defaultChunkSize', 'filesName', 'prefix'] + parent::__sleep();
+        return (is_array($result) && $result['ok'] == 1.0)
+               || (is_bool($result) && $result);
     }
 }

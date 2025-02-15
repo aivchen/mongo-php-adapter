@@ -6,13 +6,13 @@ use Alcaeus\MongoDbAdapter\Tests\TestCase;
 
 class MongoUpdateBatchTest extends TestCase
 {
-    public function testSerialize()
+    public function testSerialize(): void
     {
         $batch = new \MongoUpdateBatch($this->getCollection());
-        $this->assertIsString(serialize($batch));
+        self::assertIsString(serialize($batch));
     }
 
-    public function testUpdateOne()
+    public function testUpdateOne(): void
     {
         $collection = $this->getCollection();
         $batch = new \MongoUpdateBatch($collection);
@@ -20,7 +20,7 @@ class MongoUpdateBatchTest extends TestCase
         $document = ['foo' => 'bar'];
         $collection->insert($document);
 
-        $this->assertTrue($batch->add(['q' => ['foo' => 'bar'], 'u' => ['$set' => ['foo' => 'foo']]]));
+        self::assertTrue($batch->add(['q' => ['foo' => 'bar'], 'u' => ['$set' => ['foo' => 'foo']]]));
 
         $expected = [
             'nMatched' => 1,
@@ -29,16 +29,16 @@ class MongoUpdateBatchTest extends TestCase
             'ok' => true,
         ];
 
-        $this->assertSame($expected, $batch->execute());
+        self::assertSame($expected, $batch->execute());
 
         $newCollection = $this->getCheckDatabase()->selectCollection('test');
-        $this->assertSame(1, $newCollection->count());
+        self::assertSame(1, $newCollection->count());
         $record = $newCollection->findOne();
-        $this->assertNotNull($record);
-        $this->assertSame('foo', $record->foo);
+        self::assertNotNull($record);
+        self::assertSame('foo', $record->foo);
     }
 
-    public function testUpdateOneException()
+    public function testUpdateOneException(): void
     {
         $collection = $this->getCollection();
         $batch = new \MongoUpdateBatch($collection);
@@ -49,14 +49,14 @@ class MongoUpdateBatchTest extends TestCase
         $collection->insert($document);
         $collection->createIndex(['foo' => 1], ['unique' => true]);
 
-        $this->assertTrue($batch->add(['q' => ['foo' => 'bar'], 'u' => ['$set' => ['foo' => 'foo']]]));
+        self::assertTrue($batch->add(['q' => ['foo' => 'bar'], 'u' => ['$set' => ['foo' => 'foo']]]));
 
         $expected = [
             'writeErrors' => [
                 [
                     'index' => 0,
                     'code' => 11000,
-                ]
+                ],
             ],
             'nMatched' => 0,
             'nModified' => 0,
@@ -66,15 +66,15 @@ class MongoUpdateBatchTest extends TestCase
 
         try {
             $batch->execute();
-            $this->fail('Expected MongoWriteConcernException');
+            self::fail('Expected MongoWriteConcernException');
         } catch (\MongoWriteConcernException $e) {
-            $this->assertSame('Failed write', $e->getMessage());
-            $this->assertSame(911, $e->getCode());
+            self::assertSame('Failed write', $e->getMessage());
+            self::assertSame(911, $e->getCode());
             $this->assertMatches($expected, $e->getDocument());
         }
     }
 
-    public function testUpdateMany()
+    public function testUpdateMany(): void
     {
         $collection = $this->getCollection();
         $batch = new \MongoUpdateBatch($collection);
@@ -84,7 +84,7 @@ class MongoUpdateBatchTest extends TestCase
         unset($document['_id']);
         $collection->insert($document);
 
-        $this->assertTrue($batch->add(['q' => ['foo' => 'bar'], 'u' => ['$set' => ['foo' => 'foo']], 'multi' => true]));
+        self::assertTrue($batch->add(['q' => ['foo' => 'bar'], 'u' => ['$set' => ['foo' => 'foo']], 'multi' => true]));
 
         $expected = [
             'nMatched' => 2,
@@ -93,16 +93,16 @@ class MongoUpdateBatchTest extends TestCase
             'ok' => true,
         ];
 
-        $this->assertSame($expected, $batch->execute());
+        self::assertSame($expected, $batch->execute());
 
         $newCollection = $this->getCheckDatabase()->selectCollection('test');
-        $this->assertSame(2, $newCollection->count());
+        self::assertSame(2, $newCollection->count());
         $record = $newCollection->findOne();
-        $this->assertNotNull($record);
-        $this->assertSame('foo', $record->foo);
+        self::assertNotNull($record);
+        self::assertSame('foo', $record->foo);
     }
 
-    public function testUpdateManyWithoutAck()
+    public function testUpdateManyWithoutAck(): void
     {
         $collection = $this->getCollection();
         $batch = new \MongoUpdateBatch($collection);
@@ -112,7 +112,7 @@ class MongoUpdateBatchTest extends TestCase
         unset($document['_id']);
         $collection->insert($document);
 
-        $this->assertTrue($batch->add(['q' => ['foo' => 'bar'], 'u' => ['$set' => ['foo' => 'foo']], 'multi' => true]));
+        self::assertTrue($batch->add(['q' => ['foo' => 'bar'], 'u' => ['$set' => ['foo' => 'foo']], 'multi' => true]));
 
         $expected = [
             'nMatched' => 0,
@@ -121,16 +121,16 @@ class MongoUpdateBatchTest extends TestCase
             'ok' => true,
         ];
 
-        $this->assertSame($expected, $batch->execute(['w' => 0]));
+        self::assertSame($expected, $batch->execute(['w' => 0]));
 
         $newCollection = $this->getCheckDatabase()->selectCollection('test');
-        $this->assertSame(2, $newCollection->count());
+        self::assertSame(2, $newCollection->count());
         $record = $newCollection->findOne();
-        $this->assertNotNull($record);
-        $this->assertSame('foo', $record->foo);
+        self::assertNotNull($record);
+        self::assertSame('foo', $record->foo);
     }
 
-    public function testUpdateManyException()
+    public function testUpdateManyException(): void
     {
         $collection = $this->getCollection();
         $batch = new \MongoUpdateBatch($collection);
@@ -148,7 +148,7 @@ class MongoUpdateBatchTest extends TestCase
                 [
                     'index' => 0,
                     'code' => 11000,
-                ]
+                ],
             ],
             'nMatched' => 0,
             'nModified' => 0,
@@ -158,28 +158,28 @@ class MongoUpdateBatchTest extends TestCase
 
         try {
             $batch->execute();
-            $this->fail('Expected MongoWriteConcernException');
+            self::fail('Expected MongoWriteConcernException');
         } catch (\MongoWriteConcernException $e) {
-            $this->assertSame('Failed write', $e->getMessage());
-            $this->assertSame(911, $e->getCode());
+            self::assertSame('Failed write', $e->getMessage());
+            self::assertSame(911, $e->getCode());
             $this->assertMatches($expected, $e->getDocument());
         }
     }
 
-    public function testUpsert()
+    public function testUpsert(): void
     {
         $document = ['foo' => 'foo'];
         $this->getCollection()->insert($document);
         $batch = new \MongoUpdateBatch($this->getCollection());
 
-        $this->assertTrue($batch->add(['q' => ['foo' => 'foo'], 'u' => ['$set' => ['foo' => 'bar']], 'upsert' => true]));
-        $this->assertTrue($batch->add(['q' => ['bar' => 'foo'], 'u' => ['$set' => ['foo' => 'bar']], 'upsert' => true]));
+        self::assertTrue($batch->add(['q' => ['foo' => 'foo'], 'u' => ['$set' => ['foo' => 'bar']], 'upsert' => true]));
+        self::assertTrue($batch->add(['q' => ['bar' => 'foo'], 'u' => ['$set' => ['foo' => 'bar']], 'upsert' => true]));
 
         $expected = [
             'upserted' => [
                 [
                     'index' => 1,
-                ]
+                ],
             ],
             'nMatched' => 1,
             'nModified' => 1,
@@ -190,17 +190,17 @@ class MongoUpdateBatchTest extends TestCase
         $result = $batch->execute();
         $this->assertMatches($expected, $result);
 
-        $this->assertInstanceOf('MongoId', $result['upserted'][0]['_id']);
+        self::assertInstanceOf('MongoId', $result['upserted'][0]['_id']);
 
         $newCollection = $this->getCheckDatabase()->selectCollection('test');
-        $this->assertSame(0, $newCollection->count(['foo' => 'foo']));
-        $this->assertSame(2, $newCollection->count());
+        self::assertSame(0, $newCollection->count(['foo' => 'foo']));
+        self::assertSame(2, $newCollection->count());
         $record = $newCollection->findOne();
-        $this->assertNotNull($record);
-        $this->assertSame('bar', $record->foo);
+        self::assertNotNull($record);
+        self::assertSame('bar', $record->foo);
     }
 
-    public function testValidateItem()
+    public function testValidateItem(): void
     {
         $collection = $this->getCollection();
         $batch = new \MongoUpdateBatch($collection);

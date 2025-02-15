@@ -19,14 +19,14 @@ if (class_exists('MongoCursor', false)) {
 
 use Alcaeus\MongoDbAdapter\AbstractCursor;
 use Alcaeus\MongoDbAdapter\CursorIterator;
-use Alcaeus\MongoDbAdapter\TypeConverter;
 use Alcaeus\MongoDbAdapter\ExceptionConverter;
+use Alcaeus\MongoDbAdapter\TypeConverter;
 use MongoDB\Driver\Cursor;
 use MongoDB\Operation\Find;
 
 /**
  * Result object for database query.
- * @link http://www.php.net/manual/en/class.mongocursor.php
+ * @see http://www.php.net/manual/en/class.mongocursor.php
  */
 class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCursorInterface
 {
@@ -68,27 +68,38 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
     protected $query;
 
     protected $allowPartialResults;
+
     protected $awaitData;
+
     protected $flags = 0;
+
     protected $hint;
+
     protected $limit;
+
     protected $maxTimeMS;
+
     protected $noCursorTimeout;
+
     protected $options = [];
+
     protected $skip;
+
     protected $snapshot;
+
     protected $sort;
+
     protected $tailable;
 
     /**
-     * Create a new cursor
-     * @link http://www.php.net/manual/en/mongocursor.construct.php
-     * @param MongoClient $connection Database connection.
-     * @param string $ns Full name of database and collection.
-     * @param array $query Database query.
-     * @param array $fields Fields to return.
+     * Create a new cursor.
+     * @see http://www.php.net/manual/en/mongocursor.construct.php
+     * @param MongoClient $connection database connection
+     * @param string $ns full name of database and collection
+     * @param array $query database query
+     * @param array $fields fields to return
      */
-    public function __construct(MongoClient $connection, $ns, array $query = array(), array $fields = array())
+    public function __construct(MongoClient $connection, $ns, array $query = [], array $fields = [])
     {
         parent::__construct($connection, $ns);
 
@@ -97,12 +108,12 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
     }
 
     /**
-     * Adds a top-level key/value pair to a query
-     * @link http://www.php.net/manual/en/mongocursor.addoption.php
-     * @param string $key Fieldname to add.
-     * @param mixed $value Value to add.
-     * @throws MongoCursorException
+     * Adds a top-level key/value pair to a query.
+     * @see http://www.php.net/manual/en/mongocursor.addoption.php
+     * @param string $key fieldname to add
+     * @param mixed $value value to add
      * @return MongoCursor Returns this cursor
+     * @throws MongoCursorException
      */
     public function addOption($key, $value)
     {
@@ -114,9 +125,9 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
 
     /**
      * (PECL mongo &gt;= 1.2.11)<br/>
-     * Sets whether this cursor will wait for a while for a tailable cursor to return more data
+     * Sets whether this cursor will wait for a while for a tailable cursor to return more data.
      * @param bool $wait [optional] <p>If the cursor should wait for more data to become available.</p>
-     * @return MongoCursor Returns this cursor.
+     * @return MongoCursor returns this cursor
      */
     public function awaitData($wait = true)
     {
@@ -126,12 +137,11 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
         return $this;
     }
 
-
     /**
-     * Counts the number of results for this query
-     * @link http://www.php.net/manual/en/mongocursor.count.php
-     * @param bool $foundOnly Send cursor limit and skip information to the count function, if applicable.
-     * @return int The number of documents returned by this cursor's query.
+     * Counts the number of results for this query.
+     * @see http://www.php.net/manual/en/mongocursor.count.php
+     * @param bool $foundOnly send cursor limit and skip information to the count function, if applicable
+     * @return int the number of documents returned by this cursor's query
      */
     #[\ReturnTypeWillChange]
     public function count($foundOnly = false)
@@ -142,6 +152,7 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
         }
 
         $options = $this->getOptions($optionNames) + $this->options;
+
         try {
             $count = $this->collection->count(TypeConverter::fromLegacy($this->query), $options);
         } catch (\MongoDB\Driver\Exception\ExecutionTimeoutException $e) {
@@ -154,28 +165,9 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
     }
 
     /**
-     * Execute the query
-     * @link http://www.php.net/manual/en/mongocursor.doquery.php
-     * @throws MongoConnectionException if it cannot reach the database.
-     * @return void
-     */
-    protected function doQuery()
-    {
-        $options = $this->getOptions() + $this->options;
-
-        try {
-            $this->cursor = $this->collection->find(TypeConverter::fromLegacy($this->query), $options);
-        } catch (\MongoDB\Driver\Exception\ExecutionTimeoutException $e) {
-            throw new MongoCursorTimeoutException($e->getMessage(), $e->getCode(), $e);
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
-            throw ExceptionConverter::toLegacy($e);
-        }
-    }
-
-    /**
-     * Return an explanation of the query, often useful for optimization and debugging
-     * @link http://www.php.net/manual/en/mongocursor.explain.php
-     * @return array Returns an explanation of the query.
+     * Return an explanation of the query, often useful for optimization and debugging.
+     * @see http://www.php.net/manual/en/mongocursor.explain.php
+     * @return array returns an explanation of the query
      */
     public function explain()
     {
@@ -207,11 +199,11 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
     }
 
     /**
-     * Sets the fields for a query
-     * @link http://www.php.net/manual/en/mongocursor.fields.php
-     * @param array $f Fields to return (or not return).
-     * @throws MongoCursorException
+     * Sets the fields for a query.
+     * @see http://www.php.net/manual/en/mongocursor.fields.php
+     * @param array $f fields to return (or not return)
      * @return MongoCursor
+     * @throws MongoCursorException
      */
     public function fields(array $f)
     {
@@ -222,11 +214,11 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
     }
 
     /**
-     * Advances the cursor to the next result, and returns that result
-     * @link http://www.php.net/manual/en/mongocursor.getnext.php
+     * Advances the cursor to the next result, and returns that result.
+     * @see http://www.php.net/manual/en/mongocursor.getnext.php
+     * @return array Returns the next object
      * @throws MongoConnectionException
      * @throws MongoCursorTimeoutException
-     * @return array Returns the next object
      */
     public function getNext()
     {
@@ -234,15 +226,15 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
     }
 
     /**
-     * Checks if there are any more elements in this cursor
-     * @link http://www.php.net/manual/en/mongocursor.hasnext.php
+     * Checks if there are any more elements in this cursor.
+     * @see http://www.php.net/manual/en/mongocursor.hasnext.php
+     * @return bool Returns true if there is another element
      * @throws MongoConnectionException
      * @throws MongoCursorTimeoutException
-     * @return bool Returns true if there is another element
      */
     public function hasNext()
     {
-        if (! $this->startedIterating) {
+        if (!$this->startedIterating) {
             $this->ensureIterator();
             $this->startedIterating = true;
             $this->storeIteratorState();
@@ -256,11 +248,11 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
     }
 
     /**
-     * Gives the database a hint about the query
-     * @link http://www.php.net/manual/en/mongocursor.hint.php
-     * @param array|string $keyPattern Indexes to use for the query.
-     * @throws MongoCursorException
+     * Gives the database a hint about the query.
+     * @see http://www.php.net/manual/en/mongocursor.hint.php
+     * @param array|string $keyPattern indexes to use for the query
      * @return MongoCursor Returns this cursor
+     * @throws MongoCursorException
      */
     public function hint($keyPattern)
     {
@@ -271,11 +263,11 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
     }
 
     /**
-     * Sets whether this cursor will timeout
-     * @link http://www.php.net/manual/en/mongocursor.immortal.php
-     * @param bool $liveForever If the cursor should be immortal.
-     * @throws MongoCursorException
+     * Sets whether this cursor will timeout.
+     * @see http://www.php.net/manual/en/mongocursor.immortal.php
+     * @param bool $liveForever if the cursor should be immortal
      * @return MongoCursor Returns this cursor
+     * @throws MongoCursorException
      */
     public function immortal($liveForever = true)
     {
@@ -286,11 +278,11 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
     }
 
     /**
-     * Limits the number of results returned
-     * @link http://www.php.net/manual/en/mongocursor.limit.php
-     * @param int $num The number of results to return.
-     * @throws MongoCursorException
+     * Limits the number of results returned.
+     * @see http://www.php.net/manual/en/mongocursor.limit.php
+     * @param int $num the number of results to return
      * @return MongoCursor Returns this cursor
+     * @throws MongoCursorException
      */
     public function limit($num)
     {
@@ -314,9 +306,9 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
     }
 
     /**
-     * @link http://www.php.net/manual/en/mongocursor.partial.php
+     * @see http://www.php.net/manual/en/mongocursor.partial.php
      * @param bool $okay [optional] <p>If receiving partial results is okay.</p>
-     * @return MongoCursor Returns this cursor.
+     * @return MongoCursor returns this cursor
      */
     public function partial($okay = true)
     {
@@ -326,17 +318,16 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
     }
 
     /**
-     * Clears the cursor
-     * @link http://www.php.net/manual/en/mongocursor.reset.php
-     * @return void
+     * Clears the cursor.
+     * @see http://www.php.net/manual/en/mongocursor.reset.php
      */
-    public function reset()
+    public function reset(): void
     {
         parent::reset();
     }
 
     /**
-     * @link http://www.php.net/manual/en/mongocursor.setflag.php
+     * @see http://www.php.net/manual/en/mongocursor.setflag.php
      * @param int $flag
      * @param bool $set
      * @return MongoCursor
@@ -347,11 +338,11 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
     }
 
     /**
-     * Skips a number of results
-     * @link http://www.php.net/manual/en/mongocursor.skip.php
-     * @param int $num The number of results to skip.
-     * @throws MongoCursorException
+     * Skips a number of results.
+     * @see http://www.php.net/manual/en/mongocursor.skip.php
+     * @param int $num the number of results to skip
      * @return MongoCursor Returns this cursor
+     * @throws MongoCursorException
      */
     public function skip($num)
     {
@@ -364,10 +355,10 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
     /**
      * Sets whether this query can be done on a slave
      * This method will override the static class variable slaveOkay.
-     * @link http://www.php.net/manual/en/mongocursor.slaveOkay.php
-     * @param boolean $okay If it is okay to query the slave.
-     * @throws MongoCursorException
+     * @see http://www.php.net/manual/en/mongocursor.slaveOkay.php
+     * @param bool $okay if it is okay to query the slave
      * @return MongoCursor Returns this cursor
+     * @throws MongoCursorException
      */
     public function slaveOkay($okay = true)
     {
@@ -379,10 +370,10 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
     }
 
     /**
-     * Use snapshot mode for the query
-     * @link http://www.php.net/manual/en/mongocursor.snapshot.php
-     * @throws MongoCursorException
+     * Use snapshot mode for the query.
+     * @see http://www.php.net/manual/en/mongocursor.snapshot.php
      * @return MongoCursor Returns this cursor
+     * @throws MongoCursorException
      */
     public function snapshot()
     {
@@ -393,11 +384,11 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
     }
 
     /**
-     * Sorts the results by given fields
-     * @link http://www.php.net/manual/en/mongocursor.sort.php
+     * Sorts the results by given fields.
+     * @see http://www.php.net/manual/en/mongocursor.sort.php
      * @param array $fields An array of fields by which to sort. Each element in the array has as key the field name, and as value either 1 for ascending sort, or -1 for descending sort
-     * @throws MongoCursorException
      * @return MongoCursor Returns the same cursor that this method was called on
+     * @throws MongoCursorException
      */
     public function sort(array $fields)
     {
@@ -408,9 +399,9 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
     }
 
     /**
-     * Sets whether this cursor will be left open after fetching the last results
-     * @link http://www.php.net/manual/en/mongocursor.tailable.php
-     * @param bool $tail If the cursor should be tailable.
+     * Sets whether this cursor will be left open after fetching the last results.
+     * @see http://www.php.net/manual/en/mongocursor.tailable.php
+     * @param bool $tail if the cursor should be tailable
      * @return MongoCursor Returns this cursor
      */
     public function tailable($tail = true)
@@ -422,11 +413,53 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
     }
 
     /**
+     * @return array
+     */
+    public function __sleep()
+    {
+        return [
+            'allowPartialResults',
+            'awaitData',
+            'flags',
+            'hint',
+            'limit',
+            'maxTimeMS',
+            'noCursorTimeout',
+            'optionNames',
+            'options',
+            'projection',
+            'query',
+            'skip',
+            'snapshot',
+            'sort',
+            'tailable',
+        ] + parent::__sleep();
+    }
+
+    /**
+     * Execute the query.
+     * @see http://www.php.net/manual/en/mongocursor.doquery.php
+     * @throws MongoConnectionException if it cannot reach the database
+     */
+    protected function doQuery(): void
+    {
+        $options = $this->getOptions() + $this->options;
+
+        try {
+            $this->cursor = $this->collection->find(TypeConverter::fromLegacy($this->query), $options);
+        } catch (\MongoDB\Driver\Exception\ExecutionTimeoutException $e) {
+            throw new MongoCursorTimeoutException($e->getMessage(), $e->getCode(), $e);
+        } catch (\MongoDB\Driver\Exception\Exception $e) {
+            throw ExceptionConverter::toLegacy($e);
+        }
+    }
+
+    /**
      * @return int|null
      */
     protected function convertCursorType()
     {
-        if (! $this->tailable) {
+        if (!$this->tailable) {
             return null;
         }
 
@@ -441,11 +474,11 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
         $modifiers = array_key_exists('modifiers', $this->options) ? $this->options['modifiers'] : [];
 
         foreach (['hint', 'snapshot'] as $modifier) {
-            if ($this->$modifier === null) {
+            if ($this->{$modifier} === null) {
                 continue;
             }
 
-            $modifiers['$' . $modifier] = $this->$modifier;
+            $modifiers['$' . $modifier] = $this->{$modifier};
         }
 
         return $modifiers;
@@ -472,10 +505,9 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
     }
 
     /**
-     * @param \Traversable $traversable
      * @return CursorIterator
      */
-    protected function wrapTraversable(\Traversable $traversable)
+    protected function wrapTraversable(Traversable $traversable)
     {
         return new CursorIterator($traversable, true);
     }
@@ -494,29 +526,5 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
             'query' => $this->query,
             'fields' => $this->projection,
         ];
-    }
-
-    /**
-     * @return array
-     */
-    public function __sleep()
-    {
-        return [
-            'allowPartialResults',
-            'awaitData',
-            'flags',
-            'hint',
-            'limit',
-            'maxTimeMS',
-            'noCursorTimeout',
-            'optionNames',
-            'options',
-            'projection',
-            'query',
-            'skip',
-            'snapshot',
-            'sort',
-            'tailable',
-        ] + parent::__sleep();
     }
 }

@@ -10,10 +10,10 @@ use Alcaeus\MongoDbAdapter\TypeInterface;
  */
 class MongoMaxKeyTest extends TestCase
 {
-    public function testConvert()
+    public function testConvert(): void
     {
         $maxKey = new \MongoMaxKey();
         $this->skipTestUnless($maxKey instanceof TypeInterface);
-        $this->assertInstanceOf('MongoDB\BSON\MaxKey', $maxKey->toBSONType());
+        self::assertInstanceOf('MongoDB\BSON\MaxKey', $maxKey->toBSONType());
     }
 }

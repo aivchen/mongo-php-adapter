@@ -23,7 +23,7 @@ use MongoDB\BSON\MaxKey;
 class MongoMaxKey implements TypeInterface
 {
     /**
-     * Converts this to the new BSON MaxKey type
+     * Converts this to the new BSON MaxKey type.
      *
      * @return MaxKey
      * @internal This method is not part of the ext-mongo API

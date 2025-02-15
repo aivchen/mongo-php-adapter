@@ -10,15 +10,15 @@ use Alcaeus\MongoDbAdapter\TypeInterface;
  */
 class MongoBinDataTest extends TestCase
 {
-    const GUID = '0123456789abcdef';
+    public const GUID = '0123456789abcdef';
 
     public function testCreate()
     {
         $bin = new \MongoBinData(self::GUID, \MongoBinData::FUNC);
-        $this->assertSame(self::GUID, $bin->bin);
-        $this->assertSame(\MongoBinData::FUNC, $bin->type);
+        self::assertSame(self::GUID, $bin->bin);
+        self::assertSame(\MongoBinData::FUNC, $bin->type);
 
-        $this->assertSame('<Mongo Binary Data>', (string) $bin);
+        self::assertSame('<Mongo Binary Data>', (string) $bin);
 
         return $bin;
     }
@@ -26,25 +26,25 @@ class MongoBinDataTest extends TestCase
     /**
      * @depends testCreate
      */
-    public function testConvertToBson(\MongoBinData $bin)
+    public function testConvertToBson(\MongoBinData $bin): void
     {
         $this->skipTestUnless($bin instanceof TypeInterface);
 
         $bsonBinary = $bin->toBSONType();
-        $this->assertInstanceOf('MongoDB\BSON\Binary', $bsonBinary);
+        self::assertInstanceOf('MongoDB\BSON\Binary', $bsonBinary);
 
-        $this->assertSame(self::GUID, $bsonBinary->getData());
-        $this->assertSame(\MongoDB\BSON\Binary::TYPE_FUNCTION, $bsonBinary->getType());
+        self::assertSame(self::GUID, $bsonBinary->getData());
+        self::assertSame(\MongoDB\BSON\Binary::TYPE_FUNCTION, $bsonBinary->getType());
     }
 
-    public function testCreateWithBsonBinary()
+    public function testCreateWithBsonBinary(): void
     {
-        $this->skipTestUnless(in_array(TypeInterface::class, class_implements('MongoBinData')));
+        $this->skipTestUnless(\in_array(TypeInterface::class, class_implements('MongoBinData'), true));
 
         $bsonBinary = new \MongoDB\BSON\Binary(self::GUID, \MongoDB\BSON\Binary::TYPE_UUID);
         $bin = new \MongoBinData($bsonBinary);
 
-        $this->assertSame(self::GUID, $bin->bin);
-        $this->assertSame(\MongoBinData::UUID_RFC4122, $bin->type);
+        self::assertSame(self::GUID, $bin->bin);
+        self::assertSame(\MongoBinData::UUID_RFC4122, $bin->type);
     }
 }

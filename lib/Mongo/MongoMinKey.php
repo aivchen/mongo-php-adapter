@@ -23,7 +23,7 @@ use MongoDB\BSON\MinKey;
 class MongoMinKey implements TypeInterface
 {
     /**
-     * Converts this to the new BSON MinKey type
+     * Converts this to the new BSON MinKey type.
      *
      * @return MinKey
      * @internal This method is not part of the ext-mongo API

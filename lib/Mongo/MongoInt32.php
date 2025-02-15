@@ -22,7 +22,7 @@ use Alcaeus\MongoDbAdapter\TypeInterface;
 class MongoInt32 implements TypeInterface
 {
     /**
-     * @link http://php.net/manual/en/class.mongoint32.php#mongoint32.props.value
+     * @see http://php.net/manual/en/class.mongoint32.php#mongoint32.props.value
      * @var string
      */
     public $value;
@@ -30,7 +30,7 @@ class MongoInt32 implements TypeInterface
     /**
      * Creates a new 32-bit number with the given value.
      *
-     * @link http://php.net/manual/en/mongoint32.construct.php
+     * @see http://php.net/manual/en/mongoint32.construct.php
      * @param string $value A number
      */
     public function __construct($value)
@@ -47,7 +47,7 @@ class MongoInt32 implements TypeInterface
     }
 
     /**
-     * Converts this MongoInt32 to a native integer
+     * Converts this MongoInt32 to a native integer.
      *
      * @return int
      * @internal This method is not part of the ext-mongo API

@@ -20,68 +20,69 @@ if (class_exists('MongoLog', false)) {
 class MongoLog
 {
     /**
-     * @link http://php.net/manual/en/class.mongolog.php#mongolog.constants.none
+     * @see http://php.net/manual/en/class.mongolog.php#mongolog.constants.none
      */
-    const NONE = 0;
+    public const NONE = 0;
 
     /**
-     * @link http://php.net/manual/en/class.mongolog.php#mongolog.constants.all
+     * @see http://php.net/manual/en/class.mongolog.php#mongolog.constants.all
      */
-    const ALL = 31;
+    public const ALL = 31;
 
     /**
-     * @link http://php.net/manual/en/class.mongolog.php#mongolog.constants.warning
+     * @see http://php.net/manual/en/class.mongolog.php#mongolog.constants.warning
      */
-    const WARNING = 1;
+    public const WARNING = 1;
 
     /**
-     * @link http://php.net/manual/en/class.mongolog.php#mongolog.constants.info
+     * @see http://php.net/manual/en/class.mongolog.php#mongolog.constants.info
      */
-    const INFO = 2;
+    public const INFO = 2;
 
     /**
-     * @link http://php.net/manual/en/class.mongolog.php#mongolog.constants.fine
+     * @see http://php.net/manual/en/class.mongolog.php#mongolog.constants.fine
      */
-    const FINE = 4;
+    public const FINE = 4;
 
     /**
-     * @link http://php.net/manual/en/class.mongolog.php#mongolog.constants.rs
+     * @see http://php.net/manual/en/class.mongolog.php#mongolog.constants.rs
      */
-    const RS = 1;
+    public const RS = 1;
 
     /**
-     * @link http://php.net/manual/en/class.mongolog.php#mongolog.constants.pool
+     * @see http://php.net/manual/en/class.mongolog.php#mongolog.constants.pool
      */
-    const POOL = 1;
+    public const POOL = 1;
 
     /**
-     * @link http://php.net/manual/en/class.mongolog.php#mongolog.constants.con
+     * @see http://php.net/manual/en/class.mongolog.php#mongolog.constants.con
      */
-    const CON = 2;
+    public const CON = 2;
 
     /**
-     * @link http://php.net/manual/en/class.mongolog.php#mongolog.constants.io
+     * @see http://php.net/manual/en/class.mongolog.php#mongolog.constants.io
      */
-    const IO = 4;
+    public const IO = 4;
 
     /**
-     * @link http://php.net/manual/en/class.mongolog.php#mongolog.constants.server
+     * @see http://php.net/manual/en/class.mongolog.php#mongolog.constants.server
      */
-    const SERVER = 8;
+    public const SERVER = 8;
 
     /**
-     * @link http://php.net/manual/en/class.mongolog.php#mongolog.constants.parse
+     * @see http://php.net/manual/en/class.mongolog.php#mongolog.constants.parse
      */
-    const PARSE = 16;
-
+    public const PARSE = 16;
 
     private static $callback;
+
     private static $level;
+
     private static $module;
 
     /**
      * (PECL mongo &gt;= 1.3.0)
-     * Gets the previously set callback function
+     * Gets the previously set callback function.
      *
      * @return callable|null
      */
@@ -95,8 +96,8 @@ class MongoLog
      * <p>
      * This function will set a callback function to be called for {@link http://www.php.net/manual/en/class.mongolog.php MongoLog} events
      * instead of triggering warnings.
-     * </p>
-     * @link http://www.php.net/manual/en/mongolog.setcallback.php
+     * </p>.
+     * @see http://www.php.net/manual/en/mongolog.setcallback.php
      * @param callable $log_function   <p>
      * The function to be called on events.
      * </p>
@@ -121,11 +122,12 @@ class MongoLog
      *
      * <p>The log message itself.</p></li>
      * <ul>
-     * @return boolean Returns <b>TRUE</b> on success or <b>FALSE</b> on failure.
+     * @return bool returns <b>TRUE</b> on success or <b>FALSE</b> on failure
      */
     public static function setCallback(callable $log_function)
     {
         self::$callback = $log_function;
+
         return true;
     }
 
@@ -134,12 +136,11 @@ class MongoLog
      * activities that should be logged. Use the constants described in the MongoLog
      * section with bitwise operators to specify levels.
      *
-     * @link http://php.net/manual/en/mongolog.setlevel.php
+     * @see http://php.net/manual/en/mongolog.setlevel.php
      * @static
      * @param int $level The levels you would like to log
-     * @return void
      */
-    public static function setLevel($level)
+    public static function setLevel($level): void
     {
         self::$level = $level;
     }
@@ -148,7 +149,7 @@ class MongoLog
      * This can be used to see the log level. Use the constants described in the
      * MongoLog section with bitwise operators to check the level.
      *
-     * @link http://php.net/manual/en/mongolog.getlevel.php
+     * @see http://php.net/manual/en/mongolog.getlevel.php
      * @static
      * @return int Returns the current level
      */
@@ -162,12 +163,11 @@ class MongoLog
      * should be logged. Use the constants described in the MongoLog section with
      * bitwise operators to specify modules.
      *
-     * @link http://php.net/manual/en/mongolog.setmodule.php
+     * @see http://php.net/manual/en/mongolog.setmodule.php
      * @static
      * @param int $module The module(s) you would like to log
-     * @return void
      */
-    public static function setModule($module)
+    public static function setModule($module): void
     {
         self::$module = $module;
     }
@@ -177,7 +177,7 @@ class MongoLog
      * being logged. Use the constants described in the MongoLog section with bitwise
      * operators to check if specific modules are being logged.
      *
-     * @link http://php.net/manual/en/mongolog.getmodule.php
+     * @see http://php.net/manual/en/mongolog.getmodule.php
      * @static
      * @return int Returns the modules currently being logged
      */

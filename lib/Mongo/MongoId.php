@@ -22,16 +22,15 @@ use MongoDB\BSON\ObjectID;
 
 class MongoId implements TypeInterface, JsonSerializable
 {
-    /*
+    /**
      * @var ObjectID
      */
     private $objectID;
 
     /**
-     * Creates a new id
+     * Creates a new id.
      *
-     *
-     * @link http://www.php.net/manual/en/mongoid.construct.php
+     * @see http://www.php.net/manual/en/mongoid.construct.php
      * @param string $id [optional] A string to use as the id. Must be 24 hexidecimal characters. If an invalid string is passed to this constructor, the constructor will ignore it and create a new id value.
      *
      * @throws MongoException
@@ -42,17 +41,18 @@ class MongoId implements TypeInterface, JsonSerializable
     }
 
     /**
-     * Check if a value is a valid ObjectId
+     * Check if a value is a valid ObjectId.
      *
-     * @link http://php.net/manual/en/mongoid.isvalid.php
-     * @param mixed $value The value to check for validity.
+     * @see http://php.net/manual/en/mongoid.isvalid.php
+     * @param mixed $value the value to check for validity
      * @return bool
      */
     public static function isValid($value)
     {
-        if ($value instanceof ObjectID || $value instanceof MongoId) {
+        if ($value instanceof ObjectID || $value instanceof self) {
             return true;
-        } elseif (! is_string($value)) {
+        }
+        if (!is_string($value)) {
             return false;
         }
 
@@ -60,8 +60,27 @@ class MongoId implements TypeInterface, JsonSerializable
     }
 
     /**
-     * Returns a hexidecimal representation of this id
-     * @link http://www.php.net/manual/en/mongoid.tostring.php
+     * Gets the hostname being used for this machine's ids.
+     * @see http://www.php.net/manual/en/mongoid.gethostname.php
+     * @return string
+     */
+    public static function getHostname()
+    {
+        return gethostname();
+    }
+
+    /**
+     * (PECL mongo &gt;= 1.0.8)
+     * Create a dummy MongoId.
+     * @see http://php.net/manual/en/mongoid.set-state.php
+     * @param array $props <p>Theoretically, an array of properties used to create the new id. However, as MongoId instances have no properties, this is not used.</p>
+     * @return MongoId a new id with the value "000000000000000000000000"
+     */
+    public static function __set_state(array $props) {}
+
+    /**
+     * Returns a hexidecimal representation of this id.
+     * @see http://www.php.net/manual/en/mongoid.tostring.php
      * @return string
      */
     public function __toString()
@@ -70,7 +89,7 @@ class MongoId implements TypeInterface, JsonSerializable
     }
 
     /**
-     * Converts this MongoId to the new BSON ObjectID type
+     * Converts this MongoId to the new BSON ObjectID type.
      *
      * @return ObjectID
      * @internal This method is not part of the ext-mongo API
@@ -96,12 +115,12 @@ class MongoId implements TypeInterface, JsonSerializable
 
     /**
      * @param string $name
-     * @param mixed $value
      */
-    public function __set($name, $value)
+    public function __set($name, $value): void
     {
         if ($name === 'id') {
-            trigger_error("The '\$id' property is read-only", E_USER_DEPRECATED);
+            @trigger_error("The '\$id' property is read-only", E_USER_DEPRECATED);
+
             return;
         }
     }
@@ -118,10 +137,11 @@ class MongoId implements TypeInterface, JsonSerializable
     /**
      * @param string $name
      */
-    public function __unset($name)
+    public function __unset($name): void
     {
         if ($name === 'id') {
-            trigger_error("The '\$id' property is read-only", E_USER_DEPRECATED);
+            @trigger_error("The '\$id' property is read-only", E_USER_DEPRECATED);
+
             return;
         }
     }
@@ -137,9 +157,9 @@ class MongoId implements TypeInterface, JsonSerializable
     }
 
     /**
-     * Gets the incremented value to create this id
-     * @link http://php.net/manual/en/mongoid.getinc.php
-     * @return int Returns the incremented value used to create this MongoId.
+     * Gets the incremented value to create this id.
+     * @see http://php.net/manual/en/mongoid.getinc.php
+     * @return int returns the incremented value used to create this MongoId
      */
     public function getInc()
     {
@@ -148,9 +168,9 @@ class MongoId implements TypeInterface, JsonSerializable
 
     /**
      * (PECL mongo &gt;= 1.0.11)
-     * Gets the process ID
-     * @link http://php.net/manual/en/mongoid.getpid.php
-     * @return int Returns the PID of the MongoId.
+     * Gets the process ID.
+     * @see http://php.net/manual/en/mongoid.getpid.php
+     * @return int returns the PID of the MongoId
      */
     public function getPID()
     {
@@ -158,39 +178,19 @@ class MongoId implements TypeInterface, JsonSerializable
 
         // PID is stored as little-endian, flip it around
         $pid = substr($id, 16, 2) . substr($id, 14, 2);
+
         return hexdec($pid);
     }
 
     /**
      * (PECL mongo &gt;= 1.0.1)
-     * Gets the number of seconds since the epoch that this id was created
-     * @link http://www.php.net/manual/en/mongoid.gettimestamp.php
+     * Gets the number of seconds since the epoch that this id was created.
+     * @see http://www.php.net/manual/en/mongoid.gettimestamp.php
      * @return int
      */
     public function getTimestamp()
     {
         return hexdec(substr((string) $this->objectID, 0, 8));
-    }
-
-    /**
-     * Gets the hostname being used for this machine's ids
-     * @link http://www.php.net/manual/en/mongoid.gethostname.php
-     * @return string
-     */
-    public static function getHostname()
-    {
-        return gethostname();
-    }
-
-    /**
-     * (PECL mongo &gt;= 1.0.8)
-     * Create a dummy MongoId
-     * @link http://php.net/manual/en/mongoid.set-state.php
-     * @param array $props <p>Theoretically, an array of properties used to create the new id. However, as MongoId instances have no properties, this is not used.</p>
-     * @return MongoId A new id with the value "000000000000000000000000".
-     */
-    public static function __set_state(array $props)
-    {
     }
 
     /**
@@ -201,14 +201,14 @@ class MongoId implements TypeInterface, JsonSerializable
     {
         $object = new stdClass();
         $object->{'$id'} = (string) $this->objectID;
+
         return $object;
     }
 
     /**
-     * @param $id
      * @throws MongoException
      */
-    private function createObjectID($id)
+    private function createObjectID($id): void
     {
         try {
             if (is_string($id)) {

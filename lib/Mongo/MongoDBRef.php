@@ -21,20 +21,18 @@ class MongoDBRef
 {
     /**
      * @static
-     * @var $refKey
      */
     protected static $refKey = '$ref';
 
     /**
      * @static
-     * @var $idKey
      */
     protected static $idKey = '$id';
 
     /**
      * If no database is given, the current database is used.
      *
-     * @link http://php.net/manual/en/mongodbref.create.php
+     * @see http://php.net/manual/en/mongodbref.create.php
      * @static
      * @param string $collection Collection name (without the database name)
      * @param mixed $id The _id field of the object to which to link
@@ -45,7 +43,7 @@ class MongoDBRef
     {
         $ref = [
             static::$refKey => $collection,
-            static::$idKey => $id
+            static::$idKey => $id,
         ];
 
         if ($database !== null) {
@@ -59,10 +57,10 @@ class MongoDBRef
      * This not actually follow the reference, so it does not determine if it is broken or not.
      * It merely checks that $ref is in valid database reference format (in that it is an object or array with $ref and $id fields).
      *
-     * @link http://php.net/manual/en/mongodbref.isref.php
+     * @see http://php.net/manual/en/mongodbref.isref.php
      * @static
      * @param mixed $ref Array or object to check
-     * @return boolean Returns true if $ref is a reference
+     * @return bool Returns true if $ref is a reference
      */
     public static function isRef($ref)
     {
@@ -72,8 +70,8 @@ class MongoDBRef
     }
 
     /**
-     * Fetches the object pointed to by a reference
-     * @link http://php.net/manual/en/mongodbref.get.php
+     * Fetches the object pointed to by a reference.
+     * @see http://php.net/manual/en/mongodbref.get.php
      * @static
      * @param MongoDB $db Database to use
      * @param array $ref Reference to fetch
@@ -81,7 +79,7 @@ class MongoDBRef
      */
     public static function get($db, $ref)
     {
-        if (! static::isRef($ref)) {
+        if (!static::isRef($ref)) {
             return null;
         }
 

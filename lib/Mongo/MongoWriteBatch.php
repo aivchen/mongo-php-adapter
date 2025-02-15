@@ -17,8 +17,8 @@ if (class_exists('MongoWriteBatch', false)) {
     return;
 }
 
-use Alcaeus\MongoDbAdapter\TypeConverter;
 use Alcaeus\MongoDbAdapter\Helper\WriteConcernConverter;
+use Alcaeus\MongoDbAdapter\TypeConverter;
 use MongoDB\Driver\Exception\BulkWriteException;
 use MongoDB\Driver\WriteError;
 use MongoDB\Driver\WriteResult;
@@ -34,9 +34,9 @@ class MongoWriteBatch
 {
     use WriteConcernConverter;
 
-    const COMMAND_INSERT = 1;
-    const COMMAND_UPDATE = 2;
-    const COMMAND_DELETE = 3;
+    public const COMMAND_INSERT = 1;
+    public const COMMAND_UPDATE = 2;
+    public const COMMAND_DELETE = 3;
 
     /**
      * @var MongoCollection
@@ -59,10 +59,9 @@ class MongoWriteBatch
     private $items = [];
 
     /**
-     * Creates a new batch of write operations
+     * Creates a new batch of write operations.
      *
      * @see http://php.net/manual/en/mongowritebatch.construct.php
-     * @param MongoCollection $collection
      * @param int $batchType
      * @param array $writeOptions
      */
@@ -74,11 +73,11 @@ class MongoWriteBatch
     }
 
     /**
-     * Adds a write operation to a batch
+     * Adds a write operation to a batch.
      *
      * @see http://php.net/manual/en/mongowritebatch.add.php
      * @param array|object $item
-     * @return boolean
+     * @return bool
      */
     public function add($item)
     {
@@ -93,16 +92,15 @@ class MongoWriteBatch
     }
 
     /**
-     * Executes a batch of write operations
+     * Executes a batch of write operations.
      *
      * @see http://php.net/manual/en/mongowritebatch.execute.php
-     * @param array $writeOptions
      * @return array
      */
     final public function execute(array $writeOptions = [])
     {
         $writeOptions += $this->writeOptions;
-        if (! count($this->items)) {
+        if (!count($this->items)) {
             return ['ok' => true];
         }
 
@@ -147,7 +145,7 @@ class MongoWriteBatch
                 foreach ($writeResult->getUpsertedIds() as $index => $id) {
                     $upsertedIds[] = [
                         'index' => $index,
-                        '_id' => TypeConverter::toLegacy($id)
+                        '_id' => TypeConverter::toLegacy($id),
                     ];
                 }
 
@@ -162,7 +160,6 @@ class MongoWriteBatch
                     $resultDocument['upserted'] = $upsertedIds;
                 }
                 break;
-
             case self::COMMAND_DELETE:
                 if ($options['writeConcern']->getW() === 0) {
                     $resultDocument += [
@@ -178,7 +175,6 @@ class MongoWriteBatch
                     'ok' => true,
                 ];
                 break;
-
             case self::COMMAND_INSERT:
                 if ($options['writeConcern']->getW() === 0) {
                     $resultDocument += [
@@ -196,7 +192,7 @@ class MongoWriteBatch
                 break;
         }
 
-        if (! $ok) {
+        if (!$ok) {
             // Exception code is hardcoded to the value in ext-mongo, see
             // https://github.com/mongodb/mongo-php-driver-legacy/blob/ab4bc0d90e93b3f247f6bcb386d0abc8d2fa7d74/batch/write.c#L428
             throw new \MongoWriteConcernException('Failed write', 911, null, $resultDocument);
@@ -205,30 +201,29 @@ class MongoWriteBatch
         return $resultDocument;
     }
 
-    private function validate(array $item)
+    private function validate(array $item): void
     {
         switch ($this->batchType) {
             case self::COMMAND_UPDATE:
-                if (! isset($item['q'])) {
+                if (!isset($item['q'])) {
                     throw new Exception("Expected \$item to contain 'q' key");
                 }
-                if (! isset($item['u'])) {
+                if (!isset($item['u'])) {
                     throw new Exception("Expected \$item to contain 'u' key");
                 }
                 break;
-
             case self::COMMAND_DELETE:
-                if (! isset($item['q'])) {
+                if (!isset($item['q'])) {
                     throw new Exception("Expected \$item to contain 'q' key");
                 }
-                if (! isset($item['limit'])) {
+                if (!isset($item['limit'])) {
                     throw new Exception("Expected \$item to contain 'limit' key");
                 }
                 break;
         }
     }
 
-    private function addItem(array $item)
+    private function addItem(array $item): void
     {
         switch ($this->batchType) {
             case self::COMMAND_UPDATE:
@@ -241,11 +236,9 @@ class MongoWriteBatch
 
                 $this->items[] = [$method => [TypeConverter::fromLegacy($item['q']), TypeConverter::fromLegacy($item['u']), $options]];
                 break;
-
             case self::COMMAND_INSERT:
                 $this->items[] = ['insertOne' => [TypeConverter::fromLegacy($item)]];
                 break;
-
             case self::COMMAND_DELETE:
                 $method = $item['limit'] === 0 ? 'deleteMany' : 'deleteOne';
 
@@ -255,7 +248,6 @@ class MongoWriteBatch
     }
 
     /**
-     * @param WriteResult $result
      * @return array
      */
     private function convertWriteErrors(WriteResult $result)
@@ -269,6 +261,7 @@ class MongoWriteBatch
                 'errmsg' => $writeError->getMessage(),
             ];
         }
+
         return $writeErrors;
     }
 }

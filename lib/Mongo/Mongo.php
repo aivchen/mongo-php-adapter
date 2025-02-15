@@ -20,7 +20,7 @@ if (class_exists('Mongo', false)) {
 /**
  * The connection point between MongoDB and PHP.
  * This class is used to initiate a connection and for database server commands.
- * @link http://www.php.net/manual/en/class.mongo.php
+ * @see http://www.php.net/manual/en/class.mongo.php
  * @deprecated This class has been DEPRECATED as of version 1.3.0.
  * Relying on this feature is highly discouraged. Please use MongoClient instead.
  * @see MongoClient
@@ -28,7 +28,7 @@ if (class_exists('Mongo', false)) {
 class Mongo extends MongoClient
 {
     /**
-     * Dummy constructor to throw an exception
+     * Dummy constructor to throw an exception.
      */
     public function __construct()
     {
@@ -36,10 +36,10 @@ class Mongo extends MongoClient
     }
 
     /**
-     * Get pool size for connection pools
+     * Get pool size for connection pools.
      *
-     * @link http://php.net/manual/en/mongo.getpoolsize.php
-     * @return int Returns the current pool size.
+     * @see http://php.net/manual/en/mongo.getpoolsize.php
+     * @return int returns the current pool size
      *
      * @deprecated This feature has been DEPRECATED as of version 1.2.3. Relying on this feature is highly discouraged. Please use MongoPool::getSize() instead.
      */
@@ -49,9 +49,9 @@ class Mongo extends MongoClient
     }
 
     /**
-     * Returns the address being used by this for slaveOkay reads
+     * Returns the address being used by this for slaveOkay reads.
      *
-     * @link http://php.net/manual/en/mongo.getslave.php
+     * @see http://php.net/manual/en/mongo.getslave.php
      * @return bool The address of the secondary this connection is using for
      * reads. This returns NULL if this is not connected to a replica set or not yet
      * initialized.
@@ -62,10 +62,10 @@ class Mongo extends MongoClient
     }
 
     /**
-     * Get slaveOkay setting for this connection
+     * Get slaveOkay setting for this connection.
      *
-     * @link http://php.net/manual/en/mongo.getslaveokay.php
-     * @return bool Returns the value of slaveOkay for this instance.
+     * @see http://php.net/manual/en/mongo.getslaveokay.php
+     * @return bool returns the value of slaveOkay for this instance
      */
     public function getSlaveOkay()
     {
@@ -73,13 +73,13 @@ class Mongo extends MongoClient
     }
 
     /**
-     * Connects to paired database server
+     * Connects to paired database server.
      *
-     * @link http://www.php.net/manual/en/mongo.pairconnect.php
+     * @see http://www.php.net/manual/en/mongo.pairconnect.php
+     * @return bool
      * @throws MongoConnectionException
-     * @return boolean
      *
-     * @deprecated Pass a string of the form "mongodb://server1,server2" to the constructor instead of using this method.
+     * @deprecated pass a string of the form "mongodb://server1,server2" to the constructor instead of using this method
      */
     public function pairConnect()
     {
@@ -89,7 +89,7 @@ class Mongo extends MongoClient
     /**
      * Returns information about all connection pools.
      *
-     * @link http://php.net/manual/en/mongo.pooldebug.php
+     * @see http://php.net/manual/en/mongo.pooldebug.php
      * @return array
      * @deprecated This feature has been DEPRECATED as of version 1.2.3. Relying on this feature is highly discouraged. Please use MongoPool::info() instead.
      */
@@ -99,11 +99,11 @@ class Mongo extends MongoClient
     }
 
     /**
-     * Change slaveOkay setting for this connection
+     * Change slaveOkay setting for this connection.
      *
-     * @link http://php.net/manual/en/mongo.setslaveokay.php
+     * @see http://php.net/manual/en/mongo.setslaveokay.php
      * @param bool $ok
-     * @return bool returns the former value of slaveOkay for this instance.
+     * @return bool returns the former value of slaveOkay for this instance
      */
     public function setSlaveOkay($ok)
     {
@@ -113,9 +113,9 @@ class Mongo extends MongoClient
     /**
      * Set the size for future connection pools.
      *
-     * @link http://php.net/manual/en/mongo.setpoolsize.php
+     * @see http://php.net/manual/en/mongo.setpoolsize.php
      * @param $size <p>The max number of connections future pools will be able to create. Negative numbers mean that the pool will spawn an infinite number of connections.</p>
-     * @return bool Returns the former value of pool size.
+     * @return bool returns the former value of pool size
      * @deprecated Relying on this feature is highly discouraged. Please use MongoPool::setSize() instead.
      */
     public function setPoolSize($size)
@@ -124,53 +124,41 @@ class Mongo extends MongoClient
     }
 
     /**
-     * Creates a persistent connection with a database server
+     * Creates a persistent connection with a database server.
      *
-     * @link http://www.php.net/manual/en/mongo.persistconnect.php
-     * @param string $username A username used to identify the connection.
-     * @param string $password A password used to identify the connection.
+     * @see http://www.php.net/manual/en/mongo.persistconnect.php
+     * @param string $username a username used to identify the connection
+     * @param string $password a password used to identify the connection
+     * @return bool if the connection was successful
      * @throws MongoConnectionException
-     * @return boolean If the connection was successful.
-     * @deprecated Pass array("persist" => $id) to the constructor instead of using this method.
+     * @deprecated pass array("persist" => $id) to the constructor instead of using this method
      */
-    public function persistConnect($username = "", $password = "")
+    public function persistConnect($username = '', $password = '')
     {
         $this->notImplemented();
     }
 
     /**
-     * Creates a persistent connection with paired database servers
+     * Creates a persistent connection with paired database servers.
      *
-     * @link http://www.php.net/manual/en/mongo.pairpersistconnect.php
-     * @param string $username A username used to identify the connection.
-     * @param string $password A password used to identify the connection.
+     * @see http://www.php.net/manual/en/mongo.pairpersistconnect.php
+     * @param string $username a username used to identify the connection
+     * @param string $password a password used to identify the connection
+     * @return bool if the connection was successful
      * @throws MongoConnectionException
-     * @return boolean If the connection was successful.
-     * @deprecated Pass "mongodb://server1,server2" and array("persist" => $id) to the constructor instead of using this method.
+     * @deprecated pass "mongodb://server1,server2" and array("persist" => $id) to the constructor instead of using this method
      */
-    public function pairPersistConnect($username = "", $password = "")
+    public function pairPersistConnect($username = '', $password = '')
     {
         $this->notImplemented();
     }
 
     /**
-     * Connects with a database server
+     * Check if there was an error on the most recent db operation performed.
      *
-     * @link http://www.php.net/manual/en/mongo.connectutil.php
-     * @throws MongoConnectionException
-     * @return boolean If the connection was successful.
-     */
-    protected function connectUtil()
-    {
-        $this->notImplemented();
-    }
-
-    /**
-     * Check if there was an error on the most recent db operation performed
-     *
-     * @link http://www.php.net/manual/en/mongo.lasterror.php
-     * @return array|null Returns the error, if there was one, or NULL.
-     * @deprecated Use MongoDB::lastError() instead.
+     * @see http://www.php.net/manual/en/mongo.lasterror.php
+     * @return array|null returns the error, if there was one, or NULL
+     * @deprecated use MongoDB::lastError() instead
      */
     public function lastError()
     {
@@ -178,11 +166,11 @@ class Mongo extends MongoClient
     }
 
     /**
-     * Checks for the last error thrown during a database operation
+     * Checks for the last error thrown during a database operation.
      *
-     * @link http://www.php.net/manual/en/mongo.preverror.php
-     * @return array Returns the error and the number of operations ago it occurred.
-     * @deprecated Use MongoDB::prevError() instead.
+     * @see http://www.php.net/manual/en/mongo.preverror.php
+     * @return array returns the error and the number of operations ago it occurred
+     * @deprecated use MongoDB::prevError() instead
      */
     public function prevError()
     {
@@ -190,11 +178,11 @@ class Mongo extends MongoClient
     }
 
     /**
-     * Clears any flagged errors on the connection
+     * Clears any flagged errors on the connection.
      *
-     * @link http://www.php.net/manual/en/mongo.reseterror.php
-     * @return array Returns the database response.
-     * @deprecated Use MongoDB::resetError() instead.
+     * @see http://www.php.net/manual/en/mongo.reseterror.php
+     * @return array returns the database response
+     * @deprecated use MongoDB::resetError() instead
      */
     public function resetError()
     {
@@ -202,9 +190,9 @@ class Mongo extends MongoClient
     }
 
     /**
-     * Choose a new secondary for slaveOkay reads
+     * Choose a new secondary for slaveOkay reads.
      *
-     * @link www.php.net/manual/en/mongo.switchslave.php
+     * @see www.php.net/manual/en/mongo.switchslave.php
      * @return string The address of the secondary this connection is using for reads. This may be the same as the previous address as addresses are randomly chosen. It may return only one address if only one secondary (or only the primary) is available.
      * @throws MongoException (error code 15) if it is called on a non-replica-set connection. It will also throw MongoExceptions if it cannot find anyone (primary or secondary) to read from (error code 16).
      */
@@ -216,16 +204,28 @@ class Mongo extends MongoClient
     /**
      * Creates a database error on the database.
      *
-     * @link http://www.php.net/manual/en/mongo.forceerror.php
-     * @return boolean The database response.
-     * @deprecated Use MongoDB::forceError() instead.
+     * @see http://www.php.net/manual/en/mongo.forceerror.php
+     * @return bool the database response
+     * @deprecated use MongoDB::forceError() instead
      */
     public function forceError()
     {
         $this->notImplemented();
     }
 
-    protected function notImplemented()
+    /**
+     * Connects with a database server.
+     *
+     * @see http://www.php.net/manual/en/mongo.connectutil.php
+     * @return bool if the connection was successful
+     * @throws MongoConnectionException
+     */
+    protected function connectUtil()
+    {
+        $this->notImplemented();
+    }
+
+    protected function notImplemented(): void
     {
         throw new \Exception('The Mongo class is deprecated and not supported through mongo-php-adapter');
     }

@@ -21,6 +21,25 @@ namespace Alcaeus\MongoDbAdapter\Helper;
 trait SlaveOkay
 {
     /**
+     * @see http://www.php.net/manual/en/mongocollection.getslaveokay.php
+     * @return bool
+     */
+    public function getSlaveOkay()
+    {
+        return $this->getSlaveOkayFromReadPreference();
+    }
+
+    /**
+     * @see http://www.php.net/manual/en/mongocollection.setslaveokay.php
+     * @param bool $ok
+     * @return bool
+     */
+    public function setSlaveOkay($ok = true)
+    {
+        return $this->setReadPreferenceFromSlaveOkay($ok);
+    }
+
+    /**
      * @return bool
      */
     abstract protected function getSlaveOkayFromReadPreference();
@@ -30,23 +49,4 @@ trait SlaveOkay
      * @return bool
      */
     abstract protected function setReadPreferenceFromSlaveOkay($ok = true);
-
-    /**
-     * @link http://www.php.net/manual/en/mongocollection.getslaveokay.php
-     * @return bool
-     */
-    public function getSlaveOkay()
-    {
-        return $this->getSlaveOkayFromReadPreference();
-    }
-
-    /**
-     * @link http://www.php.net/manual/en/mongocollection.setslaveokay.php
-     * @param bool $ok
-     * @return bool
-     */
-    public function setSlaveOkay($ok = true)
-    {
-        return $this->setReadPreferenceFromSlaveOkay($ok);
-    }
 }

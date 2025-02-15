@@ -25,37 +25,40 @@ class MongoPool
     /**
      * Returns an array of information about all connection pools.
      *
-     * @link http://php.net/manual/en/mongopool.info.php
+     * @see http://php.net/manual/en/mongopool.info.php
      * @return array
      */
     public static function info()
     {
-        trigger_error('Function MongoPool::info() is deprecated', E_USER_DEPRECATED);
+        @trigger_error('Function MongoPool::info() is deprecated', E_USER_DEPRECATED);
+
         return [];
     }
 
     /**
      * Sets the max number of connections new pools will be able to create.
      *
-     * @link http://php.net/manual/en/mongopool.setsize.php
+     * @see http://php.net/manual/en/mongopool.setsize.php
      * @param int $size
-     * @return boolean Returns the former value of pool size
+     * @return bool Returns the former value of pool size
      */
     public static function setSize($size)
     {
-        trigger_error('Function MongoPool::info() is deprecated', E_USER_DEPRECATED);
+        @trigger_error('Function MongoPool::info() is deprecated', E_USER_DEPRECATED);
+
         return 1;
     }
 
     /**
-     * Get pool size for connection pools
+     * Get pool size for connection pools.
      *
-     * @link http://php.net/manual/en/mongopool.getsize.php
+     * @see http://php.net/manual/en/mongopool.getsize.php
      * @return int Returns the current pool size
      */
     public static function getSize()
     {
-        trigger_error('Function MongoPool::info() is deprecated', E_USER_DEPRECATED);
+        @trigger_error('Function MongoPool::info() is deprecated', E_USER_DEPRECATED);
+
         return 1;
     }
 }

@@ -3,51 +3,50 @@
 namespace Alcaeus\MongoDbAdapter\Tests\Mongo;
 
 use Alcaeus\MongoDbAdapter\Tests\TestCase;
-use Countable;
 
 class MongoGridFSCursorTest extends TestCase
 {
-    public function testSerialize()
+    public function testSerialize(): void
     {
         $gridfs = $this->getGridFS();
         $gridfs->storeBytes('foo', ['filename' => 'foo.txt']);
         $gridfs->storeBytes('bar', ['filename' => 'bar.txt']);
         $cursor = $gridfs->find(['filename' => 'foo.txt']);
 
-        $this->assertIsString(serialize($cursor));
+        self::assertIsString(serialize($cursor));
     }
 
-    public function testCursorItems()
+    public function testCursorItems(): void
     {
         $gridfs = $this->getGridFS();
         $id = $gridfs->storeBytes('foo', ['filename' => 'foo.txt']);
         $gridfs->storeBytes('bar', ['filename' => 'bar.txt']);
 
         $cursor = $gridfs->find(['filename' => 'foo.txt']);
-        $this->assertCount(1, $cursor);
+        self::assertCount(1, $cursor);
         foreach ($cursor as $key => $value) {
-            $this->assertSame((string) $id, $key);
-            $this->assertInstanceOf('MongoGridFSFile', $value);
-            $this->assertSame('foo', $value->getBytes());
+            self::assertSame((string) $id, $key);
+            self::assertInstanceOf('MongoGridFSFile', $value);
+            self::assertSame('foo', $value->getBytes());
 
             $this->assertMatches([
                 'filename' => 'foo.txt',
                 'chunkSize' => 261120,
                 'length' => 3,
-                'md5' => 'acbd18db4cc2f85cedef654fccc4a4d8'
+                'md5' => 'acbd18db4cc2f85cedef654fccc4a4d8',
             ], $value->file);
         }
     }
 
-    public function testInterfaces()
+    public function testInterfaces(): void
     {
-        $this->skipTestIf(extension_loaded('mongo'));
+        $this->skipTestIf(\extension_loaded('mongo'));
 
         $gridfs = $this->getGridFS();
         $id = $gridfs->storeBytes('foo', ['filename' => 'foo.txt']);
         $gridfs->storeBytes('bar', ['filename' => 'bar.txt']);
 
         $cursor = $gridfs->find(['filename' => 'foo.txt']);
-        $this->assertInstanceOf(Countable::class, $cursor);
+        self::assertInstanceOf(\Countable::class, $cursor);
     }
 }

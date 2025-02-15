@@ -17,15 +17,14 @@ if (class_exists('MongoCollection', false)) {
     return;
 }
 
+use Alcaeus\MongoDbAdapter\ExceptionConverter;
 use Alcaeus\MongoDbAdapter\Helper;
 use Alcaeus\MongoDbAdapter\TypeConverter;
-use Alcaeus\MongoDbAdapter\ExceptionConverter;
 use MongoDB\Driver\Exception\CommandException;
-use MongoDB\Model\IndexInput;
 
 /**
  * Represents a database collection.
- * @link http://www.php.net/manual/en/class.mongocollection.php
+ * @see http://www.php.net/manual/en/class.mongocollection.php
  */
 class MongoCollection
 {
@@ -33,13 +32,13 @@ class MongoCollection
     use Helper\SlaveOkay;
     use Helper\WriteConcern;
 
-    const ASCENDING = 1;
-    const DESCENDING = -1;
+    public const ASCENDING = 1;
+    public const DESCENDING = -1;
 
     /**
      * @var MongoDB
      */
-    public $db = null;
+    public $db;
 
     /**
      * @var string
@@ -52,11 +51,11 @@ class MongoCollection
     protected $collection;
 
     /**
-     * Creates a new collection
+     * Creates a new collection.
      *
-     * @link http://www.php.net/manual/en/mongocollection.construct.php
-     * @param MongoDB $db Parent database.
-     * @param string $name Name for this collection.
+     * @see http://www.php.net/manual/en/mongocollection.construct.php
+     * @param MongoDB $db parent database
+     * @param string $name name for this collection
      * @throws Exception
      */
     public function __construct(MongoDB $db, $name)
@@ -72,7 +71,7 @@ class MongoCollection
     }
 
     /**
-     * Gets the underlying collection for this object
+     * Gets the underlying collection for this object.
      *
      * @internal This part is not of the ext-mongo API and should not be used
      * @return \MongoDB\Collection
@@ -83,10 +82,10 @@ class MongoCollection
     }
 
     /**
-     * String representation of this collection
+     * String representation of this collection.
      *
-     * @link http://www.php.net/manual/en/mongocollection.--tostring.php
-     * @return string Returns the full name of this collection.
+     * @see http://www.php.net/manual/en/mongocollection.--tostring.php
+     * @return string returns the full name of this collection
      */
     public function __toString()
     {
@@ -94,10 +93,10 @@ class MongoCollection
     }
 
     /**
-     * Gets a collection
+     * Gets a collection.
      *
-     * @link http://www.php.net/manual/en/mongocollection.get.php
-     * @param string $name The next string in the collection name.
+     * @see http://www.php.net/manual/en/mongocollection.get.php
+     * @param string $name the next string in the collection name
      * @return MongoCollection
      */
     public function __get($name)
@@ -112,9 +111,8 @@ class MongoCollection
 
     /**
      * @param string $name
-     * @param mixed $value
      */
-    public function __set($name, $value)
+    public function __set($name, $value): void
     {
         if ($name === 'w' || $name === 'wtimeout') {
             $this->setWriteConcernFromArray([$name => $value] + $this->getWriteConcern());
@@ -123,25 +121,24 @@ class MongoCollection
     }
 
     /**
-     * Perform an aggregation using the aggregation framework
+     * Perform an aggregation using the aggregation framework.
      *
-     * @link http://www.php.net/manual/en/mongocollection.aggregate.php
-     * @param array $pipeline
-     * @param array $op
+     * @see http://www.php.net/manual/en/mongocollection.aggregate.php
      * @return array
      */
     public function aggregate(array $pipeline, array $op = [])
     {
-        if (! TypeConverter::isNumericArray($pipeline)) {
+        if (!TypeConverter::isNumericArray($pipeline)) {
             $operators = func_get_args();
             $pipeline = [];
             $options = [];
 
             $i = 0;
             foreach ($operators as $operator) {
-                $i++;
-                if (! is_array($operator)) {
-                    trigger_error("Argument $i is not an array", E_USER_WARNING);
+                ++$i;
+                if (!is_array($operator)) {
+                    trigger_error("Argument {$i} is not an array", E_USER_WARNING);
+
                     return;
                 }
 
@@ -177,11 +174,9 @@ class MongoCollection
     }
 
     /**
-     * Execute an aggregation pipeline command and retrieve results through a cursor
+     * Execute an aggregation pipeline command and retrieve results through a cursor.
      *
-     * @link http://php.net/manual/en/mongocollection.aggregatecursor.php
-     * @param array $pipeline
-     * @param array $options
+     * @see http://php.net/manual/en/mongocollection.aggregatecursor.php
      * @return MongoCommandCursor
      */
     public function aggregateCursor(array $pipeline, array $options = [])
@@ -189,11 +184,11 @@ class MongoCollection
         // Build command manually, can't use mongo-php-library here
         $command = [
             'aggregate' => $this->name,
-            'pipeline' => $pipeline
+            'pipeline' => $pipeline,
         ];
 
         // Convert cursor option
-        if (! isset($options['cursor'])) {
+        if (!isset($options['cursor'])) {
             $options['cursor'] = new \stdClass();
         }
 
@@ -206,9 +201,9 @@ class MongoCollection
     }
 
     /**
-     * Returns this collection's name
+     * Returns this collection's name.
      *
-     * @link http://www.php.net/manual/en/mongocollection.getname.php
+     * @see http://www.php.net/manual/en/mongocollection.getname.php
      * @return string
      */
     public function getName()
@@ -216,9 +211,6 @@ class MongoCollection
         return $this->name;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setReadPreference($readPreference, $tags = null)
     {
         $result = $this->setReadPreferenceFromParameters($readPreference, $tags);
@@ -227,9 +219,6 @@ class MongoCollection
         return $result;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setWriteConcern($wstring, $wtimeout = 0)
     {
         $result = $this->setWriteConcernFromParameters($wstring, $wtimeout);
@@ -239,10 +228,10 @@ class MongoCollection
     }
 
     /**
-     * Drops this collection
+     * Drops this collection.
      *
-     * @link http://www.php.net/manual/en/mongocollection.drop.php
-     * @return array Returns the database response.
+     * @see http://www.php.net/manual/en/mongocollection.drop.php
+     * @return array returns the database response
      */
     public function drop()
     {
@@ -250,11 +239,11 @@ class MongoCollection
     }
 
     /**
-     * Validates this collection
+     * Validates this collection.
      *
-     * @link http://www.php.net/manual/en/mongocollection.validate.php
-     * @param bool $scan_data Only validate indices, not the base collection.
-     * @return array Returns the database's evaluation of this object.
+     * @see http://www.php.net/manual/en/mongocollection.validate.php
+     * @param bool $scan_data only validate indices, not the base collection
+     * @return array returns the database's evaluation of this object
      */
     public function validate($scan_data = false)
     {
@@ -267,20 +256,20 @@ class MongoCollection
     }
 
     /**
-     * Inserts an array into the collection
+     * Inserts an array into the collection.
      *
-     * @link http://www.php.net/manual/en/mongocollection.insert.php
+     * @see http://www.php.net/manual/en/mongocollection.insert.php
      * @param array|object $a
-     * @param array $options
+     * @return bool|array returns an array containing the status of the insertion if the "w" option is set
      * @throws MongoException if the inserted document is empty or if it contains zero-length keys. Attempting to insert an object with protected and private properties will cause a zero-length key error.
-     * @throws MongoCursorException if the "w" option is set and the write fails.
+     * @throws MongoCursorException if the "w" option is set and the write fails
      * @throws MongoCursorTimeoutException if the "w" option is set to a value greater than one and the operation takes longer than MongoCursor::$timeout milliseconds to complete. This does not kill the operation on the server, it is a client-side timeout. The operation in MongoCollection::$wtimeout is milliseconds.
-     * @return bool|array Returns an array containing the status of the insertion if the "w" option is set.
      */
     public function insert(&$a, array $options = [])
     {
         if ($this->ensureDocumentHasMongoId($a) === null) {
             trigger_error(sprintf('%s(): expects parameter %d to be an array or object, %s given', __METHOD__, 1, gettype($a)), E_USER_WARNING);
+
             return;
         }
 
@@ -289,13 +278,13 @@ class MongoCollection
         try {
             $result = $this->collection->insertOne(
                 TypeConverter::fromLegacy($a),
-                $this->convertWriteConcernOptions($options)
+                $this->convertWriteConcernOptions($options),
             );
         } catch (\MongoDB\Driver\Exception\Exception $e) {
             throw ExceptionConverter::toLegacy($e);
         }
 
-        if (! $result->isAcknowledged()) {
+        if (!$result->isAcknowledged()) {
             return true;
         }
 
@@ -308,13 +297,13 @@ class MongoCollection
     }
 
     /**
-     * Inserts multiple documents into this collection
+     * Inserts multiple documents into this collection.
      *
-     * @link http://www.php.net/manual/en/mongocollection.batchinsert.php
-     * @param array $a An array of arrays.
-     * @param array $options Options for the inserts.
-     * @throws MongoCursorException
+     * @see http://www.php.net/manual/en/mongocollection.batchinsert.php
+     * @param array $a an array of arrays
+     * @param array $options options for the inserts
      * @return mixed If "safe" is set, returns an associative array with the status of the inserts ("ok") and any error that may have occured ("err"). Otherwise, returns TRUE if the batch insert was successfully sent, FALSE otherwise.
+     * @throws MongoCursorException
      */
     public function batchInsert(array &$a, array $options = [])
     {
@@ -326,16 +315,17 @@ class MongoCollection
 
         foreach ($a as $key => $item) {
             try {
-                if (! $this->ensureDocumentHasMongoId($a[$key])) {
+                if (!$this->ensureDocumentHasMongoId($a[$key])) {
                     if ($continueOnError) {
                         unset($a[$key]);
                     } else {
                         trigger_error(sprintf('%s expects parameter %d to be an array or object, %s given', __METHOD__, 1, gettype($a)), E_USER_WARNING);
+
                         return;
                     }
                 }
             } catch (MongoException $e) {
-                if (! $continueOnError) {
+                if (!$continueOnError) {
                     throw $e;
                 }
             }
@@ -344,13 +334,13 @@ class MongoCollection
         try {
             $result = $this->collection->insertMany(
                 TypeConverter::fromLegacy(array_values($a)),
-                $this->convertWriteConcernOptions($options)
+                $this->convertWriteConcernOptions($options),
             );
         } catch (\MongoDB\Driver\Exception\Exception $e) {
             throw ExceptionConverter::toLegacy($e, 'MongoResultException');
         }
 
-        if (! $result->isAcknowledged()) {
+        if (!$result->isAcknowledged()) {
             return true;
         }
 
@@ -365,12 +355,11 @@ class MongoCollection
     }
 
     /**
-     * Update records based on a given criteria
+     * Update records based on a given criteria.
      *
-     * @link http://www.php.net/manual/en/mongocollection.update.php
-     * @param array|object $criteria Description of the objects to update.
-     * @param array|object $newobj The object with which to update the matching records.
-     * @param array $options
+     * @see http://www.php.net/manual/en/mongocollection.update.php
+     * @param array|object $criteria description of the objects to update
+     * @param array|object $newobj the object with which to update the matching records
      * @return bool|array
      * @throws MongoException
      * @throws MongoWriteConcernException
@@ -382,8 +371,8 @@ class MongoCollection
 
         $this->checkKeys((array) $newobj);
 
-        $multiple = isset($options['multiple']) ? $options['multiple'] : false;
-        $isReplace = ! \MongoDB\is_first_key_operator($newobj);
+        $multiple = $options['multiple'] ?? false;
+        $isReplace = !\MongoDB\is_first_key_operator($newobj);
 
         if ($isReplace && $multiple) {
             throw new \MongoWriteConcernException('multi update only works with $ operators', 9);
@@ -395,16 +384,16 @@ class MongoCollection
 
         try {
             /** @var \MongoDB\UpdateResult $result */
-            $result = $this->collection->$method(
+            $result = $this->collection->{$method}(
                 TypeConverter::fromLegacy($criteria),
                 TypeConverter::fromLegacy($newobj),
-                $this->convertWriteConcernOptions($options)
+                $this->convertWriteConcernOptions($options),
             );
         } catch (\MongoDB\Driver\Exception\Exception $e) {
             throw ExceptionConverter::toLegacy($e);
         }
 
-        if (! $result->isAcknowledged()) {
+        if (!$result->isAcknowledged()) {
             return true;
         }
 
@@ -419,15 +408,15 @@ class MongoCollection
     }
 
     /**
-     * Remove records from this collection
+     * Remove records from this collection.
      *
-     * @link http://www.php.net/manual/en/mongocollection.remove.php
-     * @param array $criteria Query criteria for the documents to delete.
-     * @param array $options An array of options for the remove operation.
-     * @throws MongoCursorException
-     * @throws MongoCursorTimeoutException
+     * @see http://www.php.net/manual/en/mongocollection.remove.php
+     * @param array $criteria query criteria for the documents to delete
+     * @param array $options an array of options for the remove operation
      * @return bool|array Returns an array containing the status of the removal
      * if the "w" option is set. Otherwise, returns TRUE.
+     * @throws MongoCursorException
+     * @throws MongoCursorTimeoutException
      */
     public function remove(array $criteria = [], array $options = [])
     {
@@ -436,15 +425,15 @@ class MongoCollection
 
         try {
             /** @var \MongoDB\DeleteResult $result */
-            $result = $this->collection->$method(
+            $result = $this->collection->{$method}(
                 TypeConverter::fromLegacy($criteria),
-                $this->convertWriteConcernOptions($options)
+                $this->convertWriteConcernOptions($options),
             );
         } catch (\MongoDB\Driver\Exception\Exception $e) {
             throw ExceptionConverter::toLegacy($e);
         }
 
-        if (! $result->isAcknowledged()) {
+        if (!$result->isAcknowledged()) {
             return true;
         }
 
@@ -452,16 +441,16 @@ class MongoCollection
             'ok' => 1.0,
             'n' => $result->getDeletedCount(),
             'err' => null,
-            'errmsg' => null
+            'errmsg' => null,
         ];
     }
 
     /**
-     * Querys this collection
+     * Querys this collection.
      *
-     * @link http://www.php.net/manual/en/mongocollection.find.php
-     * @param array $query The fields for which to search.
-     * @param array $fields Fields of the results to return.
+     * @see http://www.php.net/manual/en/mongocollection.find.php
+     * @param array $query the fields for which to search
+     * @param array $fields fields of the results to return
      * @return MongoCursor
      */
     public function find(array $query = [], array $fields = [])
@@ -473,10 +462,10 @@ class MongoCollection
     }
 
     /**
-     * Retrieve a list of distinct values for the given key across a collection
+     * Retrieve a list of distinct values for the given key across a collection.
      *
-     * @link http://www.php.net/manual/ru/mongocollection.distinct.php
-     * @param string $key The key to use.
+     * @see http://www.php.net/manual/ru/mongocollection.distinct.php
+     * @param string $key the key to use
      * @param array $query An optional query parameters
      * @return array|bool Returns an array of distinct values, or FALSE on failure
      */
@@ -490,18 +479,19 @@ class MongoCollection
     }
 
     /**
-     * Update a document and return it
+     * Update a document and return it.
      *
-     * @link http://www.php.net/manual/ru/mongocollection.findandmodify.php
-     * @param array $query The query criteria to search for.
-     * @param array $update The update criteria.
-     * @param array $fields Optionally only return these fields.
-     * @param array $options An array of options to apply, such as remove the match document from the DB and return it.
-     * @return array Returns the original document, or the modified document when new is set.
+     * @see http://www.php.net/manual/ru/mongocollection.findandmodify.php
+     * @param array $query the query criteria to search for
+     * @param array $update the update criteria
+     * @param array $fields optionally only return these fields
+     * @param array $options an array of options to apply, such as remove the match document from the DB and return it
+     * @return array returns the original document, or the modified document when new is set
      */
-    public function findAndModify(array $query, array $update = null, array $fields = null, array $options = [])
+    public function findAndModify(array $query, ?array $update = null, ?array $fields = null, array $options = [])
     {
         $query = TypeConverter::fromLegacy($query);
+
         try {
             if (isset($options['remove'])) {
                 unset($options['remove']);
@@ -522,7 +512,7 @@ class MongoCollection
 
                 $options['projection'] = TypeConverter::convertProjection($fields);
 
-                if (! \MongoDB\is_first_key_operator($update)) {
+                if (!\MongoDB\is_first_key_operator($update)) {
                     $document = $this->collection->findOneAndReplace($query, $update, $options);
                 } else {
                     $document = $this->collection->findOneAndUpdate($query, $update, $options);
@@ -542,23 +532,24 @@ class MongoCollection
     }
 
     /**
-     * Querys this collection, returning a single element
+     * Querys this collection, returning a single element.
      *
-     * @link http://www.php.net/manual/en/mongocollection.findone.php
-     * @param array $query The fields for which to search.
-     * @param array $fields Fields of the results to return.
-     * @param array $options
+     * @see http://www.php.net/manual/en/mongocollection.findone.php
+     * @param array $query the fields for which to search
+     * @param array $fields fields of the results to return
      * @return array|null
      */
     public function findOne($query = [], array $fields = [], array $options = [])
     {
         // Can't typehint for array since MongoGridFS extends and accepts strings
-        if (! is_array($query)) {
+        if (!is_array($query)) {
             trigger_error(sprintf('MongoCollection::findOne(): expects parameter 1 to be an array or object, %s given', gettype($query)), E_USER_WARNING);
+
             return;
         }
 
         $options = ['projection' => TypeConverter::convertProjection($fields)] + $options;
+
         try {
             $document = $this->collection->findOne(TypeConverter::fromLegacy($query), $options);
         } catch (\MongoDB\Driver\Exception\Exception $e) {
@@ -573,12 +564,12 @@ class MongoCollection
     }
 
     /**
-     * Creates an index on the given field(s), or does nothing if the index already exists
+     * Creates an index on the given field(s), or does nothing if the index already exists.
      *
-     * @link http://www.php.net/manual/en/mongocollection.createindex.php
-     * @param array $keys Field or fields to use as index.
+     * @see http://www.php.net/manual/en/mongocollection.createindex.php
+     * @param array $keys field or fields to use as index
      * @param array $options [optional] This parameter is an associative array of the form array("optionname" => <boolean>, ...).
-     * @return array Returns the database response.
+     * @return array returns the database response
      */
     public function createIndex($keys, array $options = [])
     {
@@ -593,11 +584,11 @@ class MongoCollection
             $keys = (array) $keys;
         }
 
-        if (! is_array($keys) || ! count($keys)) {
+        if (!is_array($keys) || !count($keys)) {
             throw new MongoException('index specification has no elements');
         }
 
-        if (! isset($options['name'])) {
+        if (!isset($options['name'])) {
             $options['name'] = $this->generateIndexName($keys);
         }
 
@@ -628,7 +619,7 @@ class MongoCollection
 
             $this->collection->createIndex($keys, $options);
         } catch (\MongoDB\Driver\Exception\Exception $e) {
-            if (! $e instanceof CommandException || strpos($e->getMessage(), 'with a different name') === false) {
+            if (!$e instanceof CommandException || strpos($e->getMessage(), 'with a different name') === false) {
                 throw ExceptionConverter::toLegacy($e, 'MongoResultException');
             }
         }
@@ -641,8 +632,8 @@ class MongoCollection
             'ok' => 1.0,
         ];
 
-        if (! $indexExists) {
-            $result['numIndexesAfter']++;
+        if (!$indexExists) {
+            ++$result['numIndexesAfter'];
             unset($result['note']);
         }
 
@@ -650,13 +641,13 @@ class MongoCollection
     }
 
     /**
-     * Creates an index on the given field(s), or does nothing if the index already exists
+     * Creates an index on the given field(s), or does nothing if the index already exists.
      *
-     * @link http://www.php.net/manual/en/mongocollection.ensureindex.php
-     * @param array $keys Field or fields to use as index.
+     * @see http://www.php.net/manual/en/mongocollection.ensureindex.php
+     * @param array $keys field or fields to use as index
      * @param array $options [optional] This parameter is an associative array of the form array("optionname" => <boolean>, ...).
-     * @return array Returns the database response.
-     * @deprecated Use MongoCollection::createIndex() instead.
+     * @return array returns the database response
+     * @deprecated use MongoCollection::createIndex() instead
      */
     public function ensureIndex(array $keys, array $options = [])
     {
@@ -664,17 +655,17 @@ class MongoCollection
     }
 
     /**
-     * Deletes an index from this collection
+     * Deletes an index from this collection.
      *
-     * @link http://www.php.net/manual/en/mongocollection.deleteindex.php
-     * @param string|array $keys Field or fields from which to delete the index.
-     * @return array Returns the database response.
+     * @see http://www.php.net/manual/en/mongocollection.deleteindex.php
+     * @param string|array $keys field or fields from which to delete the index
+     * @return array returns the database response
      */
     public function deleteIndex($keys)
     {
         if (is_string($keys)) {
             $indexName = $keys;
-            if (! preg_match('#_-?1$#', $indexName)) {
+            if (!preg_match('#_-?1$#', $indexName)) {
                 $indexName .= '_1';
             }
         } elseif (is_array($keys)) {
@@ -691,10 +682,10 @@ class MongoCollection
     }
 
     /**
-     * Delete all indexes for this collection
+     * Delete all indexes for this collection.
      *
-     * @link http://www.php.net/manual/en/mongocollection.deleteindexes.php
-     * @return array Returns the database response.
+     * @see http://www.php.net/manual/en/mongocollection.deleteindexes.php
+     * @return array returns the database response
      */
     public function deleteIndexes()
     {
@@ -706,14 +697,14 @@ class MongoCollection
     }
 
     /**
-     * Returns an array of index names for this collection
+     * Returns an array of index names for this collection.
      *
-     * @link http://www.php.net/manual/en/mongocollection.getindexinfo.php
-     * @return array Returns a list of index names.
+     * @see http://www.php.net/manual/en/mongocollection.getindexinfo.php
+     * @return array returns a list of index names
      */
     public function getIndexInfo()
     {
-        $convertIndex = function (\MongoDB\Model\IndexInfo $indexInfo) {
+        $convertIndex = static function (MongoDB\Model\IndexInfo $indexInfo) {
             $infos = [
                 'v' => $indexInfo->getVersion(),
                 'key' => $indexInfo->getKey(),
@@ -733,11 +724,11 @@ class MongoCollection
                 'textIndexVersion',
                 'collation',
                 '2dsphereIndexVersion',
-                'bucketSize'
+                'bucketSize',
             ];
 
             foreach ($additionalKeys as $key) {
-                if (! isset($indexInfo[$key])) {
+                if (!isset($indexInfo[$key])) {
                     continue;
                 }
 
@@ -751,18 +742,18 @@ class MongoCollection
     }
 
     /**
-     * Counts the number of documents in this collection
+     * Counts the number of documents in this collection.
      *
-     * @link http://www.php.net/manual/en/mongocollection.count.php
+     * @see http://www.php.net/manual/en/mongocollection.count.php
      * @param array|stdClass $query
      * @param array $options
-     * @return int Returns the number of documents matching the query.
+     * @return int returns the number of documents matching the query
      */
     public function count($query = [], $options = [])
     {
         try {
             // Handle legacy mode - limit and skip as second and third parameters, respectively
-            if (! is_array($options)) {
+            if (!is_array($options)) {
                 $limit = $options;
                 $options = [];
 
@@ -782,16 +773,16 @@ class MongoCollection
     }
 
     /**
-     * Saves an object to this collection
+     * Saves an object to this collection.
      *
-     * @link http://www.php.net/manual/en/mongocollection.save.php
+     * @see http://www.php.net/manual/en/mongocollection.save.php
      * @param array|object $a Array to save. If an object is used, it may not have protected or private properties.
-     * @param array $options Options for the save.
-     * @throws MongoException if the inserted document is empty or if it contains zero-length keys. Attempting to insert an object with protected and private properties will cause a zero-length key error.
-     * @throws MongoCursorException if the "w" option is set and the write fails.
-     * @throws MongoCursorTimeoutException if the "w" option is set to a value greater than one and the operation takes longer than MongoCursor::$timeout milliseconds to complete. This does not kill the operation on the server, it is a client-side timeout. The operation in MongoCollection::$wtimeout is milliseconds.
-     * @return array|boolean If w was set, returns an array containing the status of the save.
+     * @param array $options options for the save
+     * @return array|bool If w was set, returns an array containing the status of the save.
      * Otherwise, returns a boolean representing if the array was not empty (an empty array will not be inserted).
+     * @throws MongoException if the inserted document is empty or if it contains zero-length keys. Attempting to insert an object with protected and private properties will cause a zero-length key error.
+     * @throws MongoCursorException if the "w" option is set and the write fails
+     * @throws MongoCursorTimeoutException if the "w" option is set to a value greater than one and the operation takes longer than MongoCursor::$timeout milliseconds to complete. This does not kill the operation on the server, it is a client-side timeout. The operation in MongoCollection::$wtimeout is milliseconds.
      */
     public function save(&$a, array $options = [])
     {
@@ -806,10 +797,10 @@ class MongoCollection
             $result = $this->collection->replaceOne(
                 TypeConverter::fromLegacy(['_id' => $id]),
                 TypeConverter::fromLegacy($document),
-                $this->convertWriteConcernOptions($options)
+                $this->convertWriteConcernOptions($options),
             );
 
-            if (! $result->isAcknowledged()) {
+            if (!$result->isAcknowledged()) {
                 return true;
             }
 
@@ -832,24 +823,24 @@ class MongoCollection
     }
 
     /**
-     * Creates a database reference
+     * Creates a database reference.
      *
-     * @link http://www.php.net/manual/en/mongocollection.createdbref.php
-     * @param array|object $document_or_id Object to which to create a reference.
-     * @return array Returns a database reference array.
+     * @see http://www.php.net/manual/en/mongocollection.createdbref.php
+     * @param array|object $document_or_id object to which to create a reference
+     * @return array returns a database reference array
      */
     public function createDBRef($document_or_id)
     {
         if ($document_or_id instanceof \MongoId) {
             $id = $document_or_id;
         } elseif (is_object($document_or_id)) {
-            if (! isset($document_or_id->_id)) {
+            if (!isset($document_or_id->_id)) {
                 return null;
             }
 
             $id = $document_or_id->_id;
         } elseif (is_array($document_or_id)) {
-            if (! isset($document_or_id['_id'])) {
+            if (!isset($document_or_id['_id'])) {
                 return null;
             }
 
@@ -862,11 +853,11 @@ class MongoCollection
     }
 
     /**
-     * Fetches the document pointed to by a database reference
+     * Fetches the document pointed to by a database reference.
      *
-     * @link http://www.php.net/manual/en/mongocollection.getdbref.php
-     * @param array $ref A database reference.
-     * @return array Returns the database document pointed to by the reference.
+     * @see http://www.php.net/manual/en/mongocollection.getdbref.php
+     * @param array $ref a database reference
+     * @return array returns the database document pointed to by the reference
      */
     public function getDBRef(array $ref)
     {
@@ -874,13 +865,13 @@ class MongoCollection
     }
 
     /**
-     * Performs an operation similar to SQL's GROUP BY command
+     * Performs an operation similar to SQL's GROUP BY command.
      *
-     * @link http://www.php.net/manual/en/mongocollection.group.php
+     * @see http://www.php.net/manual/en/mongocollection.group.php
      * @param mixed $keys Fields to group by. If an array or non-code object is passed, it will be the key used to group results.
-     * @param array $initial Initial value of the aggregation counter object.
-     * @param MongoCode|string $reduce A function that aggregates (reduces) the objects iterated.
-     * @param array $condition An condition that must be true for a row to be considered.
+     * @param array $initial initial value of the aggregation counter object
+     * @param MongoCode|string $reduce a function that aggregates (reduces) the objects iterated
+     * @param array $condition an condition that must be true for a row to be considered
      * @return array
      */
     public function group($keys, array $initial, $reduce, array $condition = [])
@@ -917,9 +908,9 @@ class MongoCollection
     }
 
     /**
-     * Returns an array of cursors to iterator over a full collection in parallel
+     * Returns an array of cursors to iterator over a full collection in parallel.
      *
-     * @link http://www.php.net/manual/en/mongocollection.parallelcollectionscan.php
+     * @see http://www.php.net/manual/en/mongocollection.parallelcollectionscan.php
      * @param int $num_cursors The number of cursors to request from the server. Please note, that the server can return less cursors than you requested.
      * @return MongoCommandCursor[]
      */
@@ -928,7 +919,15 @@ class MongoCollection
         $this->notImplemented();
     }
 
-    protected function notImplemented()
+    /**
+     * @return array
+     */
+    public function __sleep()
+    {
+        return ['db', 'name'];
+    }
+
+    protected function notImplemented(): void
     {
         throw new \Exception('Not implemented');
     }
@@ -951,9 +950,8 @@ class MongoCollection
     }
 
     /**
-     * Converts legacy write concern options to a WriteConcern object
+     * Converts legacy write concern options to a WriteConcern object.
      *
-     * @param array $options
      * @return array
      */
     private function convertWriteConcernOptions(array $options)
@@ -969,22 +967,19 @@ class MongoCollection
         if (isset($options['w']) || !isset($options['wTimeoutMS'])) {
             $collectionWriteConcern = $this->getWriteConcern();
             $writeConcern = $this->createWriteConcernFromParameters(
-                isset($options['w']) ? $options['w'] : $collectionWriteConcern['w'],
-                isset($options['wTimeoutMS']) ? $options['wTimeoutMS'] : $collectionWriteConcern['wtimeout']
+                $options['w'] ?? $collectionWriteConcern['w'],
+                $options['wTimeoutMS'] ?? $collectionWriteConcern['wtimeout'],
             );
 
             $options['writeConcern'] = $writeConcern;
         }
 
-        unset($options['safe']);
-        unset($options['w']);
-        unset($options['wTimeout']);
-        unset($options['wTimeoutMS']);
+        unset($options['safe'], $options['w'], $options['wTimeout'], $options['wTimeoutMS']);
 
         return $options;
     }
 
-    private function checkKeys(array $array)
+    private function checkKeys(array $array): void
     {
         foreach ($array as $key => $value) {
             if (empty($key) && $key !== 0 && $key !== '0') {
@@ -1004,22 +999,23 @@ class MongoCollection
     private function ensureDocumentHasMongoId(&$document)
     {
         if (is_array($document) || $document instanceof ArrayObject) {
-            if (! isset($document['_id'])) {
+            if (!isset($document['_id'])) {
                 $document['_id'] = new \MongoId();
             }
 
             $this->checkKeys((array) $document);
 
             return $document['_id'];
-        } elseif (is_object($document)) {
+        }
+        if (is_object($document)) {
             $reflectionObject = new \ReflectionObject($document);
             foreach ($reflectionObject->getProperties() as $property) {
-                if (! $property->isPublic()) {
+                if (!$property->isPublic()) {
                     throw new \MongoException('zero-length keys are not allowed, did you use $ with double quotes?');
                 }
             }
 
-            if (! isset($document->_id)) {
+            if (!isset($document->_id)) {
                 $document->_id = new \MongoId();
             }
 
@@ -1031,18 +1027,18 @@ class MongoCollection
         return null;
     }
 
-    private function checkCollectionName($name)
+    private function checkCollectionName($name): void
     {
         if (empty($name)) {
             throw new Exception('Collection name cannot be empty');
-        } elseif (strpos($name, chr(0)) !== false) {
+        }
+        if (strpos($name, chr(0)) !== false) {
             throw new Exception('Collection name cannot contain null bytes');
         }
     }
 
-
     /**
-     * @param array $keys Field or fields to use as index.
+     * @param array $keys field or fields to use as index
      * @return string
      */
     private function generateIndexName($keys)
@@ -1056,15 +1052,7 @@ class MongoCollection
         return $name;
     }
 
-    /**
-     * @return array
-     */
-    public function __sleep()
-    {
-        return ['db', 'name'];
-    }
-
-    private function mustBeArrayOrObject($a)
+    private function mustBeArrayOrObject($a): void
     {
         if (!is_array($a) && !is_object($a)) {
             throw new \MongoException('document must be an array or object');

@@ -25,64 +25,60 @@ class MongoBinData implements TypeInterface
 {
     /**
      * Generic binary data.
-     * @link http://php.net/manual/en/class.mongobindata.php#mongobindata.constants.custom
+     * @see http://php.net/manual/en/class.mongobindata.php#mongobindata.constants.custom
      */
-    const GENERIC = 0x0;
+    public const GENERIC = 0x0;
 
     /**
-     * Function
-     * @link http://php.net/manual/en/class.mongobindata.php#mongobindata.constants.func
+     * Function.
+     * @see http://php.net/manual/en/class.mongobindata.php#mongobindata.constants.func
      */
-    const FUNC = 0x1;
+    public const FUNC = 0x1;
 
     /**
-     * Generic binary data (deprecated in favor of MongoBinData::GENERIC)
-     * @link http://php.net/manual/en/class.mongobindata.php#mongobindata.constants.byte-array
+     * Generic binary data (deprecated in favor of MongoBinData::GENERIC).
+     * @see http://php.net/manual/en/class.mongobindata.php#mongobindata.constants.byte-array
      */
-    const BYTE_ARRAY = 0x2;
+    public const BYTE_ARRAY = 0x2;
 
     /**
-     * Universally unique identifier (deprecated in favor of MongoBinData::UUID_RFC4122)
-     * @link http://php.net/manual/en/class.mongobindata.php#mongobindata.constants.uuid
+     * Universally unique identifier (deprecated in favor of MongoBinData::UUID_RFC4122).
+     * @see http://php.net/manual/en/class.mongobindata.php#mongobindata.constants.uuid
      */
-    const UUID = 0x3;
+    public const UUID = 0x3;
 
     /**
-     * Universally unique identifier (according to » RFC 4122)
-     * @link http://php.net/manual/en/class.mongobindata.php#mongobindata.constants.custom
+     * Universally unique identifier (according to » RFC 4122).
+     * @see http://php.net/manual/en/class.mongobindata.php#mongobindata.constants.custom
      */
-    const UUID_RFC4122 = 0x4;
-
+    public const UUID_RFC4122 = 0x4;
 
     /**
-     * MD5
-     * @link http://php.net/manual/en/class.mongobindata.php#mongobindata.constants.md5
+     * MD5.
+     * @see http://php.net/manual/en/class.mongobindata.php#mongobindata.constants.md5
      */
-    const MD5 = 0x5;
+    public const MD5 = 0x5;
 
     /**
-     * User-defined type
-     * @link http://php.net/manual/en/class.mongobindata.php#mongobindata.constants.custom
+     * User-defined type.
+     * @see http://php.net/manual/en/class.mongobindata.php#mongobindata.constants.custom
      */
-    const CUSTOM = 0x80;
-
+    public const CUSTOM = 0x80;
 
     /**
-     * @link http://php.net/manual/en/class.mongobindata.php#mongobindata.props.bin
-     * @var $bin
+     * @see http://php.net/manual/en/class.mongobindata.php#mongobindata.props.bin
      */
     public $bin;
 
     /**
-     * @link http://php.net/manual/en/class.mongobindata.php#mongobindata.props.type
-     * @var $type
+     * @see http://php.net/manual/en/class.mongobindata.php#mongobindata.props.type
      */
     public $type;
 
     /**
      * Creates a new binary data object.
      *
-     * @link http://php.net/manual/en/mongobindata.construct.php
+     * @see http://php.net/manual/en/mongobindata.construct.php
      * @param string $data Binary data
      * @param int $type Data type
      */
@@ -108,7 +104,7 @@ class MongoBinData implements TypeInterface
     }
 
     /**
-     * Converts this MongoBinData to the new BSON Binary type
+     * Converts this MongoBinData to the new BSON Binary type.
      *
      * @return Binary
      * @internal This method is not part of the ext-mongo API

@@ -26,13 +26,6 @@ trait ReadPreference
     protected $readPreference;
 
     /**
-     * @param string $readPreference
-     * @param array $tags
-     * @return bool
-     */
-    abstract public function setReadPreference($readPreference, $tags = null);
-
-    /**
      * @return array
      */
     public function getReadPreference()
@@ -56,6 +49,7 @@ trait ReadPreference
             case \MongoDB\Driver\ReadPreference::NEAREST:
                 $type = \MongoClient::RP_NEAREST;
                 break;
+
             default:
                 $type = \MongoClient::RP_PRIMARY;
         }
@@ -67,6 +61,13 @@ trait ReadPreference
 
         return $readPreference;
     }
+
+    /**
+     * @param string $readPreference
+     * @param array $tags
+     * @return bool
+     */
+    abstract public function setReadPreference($readPreference, $tags = null);
 
     /**
      * @return bool
@@ -83,9 +84,11 @@ trait ReadPreference
      */
     protected function setReadPreferenceFromParameters($readPreference, $tags = null)
     {
-        // @internal Passing an array for $readPreference is necessary to avoid conversion voodoo
-        // It should not be used externally!
-        if (is_array($readPreference)) {
+        /**
+         * @internal Passing an array for $readPreference is necessary to avoid conversion voodoo
+         * It should not be used externally!
+         */
+        if (\is_array($readPreference)) {
             return $this->setReadPreferenceFromArray($readPreference);
         }
 
@@ -105,13 +108,16 @@ trait ReadPreference
             case \MongoClient::RP_NEAREST:
                 $mode = \MongoDB\Driver\ReadPreference::NEAREST;
                 break;
+
             default:
-                trigger_error("The value '$readPreference' is not valid as read preference type", E_USER_WARNING);
+                trigger_error("The value '{$readPreference}' is not valid as read preference type", E_USER_WARNING);
+
                 return false;
         }
 
         if ($readPreference == \MongoClient::RP_PRIMARY && !empty($tags)) {
             trigger_error("You can't use read preference tags with a read preference of PRIMARY", E_USER_WARNING);
+
             return false;
         }
 
@@ -127,7 +133,7 @@ trait ReadPreference
     protected function setReadPreferenceFromArray($readPreferenceArray)
     {
         $readPreference = $readPreferenceArray['type'];
-        $tags = isset($readPreferenceArray['tagsets']) ? $readPreferenceArray['tagsets'] : [];
+        $tags = $readPreferenceArray['tagsets'] ?? [];
 
         return $this->setReadPreferenceFromParameters($readPreference, $tags);
     }
@@ -141,7 +147,7 @@ trait ReadPreference
         $result = $this->getSlaveOkayFromReadPreference();
         $readPreference = new \MongoDB\Driver\ReadPreference(
             $ok ? \MongoDB\Driver\ReadPreference::SECONDARY_PREFERRED : \MongoDB\Driver\ReadPreference::PRIMARY,
-            $ok ? $this->readPreference->getTagSets() : []
+            $ok ? $this->readPreference->getTagSets() : [],
         );
 
         $this->readPreference = $readPreference;

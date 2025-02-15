@@ -21,10 +21,10 @@ use MongoDB\Model;
 /**
  * @internal
  */
-class TypeConverter
+final class TypeConverter
 {
     /**
-     * Converts a legacy type to the new BSON type
+     * Converts a legacy type to the new BSON type.
      *
      * This method handles type conversion from ext-mongo to ext-mongodb:
      *  - For all types (MongoId, MongoDate, etc.) it returns the correct BSON
@@ -32,9 +32,6 @@ class TypeConverter
      *  - For arrays and objects it iterates over properties and converts each
      *    item individually
      *  - For other types it returns the value unconverted
-     *
-     * @param mixed $value
-     * @return mixed
      */
     public static function fromLegacy($value)
     {
@@ -45,22 +42,23 @@ class TypeConverter
                 return $value;
             case $value instanceof \DateTimeInterface:
                 return self::fromLegacy((array) $value);
-            case is_array($value):
-            case is_object($value):
+            case \is_array($value):
+            case \is_object($value):
                 $result = [];
 
                 foreach ($value as $key => $item) {
                     $result[$key] = self::fromLegacy($item);
                 }
 
-                return self::ensureCorrectType($result, is_object($value));
+                return self::ensureCorrectType($result, \is_object($value));
+
             default:
                 return $value;
         }
     }
 
     /**
-     * Converts a BSON type to the legacy types
+     * Converts a BSON type to the legacy types.
      *
      * This method handles type conversion from ext-mongodb to ext-mongo:
      *  - For all instances of BSON\Type it returns an object of the
@@ -68,17 +66,14 @@ class TypeConverter
      *  - For arrays and objects it iterates over properties and converts each
      *    item individually
      *  - For other types it returns the value unconverted
-     *
-     * @param mixed $value
-     * @return mixed
      */
     public static function toLegacy($value)
     {
         switch (true) {
             case $value instanceof BSON\Type:
                 return self::convertBSONObjectToLegacy($value);
-            case is_array($value):
-            case is_object($value):
+            case \is_array($value):
+            case \is_object($value):
                 $result = [];
 
                 foreach ($value as $key => $item) {
@@ -86,6 +81,7 @@ class TypeConverter
                 }
 
                 return $result;
+
             default:
                 return $value;
         }
@@ -105,37 +101,36 @@ class TypeConverter
      */
     public static function convertProjection($fields)
     {
-        if (! is_array($fields) || $fields === []) {
+        if (!\is_array($fields) || $fields === []) {
             return null;
         }
 
-        if (! TypeConverter::isNumericArray($fields)) {
-            $projection = TypeConverter::fromLegacy($fields);
+        if (!self::isNumericArray($fields)) {
+            $projection = self::fromLegacy($fields);
         } else {
             $projection = array_fill_keys(
-                array_map(function ($field) {
-                    if (!is_string($field)) {
+                array_map(static function ($field) {
+                    if (!\is_string($field)) {
                         throw new \MongoException('field names must be strings', 8);
                     }
 
                     return $field;
                 }, $fields),
-                true
+                true,
             );
         }
 
-        return TypeConverter::fromLegacy($projection);
+        return self::fromLegacy($projection);
     }
 
     /**
-     * Helper method to find out if an array has numerical indexes
+     * Helper method to find out if an array has numerical indexes.
      *
      * For performance reason, this method checks the first array index only.
      * More thorough inspection of the array might be needed.
      * Note: Returns true for empty arrays to preserve compatibility with empty
      * lists.
      *
-     * @param array $array
      * @return bool
      */
     public static function isNumericArray(array $array)
@@ -145,16 +140,14 @@ class TypeConverter
         }
 
         $keys = array_keys($array);
+
         // array_keys gives us a clean numeric array with keys, so we expect an
         // array like [0 => 0, 1 => 1, 2 => 2, ..., n => n]
         return array_values($keys) === array_keys($keys);
     }
 
     /**
-     * Converter method to convert a BSON object to its legacy type
-     *
-     * @param BSON\Type $value
-     * @return mixed
+     * Converter method to convert a BSON object to its legacy type.
      */
     private static function convertBSONObjectToLegacy(BSON\Type $value)
     {
@@ -179,23 +172,23 @@ class TypeConverter
             case $value instanceof Model\BSONArray:
                 return array_map(
                     [self::class, 'toLegacy'],
-                    $value->getArrayCopy()
+                    $value->getArrayCopy(),
                 );
+
             default:
                 return $value;
         }
     }
 
     /**
-     * Converts all arrays with non-numeric keys to stdClass
+     * Converts all arrays with non-numeric keys to stdClass.
      *
-     * @param array $array
      * @param bool $wasObject
      * @return array|Model\BSONArray|Model\BSONDocument
      */
     private static function ensureCorrectType(array $array, $wasObject = false)
     {
-        if ($wasObject || ! static::isNumericArray($array)) {
+        if ($wasObject || !self::isNumericArray($array)) {
             return new Model\BSONDocument($array);
         }
 

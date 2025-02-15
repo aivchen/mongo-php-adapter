@@ -23,21 +23,21 @@ use MongoDB\BSON\UTCDateTime;
 class MongoDate implements TypeInterface
 {
     /**
-     * @link http://php.net/manual/en/class.mongodate.php#mongodate.props.sec
-     * @var int $sec
+     * @see http://php.net/manual/en/class.mongodate.php#mongodate.props.sec
+     * @var int
      */
     public $sec;
 
     /**
-     * @link http://php.net/manual/en/class.mongodate.php#mongodate.props.usec
-     * @var int $usec
+     * @see http://php.net/manual/en/class.mongodate.php#mongodate.props.usec
+     * @var int
      */
     public $usec;
 
     /**
      * Creates a new date. If no parameters are given, the current time is used.
      *
-     * @link http://php.net/manual/en/mongodate.construct.php
+     * @see http://php.net/manual/en/mongodate.construct.php
      * @param int $sec Number of seconds since January 1st, 1970
      * @param int $usec Microseconds
      */
@@ -59,7 +59,7 @@ class MongoDate implements TypeInterface
     }
 
     /**
-     * Returns a string representation of this date
+     * Returns a string representation of this date.
      * @return string
      */
     public function __toString()
@@ -68,7 +68,7 @@ class MongoDate implements TypeInterface
     }
 
     /**
-     * Converts this MongoDate to the new BSON UTCDateTime type
+     * Converts this MongoDate to the new BSON UTCDateTime type.
      *
      * @return UTCDateTime
      * @internal This method is not part of the ext-mongo API
@@ -81,14 +81,14 @@ class MongoDate implements TypeInterface
     }
 
     /**
-     * Returns a DateTime object representing this date
-     * @link http://php.net/manual/en/mongodate.todatetime.php
+     * Returns a DateTime object representing this date.
+     * @see http://php.net/manual/en/mongodate.todatetime.php
      * @return DateTime
      */
     public function toDateTime()
     {
         $datetime = new \DateTime();
-        $datetime->setTimezone(new \DateTimeZone("UTC"));
+        $datetime->setTimezone(new \DateTimeZone('UTC'));
         $datetime->setTimestamp($this->sec);
 
         $microSeconds = $this->truncateMicroSeconds($this->usec);

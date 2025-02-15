@@ -18,7 +18,7 @@ if (class_exists('MongoDeleteBatch', false)) {
 }
 
 /**
- * Constructs a batch of DELETE operations
+ * Constructs a batch of DELETE operations.
  *
  * @see http://php.net/manual/en/class.mongodeletebatch.php
  * @see http://php.net/manual/en/class.mongowritebatch.php
@@ -26,11 +26,9 @@ if (class_exists('MongoDeleteBatch', false)) {
 class MongoDeleteBatch extends MongoWriteBatch
 {
     /**
-     * Creates a new batch of delete operations
+     * Creates a new batch of delete operations.
      *
      * @see http://php.net/manual/en/mongodeletebatch.construct.php
-     * @param MongoCollection $collection
-     * @param array $writeOptions
      */
     public function __construct(MongoCollection $collection, array $writeOptions = [])
     {

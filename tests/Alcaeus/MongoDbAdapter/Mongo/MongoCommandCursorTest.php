@@ -2,24 +2,23 @@
 
 namespace Alcaeus\MongoDbAdapter\Tests\Mongo;
 
-use MongoCursorInterface;
+use Alcaeus\MongoDbAdapter\Tests\TestCase;
 use MongoDB\Database;
 use MongoDB\Driver\ReadPreference;
-use Alcaeus\MongoDbAdapter\Tests\TestCase;
 
 /**
  * @author alcaeus <alcaeus@alcaeus.org>
  */
 class MongoCommandCursorTest extends TestCase
 {
-    public function testSerialize()
+    public function testSerialize(): void
     {
         $this->prepareData();
         $cursor = $this->getCollection()->aggregateCursor([['$match' => ['foo' => 'bar']]]);
-        $this->assertIsString(serialize($cursor));
+        self::assertIsString(serialize($cursor));
     }
 
-    public function testInfo()
+    public function testInfo(): void
     {
         $this->prepareData();
         $host = $this->getCurrentHost();
@@ -35,8 +34,8 @@ class MongoCommandCursorTest extends TestCase
                 'aggregate' => 'test',
                 'pipeline' => [
                     [
-                        '$match' => ['foo' => 'bar']
-                    ]
+                        '$match' => ['foo' => 'bar'],
+                    ],
                 ],
                 'cursor' => new \stdClass(),
             ],
@@ -44,7 +43,7 @@ class MongoCommandCursorTest extends TestCase
             'started_iterating' => false,
         ];
         $info = $cursor->info();
-        $this->assertEquals($expected, $info);
+        self::assertEquals($expected, $info);
 
         // Ensure cursor started iterating
         $array = iterator_to_array($cursor);
@@ -54,7 +53,7 @@ class MongoCommandCursorTest extends TestCase
             'id' => 0,
             'at' => 0,
             'numReturned' => 0,
-            'server' => "$host:27017;-;.;" . getmypid(),
+            'server' => "{$host}:27017;-;.;" . getmypid(),
             'host' => $host,
             'port' => 27017,
             'connection_type_desc' => 'STANDALONE',
@@ -64,24 +63,24 @@ class MongoCommandCursorTest extends TestCase
 
         $i = 0;
         foreach ($array as $key => $value) {
-            $this->assertEquals($i, $key);
-            $i++;
+            self::assertEquals($i, $key);
+            ++$i;
         }
     }
 
     /**
-     * @dataProvider dataCommandAppliesCorrectReadPreference
+     * @dataProvider provideCommandAppliesCorrectReadPreferenceCases
      */
-    public function testCommandAppliesCorrectReadPreference($command, $expectedReadPreference)
+    public function testCommandAppliesCorrectReadPreference($command, $expectedReadPreference): void
     {
-        $this->skipTestIf(extension_loaded('mongo'));
+        $this->skipTestIf(\extension_loaded('mongo'));
 
-        $checkReadPreference = function ($other) use ($expectedReadPreference) {
-            if (!is_array($other)) {
+        $checkReadPreference = static function ($other) use ($expectedReadPreference) {
+            if (!\is_array($other)) {
                 return false;
             }
 
-            if (!array_key_exists('readPreference', $other)) {
+            if (!\array_key_exists('readPreference', $other)) {
                 return false;
             }
 
@@ -94,10 +93,10 @@ class MongoCommandCursorTest extends TestCase
 
         $databaseMock = $this->createMock(Database::class);
         $databaseMock
-            ->expects($this->once())
+            ->expects(self::once())
             ->method('command')
-            ->with($this->anything(), $this->callback($checkReadPreference))
-            ->will($this->returnValue(new \ArrayIterator()));
+            ->with(self::anything(), self::callback($checkReadPreference))
+            ->willReturn(new \ArrayIterator());
 
         $cursor = new \MongoCommandCursor($this->getClient(), (string) $this->getDatabase(), $command);
         $reflection = new \ReflectionProperty($cursor, 'db');
@@ -110,7 +109,7 @@ class MongoCommandCursorTest extends TestCase
         self::assertSame(\MongoClient::RP_SECONDARY, $cursor->getReadPreference()['type']);
     }
 
-    public function dataCommandAppliesCorrectReadPreference()
+    public function provideCommandAppliesCorrectReadPreferenceCases(): iterable
     {
         return [
             'findAndUpdate' => [
@@ -205,11 +204,11 @@ class MongoCommandCursorTest extends TestCase
         ];
     }
 
-    public function testInterfaces()
+    public function testInterfaces(): void
     {
         $this->prepareData();
         $cursor = $this->getCollection()->aggregateCursor([['$match' => ['foo' => 'bar']]]);
 
-        $this->assertInstanceOf(MongoCursorInterface::class, $cursor);
+        self::assertInstanceOf(\MongoCursorInterface::class, $cursor);
     }
 }

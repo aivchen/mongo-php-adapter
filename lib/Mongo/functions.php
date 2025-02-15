@@ -15,12 +15,12 @@
 
 use Alcaeus\MongoDbAdapter\TypeConverter;
 
-if (! function_exists('bson_decode')) {
+if (!function_exists('bson_decode')) {
     /**
-     * Deserializes a BSON object into a PHP array
+     * Deserializes a BSON object into a PHP array.
      *
-     * @param string $bson The BSON to be deserialized.
-     * @return array Returns the deserialized BSON object.
+     * @param string $bson the BSON to be deserialized
+     * @return array returns the deserialized BSON object
      */
     function bson_decode($bson)
     {
@@ -28,12 +28,12 @@ if (! function_exists('bson_decode')) {
     }
 }
 
-if (! function_exists('bson_encode')) {
+if (!function_exists('bson_encode')) {
     /**
-     * Serializes a PHP variable into a BSON string
+     * Serializes a PHP variable into a BSON string.
      *
-     * @param mixed $anything The variable to be serialized.
-     * @return string Returns the serialized string.
+     * @param mixed $anything the variable to be serialized
+     * @return string returns the serialized string
      */
     function bson_encode($anything)
     {

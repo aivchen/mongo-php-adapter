@@ -18,9 +18,7 @@ namespace Alcaeus\MongoDbAdapter;
 interface TypeInterface
 {
     /**
-     * Converts the type to the corresponding BSON type
-     *
-     * @return mixed
+     * Converts the type to the corresponding BSON type.
      */
     public function toBSONType();
 }

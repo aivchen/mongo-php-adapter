@@ -18,20 +18,17 @@ if (class_exists('MongoResultException', false)) {
 }
 
 /**
- * <p>(PECL mongo &gt;= 1.3.0)</p>
- * @link http://php.net/manual/en/class.mongoresultexception.php#mongoresultexception.props.document
- *
+ * <p>(PECL mongo &gt;= 1.3.0)</p>.
+ * @see http://php.net/manual/en/class.mongoresultexception.php#mongoresultexception.props.document
  */
 class MongoResultException extends MongoException
 {
+    public $document;
+
     /**
      * Retrieve the full result document
-     * http://php.net/manual/en/mongoresultexception.getdocument.php
+     * http://php.net/manual/en/mongoresultexception.getdocument.php.
      * @return array <p>The full result document as an array, including partial data if available and additional keys.</p>
      */
-    public function getDocument()
-    {
-    }
-
-    public $document;
+    public function getDocument() {}
 }

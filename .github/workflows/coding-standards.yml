@@ -37,6 +37,5 @@ jobs:
       - name: "Install dependencies with Composer"
         run: "composer install --no-interaction --no-progress --no-suggest"
 
-      # The -q option is required until phpcs v4 is released
-      - name: "Run PHP_CodeSniffer"
-        run: "vendor/bin/phpcs -q --no-colors --report=checkstyle"
+      - name: "Run PHP-CS-Fixer"
+        run: "vendor/bin/php-cs-fixer check -v"

@@ -11,20 +11,20 @@ abstract class TestCase extends BaseTestCase
 {
     use SetUpTearDownTrait;
 
-    const INDEX_VERSION_1 = 1;
-    const INDEX_VERSION_2 = 2;
+    public const INDEX_VERSION_1 = 1;
+    public const INDEX_VERSION_2 = 2;
 
-    private function doTearDown()
+    private function doTearDown(): void
     {
         $this->getCheckDatabase()->drop();
 
         parent::tearDown();
     }
 
-    public function assertMatches($expected, $value, $message = '')
+    public function assertMatches($expected, $value, $message = ''): void
     {
         $constraint = new Matches($expected, true, true, true);
-        $this->assertThat($value, $constraint, $message);
+        self::assertThat($value, $constraint, $message);
     }
 
     /**
@@ -41,6 +41,7 @@ abstract class TestCase extends BaseTestCase
     protected function getCheckDatabase()
     {
         $client = $this->getCheckClient();
+
         return $client->selectDatabase('mongo-php-adapter');
     }
 
@@ -61,10 +62,9 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * @param \MongoClient|null $client
      * @return \MongoDB
      */
-    protected function getDatabase(\MongoClient $client = null)
+    protected function getDatabase(?\MongoClient $client = null)
     {
         if ($client === null) {
             $client = $this->getClient();
@@ -75,10 +75,9 @@ abstract class TestCase extends BaseTestCase
 
     /**
      * @param string $name
-     * @param \MongoDB|null $database
      * @return \MongoCollection
      */
-    protected function getCollection($name = 'test', \MongoDB $database = null)
+    protected function getCollection($name = 'test', ?\MongoDB $database = null)
     {
         if ($database === null) {
             $database = $this->getDatabase();
@@ -89,10 +88,9 @@ abstract class TestCase extends BaseTestCase
 
     /**
      * @param string $prefix
-     * @param \MongoDB|null $database
      * @return \MongoGridFS
      */
-    protected function getGridFS($prefix = 'fs', \MongoDB $database = null)
+    protected function getGridFS($prefix = 'fs', ?\MongoDB $database = null)
     {
         if ($database === null) {
             $database = $this->getDatabase();
@@ -124,34 +122,35 @@ abstract class TestCase extends BaseTestCase
     {
         $this->checkFailPoint();
 
-        $doc = array(
-            "configureFailPoint" => $failPoint,
-            "mode"               => $mode,
-        );
+        $doc = [
+            'configureFailPoint' => $failPoint,
+            'mode'               => $mode,
+        ];
         if ($data) {
-            $doc["data"] = $data;
+            $doc['data'] = $data;
         }
 
         $adminDb = $this->getCheckClient()->selectDatabase('admin');
         $result = $adminDb->command($doc);
         $arr = current($result->toArray());
         if (empty($arr->ok)) {
-            throw new \RuntimeException("Failpoint failed");
+            throw new \RuntimeException('Failpoint failed');
         }
 
         return true;
     }
 
-    protected function checkFailPoint()
+    protected function checkFailPoint(): void
     {
         $database = $this->getCheckClient()->selectDatabase('test');
+
         try {
             $database->command(['configureFailPoint' => 1]);
         } catch (\MongoDB\Driver\Exception\Exception $e) {
             /* command not found */
             if ($e->getCode() == 59) {
-                $this->markTestSkipped(
-                    'This test require the mongo daemon to be started with the test flag: --setParameter enableTestCommands=1'
+                self::markTestSkipped(
+                    'This test require the mongo daemon to be started with the test flag: --setParameter enableTestCommands=1',
                 );
             }
         }
@@ -159,25 +158,25 @@ abstract class TestCase extends BaseTestCase
 
     protected function failMaxTimeMS()
     {
-        return $this->configureFailPoint("maxTimeAlwaysTimeOut", array("times" => 1));
+        return $this->configureFailPoint('maxTimeAlwaysTimeOut', ['times' => 1]);
     }
 
     /**
      * @param bool $condition
      */
-    protected function skipTestUnless($condition, $message = null)
+    protected function skipTestUnless($condition, $message = null): void
     {
-        $this->skipTestIf(! $condition, $message);
+        $this->skipTestIf(!$condition, $message);
     }
 
     /**
      * @param bool $condition
      * @param string|null $message
      */
-    protected function skipTestIf($condition, $message = null)
+    protected function skipTestIf($condition, $message = null): void
     {
         if ($condition) {
-            $this->markTestSkipped($message !== null ? $message : 'Test only applies when running against mongo-php-adapter');
+            self::markTestSkipped($message !== null ? $message : 'Test only applies when running against mongo-php-adapter');
         }
     }
 
@@ -187,6 +186,7 @@ abstract class TestCase extends BaseTestCase
     protected function getServerVersion()
     {
         $serverInfo = $this->getDatabase()->command(['buildinfo' => true]);
+
         return $serverInfo['version'];
     }
 
@@ -196,11 +196,11 @@ abstract class TestCase extends BaseTestCase
     protected function getFeatureCompatibilityVersion()
     {
         $featureCompatibilityVersion = $this->getClient()->selectDB('admin')->command(['getParameter' => true, 'featureCompatibilityVersion' => true]);
-        if (! isset($featureCompatibilityVersion['featureCompatibilityVersion'])) {
+        if (!isset($featureCompatibilityVersion['featureCompatibilityVersion'])) {
             return '3.2';
         }
 
-        return isset($featureCompatibilityVersion['featureCompatibilityVersion']['version']) ? $featureCompatibilityVersion['featureCompatibilityVersion']['version'] : $featureCompatibilityVersion['featureCompatibilityVersion'];
+        return $featureCompatibilityVersion['featureCompatibilityVersion']['version'] ?? $featureCompatibilityVersion['featureCompatibilityVersion'];
     }
 
     /**
@@ -216,6 +216,7 @@ abstract class TestCase extends BaseTestCase
 
         // Check featureCompatibilityFlag
         $compatibilityVersion = $this->getFeatureCompatibilityVersion();
+
         return version_compare($compatibilityVersion, '3.4', '>=') ? self::INDEX_VERSION_2 : self::INDEX_VERSION_1;
     }
 

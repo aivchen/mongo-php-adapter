@@ -10,10 +10,10 @@ use Alcaeus\MongoDbAdapter\TypeInterface;
  */
 class MongoMinKeyTest extends TestCase
 {
-    public function testConvert()
+    public function testConvert(): void
     {
         $minKey = new \MongoMinKey();
         $this->skipTestUnless($minKey instanceof TypeInterface);
-        $this->assertInstanceOf('MongoDB\BSON\MinKey', $minKey->toBSONType());
+        self::assertInstanceOf('MongoDB\BSON\MinKey', $minKey->toBSONType());
     }
 }

@@ -17,14 +17,14 @@ if (class_exists('MongoDB', false)) {
     return;
 }
 
+use Alcaeus\MongoDbAdapter\ExceptionConverter;
 use Alcaeus\MongoDbAdapter\Helper;
 use Alcaeus\MongoDbAdapter\TypeConverter;
-use Alcaeus\MongoDbAdapter\ExceptionConverter;
 use MongoDB\Model\CollectionInfo;
 
 /**
  * Instances of this class are used to interact with a database.
- * @link http://www.php.net/manual/en/class.mongodb.php
+ * @see http://www.php.net/manual/en/class.mongodb.php
  */
 class MongoDB
 {
@@ -32,9 +32,9 @@ class MongoDB
     use Helper\SlaveOkay;
     use Helper\WriteConcern;
 
-    const PROFILING_OFF = 0;
-    const PROFILING_SLOW = 1;
-    const PROFILING_ON = 2;
+    public const PROFILING_OFF = 0;
+    public const PROFILING_SLOW = 1;
+    public const PROFILING_ON = 2;
 
     /**
      * @var MongoClient
@@ -52,12 +52,12 @@ class MongoDB
     protected $name;
 
     /**
-     * Creates a new database
+     * Creates a new database.
      *
      * This method is not meant to be called directly. The preferred way to create an instance of MongoDB is through {@see Mongo::__get()} or {@see Mongo::selectDB()}.
-     * @link http://www.php.net/manual/en/mongodb.construct.php
-     * @param MongoClient $conn Database connection.
-     * @param string $name Database name.
+     * @see http://www.php.net/manual/en/mongodb.construct.php
+     * @param MongoClient $conn database connection
+     * @param string $name database name
      * @throws Exception
      */
     public function __construct(MongoClient $conn, $name)
@@ -82,10 +82,10 @@ class MongoDB
     }
 
     /**
-     * The name of this database
+     * The name of this database.
      *
-     * @link http://www.php.net/manual/en/mongodb.--tostring.php
-     * @return string Returns this database's name.
+     * @see http://www.php.net/manual/en/mongodb.--tostring.php
+     * @return string returns this database's name
      */
     public function __toString()
     {
@@ -93,10 +93,10 @@ class MongoDB
     }
 
     /**
-     * Gets a collection
+     * Gets a collection.
      *
-     * @link http://www.php.net/manual/en/mongodb.get.php
-     * @param string $name The name of the collection.
+     * @see http://www.php.net/manual/en/mongodb.get.php
+     * @param string $name the name of the collection
      * @return MongoCollection
      */
     public function __get($name)
@@ -111,20 +111,19 @@ class MongoDB
 
     /**
      * @param string $name
-     * @param mixed $value
      */
-    public function __set($name, $value)
+    public function __set($name, $value): void
     {
         if ($name === 'w' || $name === 'wtimeout') {
-            trigger_error("The '{$name}' property is read-only", E_USER_DEPRECATED);
+            @trigger_error("The '{$name}' property is read-only", E_USER_DEPRECATED);
         }
     }
 
     /**
-     * Returns information about collections in this database
+     * Returns information about collections in this database.
      *
-     * @link http://www.php.net/manual/en/mongodb.getcollectioninfo.php
-     * @param array $options An array of options for listing the collections.
+     * @see http://www.php.net/manual/en/mongodb.getcollectioninfo.php
+     * @param array $options an array of options for listing the collections
      * @return array
      */
     public function getCollectionInfo(array $options = [])
@@ -142,37 +141,35 @@ class MongoDB
             throw ExceptionConverter::toLegacy($e);
         }
 
-        $getCollectionInfo = function (CollectionInfo $collectionInfo) {
-            // @todo do away with __debugInfo once https://jira.mongodb.org/browse/PHPLIB-226 is fixed
+        $getCollectionInfo = static function (CollectionInfo $collectionInfo) {
+            /** @todo do away with __debugInfo once https://jira.mongodb.org/browse/PHPLIB-226 is fixed */
             $info = $collectionInfo->__debugInfo();
 
             return array_filter(
                 [
                     'name' => $collectionInfo->getName(),
-                    'type' => isset($info['type']) ? $info['type'] : null,
+                    'type' => $info['type'] ?? null,
                     'options' => $collectionInfo->getOptions(),
                     'info' => isset($info['info']) ? (array) $info['info'] : null,
                     'idIndex' => isset($info['idIndex']) ? (array) $info['idIndex'] : null,
                 ],
-                function ($item) {
-                    return $item !== null;
-                }
+                static fn ($item) => $item !== null,
             );
         };
 
         $eligibleCollections = array_filter(
             iterator_to_array($collections),
-            $this->getSystemCollectionFilterClosure($includeSystemCollections)
+            $this->getSystemCollectionFilterClosure($includeSystemCollections),
         );
 
         return array_map($getCollectionInfo, $eligibleCollections);
     }
 
     /**
-     * Get all collections from this database
+     * Get all collections from this database.
      *
-     * @link http://www.php.net/manual/en/mongodb.getcollectionnames.php
-     * @param array $options An array of options for listing the collections.
+     * @see http://www.php.net/manual/en/mongodb.getcollectionnames.php
+     * @param array $options an array of options for listing the collections
      * @return array Returns the names of the all the collections in the database as an array
      */
     public function getCollectionNames(array $options = [])
@@ -190,13 +187,11 @@ class MongoDB
             throw ExceptionConverter::toLegacy($e);
         }
 
-        $getCollectionName = function (CollectionInfo $collectionInfo) {
-            return $collectionInfo->getName();
-        };
+        $getCollectionName = static fn (CollectionInfo $collectionInfo) => $collectionInfo->getName();
 
         $eligibleCollections = array_filter(
             iterator_to_array($collections),
-            $this->getSystemCollectionFilterClosure($includeSystemCollections)
+            $this->getSystemCollectionFilterClosure($includeSystemCollections),
         );
 
         return array_map($getCollectionName, $eligibleCollections);
@@ -212,22 +207,22 @@ class MongoDB
     }
 
     /**
-     * Fetches toolkit for dealing with files stored in this database
+     * Fetches toolkit for dealing with files stored in this database.
      *
-     * @link http://www.php.net/manual/en/mongodb.getgridfs.php
-     * @param string $prefix The prefix for the files and chunks collections.
-     * @return MongoGridFS Returns a new gridfs object for this database.
+     * @see http://www.php.net/manual/en/mongodb.getgridfs.php
+     * @param string $prefix the prefix for the files and chunks collections
+     * @return MongoGridFS returns a new gridfs object for this database
      */
-    public function getGridFS($prefix = "fs")
+    public function getGridFS($prefix = 'fs')
     {
         return new \MongoGridFS($this, $prefix);
     }
 
     /**
-     * Gets this database's profiling level
+     * Gets this database's profiling level.
      *
-     * @link http://www.php.net/manual/en/mongodb.getprofilinglevel.php
-     * @return int Returns the profiling level.
+     * @see http://www.php.net/manual/en/mongodb.getprofilinglevel.php
+     * @return int returns the profiling level
      */
     public function getProfilingLevel()
     {
@@ -237,11 +232,11 @@ class MongoDB
     }
 
     /**
-     * Sets this database's profiling level
+     * Sets this database's profiling level.
      *
-     * @link http://www.php.net/manual/en/mongodb.setprofilinglevel.php
-     * @param int $level Profiling level.
-     * @return int Returns the previous profiling level.
+     * @see http://www.php.net/manual/en/mongodb.setprofilinglevel.php
+     * @param int $level profiling level
+     * @return int returns the previous profiling level
      */
     public function setProfilingLevel($level)
     {
@@ -251,10 +246,10 @@ class MongoDB
     }
 
     /**
-     * Drops this database
+     * Drops this database.
      *
-     * @link http://www.php.net/manual/en/mongodb.drop.php
-     * @return array Returns the database response.
+     * @see http://www.php.net/manual/en/mongodb.drop.php
+     * @return array returns the database response
      */
     public function drop()
     {
@@ -262,9 +257,9 @@ class MongoDB
     }
 
     /**
-     * Repairs and compacts this database
+     * Repairs and compacts this database.
      *
-     * @link http://www.php.net/manual/en/mongodb.repair.php
+     * @see http://www.php.net/manual/en/mongodb.repair.php
      * @param bool $preserve_cloned_files [optional] <p>If cloned files should be kept if the repair fails.</p>
      * @param bool $backup_original_files [optional] <p>If original files should be backed up.</p>
      * @return array <p>Returns db response.</p>
@@ -281,12 +276,12 @@ class MongoDB
     }
 
     /**
-     * Gets a collection
+     * Gets a collection.
      *
-     * @link http://www.php.net/manual/en/mongodb.selectcollection.php
+     * @see http://www.php.net/manual/en/mongodb.selectcollection.php
      * @param string $name <b>The collection name.</b>
-     * @throws Exception if the collection name is invalid.
-     * @return MongoCollection Returns a new collection object.
+     * @return MongoCollection returns a new collection object
+     * @throws Exception if the collection name is invalid
      */
     public function selectCollection($name)
     {
@@ -294,12 +289,12 @@ class MongoDB
     }
 
     /**
-     * Creates a collection
+     * Creates a collection.
      *
-     * @link http://www.php.net/manual/en/mongodb.createcollection.php
-     * @param string $name The name of the collection.
+     * @see http://www.php.net/manual/en/mongodb.createcollection.php
+     * @param string $name the name of the collection
      * @param array $options
-     * @return MongoCollection Returns a collection object representing the new collection.
+     * @return MongoCollection returns a collection object representing the new collection
      */
     public function createCollection($name, $options = [])
     {
@@ -317,13 +312,13 @@ class MongoDB
     }
 
     /**
-     * Drops a collection
+     * Drops a collection.
      *
-     * @link http://www.php.net/manual/en/mongodb.dropcollection.php
-     * @param MongoCollection|string $coll MongoCollection or name of collection to drop.
-     * @return array Returns the database response.
+     * @see http://www.php.net/manual/en/mongodb.dropcollection.php
+     * @param MongoCollection|string $coll mongoCollection or name of collection to drop
+     * @return array returns the database response
      *
-     * @deprecated Use MongoCollection::drop() instead.
+     * @deprecated use MongoCollection::drop() instead
      */
     public function dropCollection($coll)
     {
@@ -335,11 +330,10 @@ class MongoDB
     }
 
     /**
-     * Get a list of collections in this database
+     * Get a list of collections in this database.
      *
-     * @link http://www.php.net/manual/en/mongodb.listcollections.php
-     * @param array $options
-     * @return MongoCollection[] Returns a list of MongoCollections.
+     * @see http://www.php.net/manual/en/mongodb.listcollections.php
+     * @return MongoCollection[] returns a list of MongoCollections
      */
     public function listCollections(array $options = [])
     {
@@ -347,25 +341,24 @@ class MongoDB
     }
 
     /**
-     * Creates a database reference
+     * Creates a database reference.
      *
-     * @link http://www.php.net/manual/en/mongodb.createdbref.php
-     * @param string $collection The collection to which the database reference will point.
-     * @param mixed $document_or_id
-     * @return array Returns a database reference array.
+     * @see http://www.php.net/manual/en/mongodb.createdbref.php
+     * @param string $collection the collection to which the database reference will point
+     * @return array returns a database reference array
      */
     public function createDBRef($collection, $document_or_id)
     {
         if ($document_or_id instanceof \MongoId) {
             $id = $document_or_id;
         } elseif (is_object($document_or_id)) {
-            if (! isset($document_or_id->_id)) {
+            if (!isset($document_or_id->_id)) {
                 $id = $document_or_id;
             } else {
                 $id = $document_or_id->_id;
             }
         } elseif (is_array($document_or_id)) {
-            if (! isset($document_or_id['_id'])) {
+            if (!isset($document_or_id['_id'])) {
                 return null;
             }
 
@@ -377,27 +370,27 @@ class MongoDB
         return MongoDBRef::create($collection, $id);
     }
 
-
     /**
-     * Fetches the document pointed to by a database reference
+     * Fetches the document pointed to by a database reference.
      *
-     * @link http://www.php.net/manual/en/mongodb.getdbref.php
-     * @param array $ref A database reference.
-     * @return array Returns the document pointed to by the reference.
+     * @see http://www.php.net/manual/en/mongodb.getdbref.php
+     * @param array $ref a database reference
+     * @return array returns the document pointed to by the reference
      */
     public function getDBRef(array $ref)
     {
         $db = (isset($ref['$db']) && $ref['$db'] !== $this->name) ? $this->connection->selectDB($ref['$db']) : $this;
+
         return MongoDBRef::get($db, $ref);
     }
 
     /**
      * Runs JavaScript code on the database server.
      *
-     * @link http://www.php.net/manual/en/mongodb.execute.php
-     * @param MongoCode|string $code Code to execute.
-     * @param array $args [optional] Arguments to be passed to code.
-     * @return array Returns the result of the evaluation.
+     * @see http://www.php.net/manual/en/mongodb.execute.php
+     * @param MongoCode|string $code code to execute
+     * @param array $args [optional] Arguments to be passed to code
+     * @return array returns the result of the evaluation
      */
     public function execute($code, array $args = [])
     {
@@ -405,12 +398,12 @@ class MongoDB
     }
 
     /**
-     * Execute a database command
+     * Execute a database command.
      *
-     * @link http://www.php.net/manual/en/mongodb.command.php
-     * @param array $data The query to send.
+     * @see http://www.php.net/manual/en/mongodb.command.php
+     * @param array $data the query to send
      * @param array $options
-     * @return array Returns database response.
+     * @return array returns database response
      */
     public function command(array $data, $options = [], &$hash = null)
     {
@@ -425,67 +418,64 @@ class MongoDB
     }
 
     /**
-     * Check if there was an error on the most recent db operation performed
+     * Check if there was an error on the most recent db operation performed.
      *
-     * @link http://www.php.net/manual/en/mongodb.lasterror.php
-     * @return array Returns the error, if there was one.
+     * @see http://www.php.net/manual/en/mongodb.lasterror.php
+     * @return array returns the error, if there was one
      */
     public function lastError()
     {
-        return $this->command(array('getLastError' => 1));
+        return $this->command(['getLastError' => 1]);
     }
 
     /**
-     * Checks for the last error thrown during a database operation
+     * Checks for the last error thrown during a database operation.
      *
-     * @link http://www.php.net/manual/en/mongodb.preverror.php
-     * @return array Returns the error and the number of operations ago it occurred.
+     * @see http://www.php.net/manual/en/mongodb.preverror.php
+     * @return array returns the error and the number of operations ago it occurred
      */
     public function prevError()
     {
-        return $this->command(array('getPrevError' => 1));
+        return $this->command(['getPrevError' => 1]);
     }
 
     /**
-     * Clears any flagged errors on the database
+     * Clears any flagged errors on the database.
      *
-     * @link http://www.php.net/manual/en/mongodb.reseterror.php
-     * @return array Returns the database response.
+     * @see http://www.php.net/manual/en/mongodb.reseterror.php
+     * @return array returns the database response
      */
     public function resetError()
     {
-        return $this->command(array('resetError' => 1));
+        return $this->command(['resetError' => 1]);
     }
 
     /**
-     * Creates a database error
+     * Creates a database error.
      *
-     * @link http://www.php.net/manual/en/mongodb.forceerror.php
-     * @return boolean Returns the database response.
+     * @see http://www.php.net/manual/en/mongodb.forceerror.php
+     * @return bool returns the database response
      */
     public function forceError()
     {
-        return $this->command(array('forceerror' => 1));
+        return $this->command(['forceerror' => 1]);
     }
 
     /**
-     * Log in to this database
+     * Log in to this database.
      *
-     * @link http://www.php.net/manual/en/mongodb.authenticate.php
-     * @param string $username The username.
-     * @param string $password The password (in plaintext).
+     * @see http://www.php.net/manual/en/mongodb.authenticate.php
+     * @param string $username the username
+     * @param string $password the password (in plaintext)
      * @return array Returns database response. If the login was successful, it will return 1.
      *
-     * @deprecated This method is not implemented, supply authentication credentials through the connection string instead.
+     * @deprecated this method is not implemented, supply authentication credentials through the connection string instead
      */
     public function authenticate($username, $password)
     {
         throw new \Exception('The MongoDB::authenticate method is not supported. Please supply authentication credentials through the connection string');
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setReadPreference($readPreference, $tags = null)
     {
         $result = $this->setReadPreferenceFromParameters($readPreference, $tags);
@@ -494,9 +484,6 @@ class MongoDB
         return $result;
     }
 
-    /**
-     * {@inheritdoc}
-     */
     public function setWriteConcern($wstring, $wtimeout = 0)
     {
         $result = $this->setWriteConcernFromParameters($wstring, $wtimeout);
@@ -505,7 +492,15 @@ class MongoDB
         return $result;
     }
 
-    protected function notImplemented()
+    /**
+     * @return array
+     */
+    public function __sleep()
+    {
+        return ['connection', 'name'];
+    }
+
+    protected function notImplemented(): void
     {
         throw new \Exception('Not implemented');
     }
@@ -527,7 +522,7 @@ class MongoDB
         }
     }
 
-    private function checkDatabaseName($name)
+    private function checkDatabaseName($name): void
     {
         if (empty($name)) {
             throw new \Exception('Database name cannot be empty');
@@ -541,7 +536,7 @@ class MongoDB
 
         $invalidCharacters = ['.', '$', '/', ' ', '\\'];
         foreach ($invalidCharacters as $char) {
-            if (strchr($name, $char) !== false) {
+            if (strstr($name, $char) !== false) {
                 throw new \Exception('Database name contains invalid characters');
             }
         }
@@ -553,16 +548,6 @@ class MongoDB
      */
     private function getSystemCollectionFilterClosure($includeSystemCollections = false)
     {
-        return function (CollectionInfo $collectionInfo) use ($includeSystemCollections) {
-            return $includeSystemCollections || ! preg_match('#^system\.#', $collectionInfo->getName());
-        };
-    }
-
-    /**
-     * @return array
-     */
-    public function __sleep()
-    {
-        return ['connection', 'name'];
+        return static fn (CollectionInfo $collectionInfo) => $includeSystemCollections || !preg_match('#^system\.#', $collectionInfo->getName());
     }
 }

@@ -32,7 +32,7 @@ class MongoCode implements \Alcaeus\MongoDbAdapter\TypeInterface
     private $scope;
 
     /**
-     * @link http://php.net/manual/en/mongocode.construct.php
+     * @see http://php.net/manual/en/mongocode.construct.php
      * @param string $code A string of code
      * @param array $scope The scope to use for the code
      */
@@ -49,7 +49,7 @@ class MongoCode implements \Alcaeus\MongoDbAdapter\TypeInterface
     }
 
     /**
-     * Returns this code as a string
+     * Returns this code as a string.
      * @return string
      */
     public function __toString()
@@ -58,7 +58,7 @@ class MongoCode implements \Alcaeus\MongoDbAdapter\TypeInterface
     }
 
     /**
-     * Converts this MongoCode to the new BSON JavaScript type
+     * Converts this MongoCode to the new BSON JavaScript type.
      *
      * @return \MongoDB\BSON\Javascript
      * @internal This method is not part of the ext-mongo API
