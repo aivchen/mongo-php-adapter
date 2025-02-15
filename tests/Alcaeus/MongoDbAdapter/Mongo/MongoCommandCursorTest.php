@@ -89,7 +89,7 @@ class MongoCommandCursorTest extends TestCase
                 return false;
             }
 
-            return $other['readPreference']->getMode() === $expectedReadPreference;
+            return $other['readPreference']->getModeString() === $expectedReadPreference;
         };
 
         $databaseMock = $this->createMock(Database::class);
@@ -119,88 +119,88 @@ class MongoCommandCursorTest extends TestCase
                     'query' => [],
                     'update' => ['$inc' => ['field' => 1]],
                 ],
-                ReadPreference::RP_PRIMARY,
+                ReadPreference::PRIMARY,
             ],
             'findAndRemove' => [
                 [
                     'findandremove' => (string) $this->getCollection(),
                     'query' => [],
                 ],
-                ReadPreference::RP_PRIMARY,
+                ReadPreference::PRIMARY,
             ],
             'mapReduceWithOut' => [
                 [
                     'mapReduce' => (string) $this->getCollection(),
                     'out' => 'sample',
                 ],
-                ReadPreference::RP_PRIMARY,
+                ReadPreference::PRIMARY,
             ],
             'mapReduceWithOutInline' => [
                 [
                     'mapReduce' => (string) $this->getCollection(),
                     'out' => ['inline' => 1],
                 ],
-                ReadPreference::RP_SECONDARY,
+                ReadPreference::SECONDARY,
             ],
             'count' => [
                 [
                     'count' => (string) $this->getCollection(),
                 ],
-                ReadPreference::RP_SECONDARY,
+                ReadPreference::SECONDARY,
             ],
             'group' => [
                 [
                     'group' => (string) $this->getCollection(),
                 ],
-                ReadPreference::RP_SECONDARY,
+                ReadPreference::SECONDARY,
             ],
             'dbStats' => [
                 [
                     'dbStats' => (string) $this->getCollection(),
                 ],
-                ReadPreference::RP_SECONDARY,
+                ReadPreference::SECONDARY,
             ],
             'geoNear' => [
                 [
                     'geoNear' => (string) $this->getCollection(),
                 ],
-                ReadPreference::RP_SECONDARY,
+                ReadPreference::SECONDARY,
             ],
             'geoWalk' => [
                 [
                     'geoWalk' => (string) $this->getCollection(),
                 ],
-                ReadPreference::RP_SECONDARY,
+                ReadPreference::SECONDARY,
             ],
             'distinct' => [
                 [
                     'distinct' => (string) $this->getCollection(),
                 ],
-                ReadPreference::RP_SECONDARY,
+                ReadPreference::SECONDARY,
             ],
             'aggregate' => [
                 [
                     'aggregate' => (string) $this->getCollection(),
                 ],
-                ReadPreference::RP_SECONDARY,
+                ReadPreference::SECONDARY,
             ],
             'collStats' => [
                 [
                     'collStats' => (string) $this->getCollection(),
                 ],
-                ReadPreference::RP_SECONDARY,
+                ReadPreference::SECONDARY,
             ],
             'geoSearch' => [
                 [
                     'geoSearch' => (string) $this->getCollection(),
                 ],
-                ReadPreference::RP_SECONDARY,
+                ReadPreference::SECONDARY,
             ],
             'parallelCollectionScan' => [
                 [
                     'parallelCollectionScan' => (string) $this->getCollection(),
                 ],
-                ReadPreference::RP_SECONDARY,
+                ReadPreference::SECONDARY,
             ],
         ];
     }

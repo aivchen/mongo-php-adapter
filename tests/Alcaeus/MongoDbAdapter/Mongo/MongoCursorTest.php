@@ -290,13 +290,13 @@ class MongoCursorTest extends TestCase
                 },
             ],
             'slaveOkay' => [
-                getBasicCheckCallback(new ReadPreference(ReadPreference::RP_SECONDARY_PREFERRED), 'readPreference'),
+                getBasicCheckCallback(new ReadPreference(ReadPreference::SECONDARY_PREFERRED), 'readPreference'),
                 function (\MongoCursor $cursor) {
                     $cursor->slaveOkay(true);
                 },
             ],
             'slaveOkayWithReadPreferenceSet' => [
-                getBasicCheckCallback(new ReadPreference(ReadPreference::RP_SECONDARY), 'readPreference'),
+                getBasicCheckCallback(new ReadPreference(ReadPreference::SECONDARY), 'readPreference'),
                 function (\MongoCursor $cursor) {
                     $cursor
                         ->setReadPreference(\MongoClient::RP_SECONDARY)
@@ -313,7 +313,7 @@ class MongoCursorTest extends TestCase
                 },
             ],
             'readPreferencePrimary' => [
-                getBasicCheckCallback(new ReadPreference(ReadPreference::RP_PRIMARY), 'readPreference'),
+                getBasicCheckCallback(new ReadPreference(ReadPreference::PRIMARY), 'readPreference'),
                 function (\MongoCursor $cursor) {
                     $cursor->setReadPreference(\MongoClient::RP_PRIMARY);
                 },

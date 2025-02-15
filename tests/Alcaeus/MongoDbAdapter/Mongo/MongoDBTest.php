@@ -178,7 +178,7 @@ class MongoDBTest extends TestCase
         // Only way to check whether options are passed down is through debugInfo
         $readPreference = $database->getDb()->__debugInfo()['readPreference'];
 
-        $this->assertSame(ReadPreference::RP_SECONDARY, $readPreference->getMode());
+        $this->assertSame(ReadPreference::SECONDARY, $readPreference->getModeString());
         $this->assertSame([['a' => 'b']], $readPreference->getTagSets());
     }
 
