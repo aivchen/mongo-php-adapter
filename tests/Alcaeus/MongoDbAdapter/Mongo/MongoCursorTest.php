@@ -363,8 +363,8 @@ class MongoCursorTest extends TestCase
             'id' => 0,
             'at' => 1,
             'numReturned' => 1,
-            'server' => 'localhost:27017;-;.;' . getmypid(),
-            'host' => 'localhost',
+            'server' => $this->getCurrentHost() . ':27017;-;.;' . getmypid(),
+            'host' => $this->getCurrentHost(),
             'port' => 27017,
             'connection_type_desc' => 'STANDALONE'
         ];
@@ -375,7 +375,7 @@ class MongoCursorTest extends TestCase
     public function testCursorInfoWithBatchSize()
     {
         $this->prepareData();
-
+        $host = $this->getCurrentHost();
         $collection = $this->getCollection();
         $cursor = $collection->find(['foo' => 'bar'], ['_id' => false])->skip(1)->limit(3);
         $cursor->batchSize(1);
@@ -401,8 +401,8 @@ class MongoCursorTest extends TestCase
             'id' => 0,
             'at' => 1,
             'numReturned' => 1,
-            'server' => 'localhost:27017;-;.;' . getmypid(),
-            'host' => 'localhost',
+            'server' => "$host:27017;-;.;" . getmypid(),
+            'host' => $host,
             'port' => 27017,
             'connection_type_desc' => 'STANDALONE'
         ];

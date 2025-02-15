@@ -218,4 +218,9 @@ abstract class TestCase extends BaseTestCase
         $compatibilityVersion = $this->getFeatureCompatibilityVersion();
         return version_compare($compatibilityVersion, '3.4', '>=') ? self::INDEX_VERSION_2 : self::INDEX_VERSION_1;
     }
+
+    protected function getCurrentHost(): string
+    {
+        return parse_url(MONGODB_URI, PHP_URL_HOST);
+    }
 }
