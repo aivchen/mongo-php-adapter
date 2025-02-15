@@ -1824,7 +1824,7 @@ class MongoCollectionTest extends TestCase
             ],
         ];
 
-        usort($result['results'], static fn ($a, $b) => \strcasecmp($a['_id'], $b['_id']));
+        usort($result['results'], static fn($a, $b) => strcasecmp($a['_id'], $b['_id']));
 
         self::assertSame(1.0, $result['ok']);
         self::assertEquals($expected, $result['results']);

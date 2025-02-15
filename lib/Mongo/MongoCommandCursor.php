@@ -1,4 +1,5 @@
 <?php
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -19,6 +20,7 @@ if (class_exists('MongoCommandCursor', false)) {
 
 use Alcaeus\MongoDbAdapter\AbstractCursor;
 use Alcaeus\MongoDbAdapter\TypeConverter;
+use MongoDB\Driver\Cursor;
 
 class MongoCommandCursor extends AbstractCursor implements MongoCursorInterface
 {
@@ -44,7 +46,7 @@ class MongoCommandCursor extends AbstractCursor implements MongoCursorInterface
      */
     public static function createFromDocument(MongoClient $connection, $hash, array $document)
     {
-        throw new \Exception('Not implemented');
+        throw new Exception('Not implemented');
     }
 
     /**
@@ -56,7 +58,7 @@ class MongoCommandCursor extends AbstractCursor implements MongoCursorInterface
     }
 
     /**
-     * @return \MongoDB\Driver\Cursor
+     * @return Cursor
      */
     protected function ensureCursor()
     {
@@ -64,14 +66,14 @@ class MongoCommandCursor extends AbstractCursor implements MongoCursorInterface
             $convertedCommand = TypeConverter::fromLegacy($this->command);
             if (isset($convertedCommand->cursor)) {
                 if ($convertedCommand->cursor === true || $convertedCommand->cursor === []) {
-                    $convertedCommand->cursor = new \stdClass();
+                    $convertedCommand->cursor = new stdClass();
                 }
             }
 
             $originalReadPreference = null;
             if (!$this->supportsReadPreference()) {
                 $originalReadPreference = $this->readPreference;
-                $this->setReadPreference(\MongoClient::RP_PRIMARY);
+                $this->setReadPreference(MongoClient::RP_PRIMARY);
             }
 
             try {

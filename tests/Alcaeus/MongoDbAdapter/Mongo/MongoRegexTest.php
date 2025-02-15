@@ -4,6 +4,7 @@ namespace Alcaeus\MongoDbAdapter\Tests\Mongo;
 
 use Alcaeus\MongoDbAdapter\Tests\TestCase;
 use Alcaeus\MongoDbAdapter\TypeInterface;
+use MongoDB\BSON\Regex;
 
 /**
  * @author alcaeus <alcaeus@alcaeus.org>
@@ -38,7 +39,7 @@ class MongoRegexTest extends TestCase
     {
         $this->skipTestUnless(\in_array(TypeInterface::class, class_implements('MongoRegex'), true));
 
-        $bsonRegex = new \MongoDB\BSON\Regex('abc', 'i');
+        $bsonRegex = new Regex('abc', 'i');
         $regex = new \MongoRegex($bsonRegex);
 
         self::assertSame('abc', $regex->regex);

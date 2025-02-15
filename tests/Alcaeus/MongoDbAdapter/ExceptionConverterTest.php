@@ -4,6 +4,9 @@ namespace Alcaeus\MongoDbAdapter\Tests;
 
 use Alcaeus\MongoDbAdapter\ExceptionConverter;
 use MongoDB\Driver\Exception;
+use MongoDB\Exception\BadMethodCallException;
+use MongoDB\Exception\InvalidArgumentException;
+use MongoDB\Exception\UnexpectedValueException;
 use PHPUnit\Framework\TestCase;
 
 class ExceptionConverterTest extends TestCase
@@ -67,15 +70,15 @@ class ExceptionConverterTest extends TestCase
 
             // Library
             [
-                new \MongoDB\Exception\BadMethodCallException('message', 2),
+                new BadMethodCallException('message', 2),
                 'MongoException',
             ],
             [
-                new \MongoDB\Exception\InvalidArgumentException('message', 2),
+                new InvalidArgumentException('message', 2),
                 'MongoException',
             ],
             [
-                new \MongoDB\Exception\UnexpectedValueException('message', 2),
+                new UnexpectedValueException('message', 2),
                 'MongoException',
             ],
         ];

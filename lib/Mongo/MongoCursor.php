@@ -1,4 +1,5 @@
 <?php
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -22,6 +23,8 @@ use Alcaeus\MongoDbAdapter\CursorIterator;
 use Alcaeus\MongoDbAdapter\ExceptionConverter;
 use Alcaeus\MongoDbAdapter\TypeConverter;
 use MongoDB\Driver\Cursor;
+use MongoDB\Driver\Exception\Exception;
+use MongoDB\Driver\Exception\ExecutionTimeoutException;
 use MongoDB\Operation\Find;
 
 /**
@@ -143,7 +146,7 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
      * @param bool $foundOnly send cursor limit and skip information to the count function, if applicable
      * @return int the number of documents returned by this cursor's query
      */
-    #[\ReturnTypeWillChange]
+    #[ReturnTypeWillChange]
     public function count($foundOnly = false)
     {
         $optionNames = ['hint', 'maxTimeMS'];
@@ -155,9 +158,9 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
 
         try {
             $count = $this->collection->count(TypeConverter::fromLegacy($this->query), $options);
-        } catch (\MongoDB\Driver\Exception\ExecutionTimeoutException $e) {
+        } catch (ExecutionTimeoutException $e) {
             throw new MongoCursorTimeoutException($e->getMessage(), $e->getCode(), $e);
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (Exception $e) {
             throw ExceptionConverter::toLegacy($e);
         }
 
@@ -447,9 +450,9 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
 
         try {
             $this->cursor = $this->collection->find(TypeConverter::fromLegacy($this->query), $options);
-        } catch (\MongoDB\Driver\Exception\ExecutionTimeoutException $e) {
+        } catch (ExecutionTimeoutException $e) {
             throw new MongoCursorTimeoutException($e->getMessage(), $e->getCode(), $e);
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (Exception $e) {
             throw ExceptionConverter::toLegacy($e);
         }
     }

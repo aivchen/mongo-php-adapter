@@ -1,4 +1,5 @@
 <?php
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -227,6 +228,6 @@ class Mongo extends MongoClient
 
     protected function notImplemented(): void
     {
-        throw new \Exception('The Mongo class is deprecated and not supported through mongo-php-adapter');
+        throw new Exception('The Mongo class is deprecated and not supported through mongo-php-adapter');
     }
 }

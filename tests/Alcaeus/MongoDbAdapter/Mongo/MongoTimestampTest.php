@@ -4,6 +4,7 @@ namespace Alcaeus\MongoDbAdapter\Tests\Mongo;
 
 use Alcaeus\MongoDbAdapter\Tests\TestCase;
 use Alcaeus\MongoDbAdapter\TypeInterface;
+use MongoDB\BSON\Timestamp;
 
 /**
  * @author alcaeus <alcaeus@alcaeus.org>
@@ -46,7 +47,7 @@ class MongoTimestampTest extends TestCase
     {
         $this->skipTestUnless(\in_array(TypeInterface::class, class_implements('MongoTimestamp'), true));
 
-        $bsonTimestamp = new \MongoDB\BSON\Timestamp(987654321, 1234567890);
+        $bsonTimestamp = new Timestamp(987654321, 1234567890);
         $timestamp = new \MongoTimestamp($bsonTimestamp);
 
         self::assertSame(1234567890, $timestamp->sec);
@@ -60,7 +61,7 @@ class MongoTimestampTest extends TestCase
         /* The legacy MongoTimestamp's constructor takes seconds before the
          * increment, while MongoDB\BSON\Timestamp takes the increment first.
          */
-        $bsonTimestamp = new \MongoDB\BSON\Timestamp(12345, 67890);
+        $bsonTimestamp = new Timestamp(12345, 67890);
         $timestamp = new \MongoTimestamp(67890, 12345);
 
         self::assertSame((string) $bsonTimestamp, (string) $timestamp->toBSONType());

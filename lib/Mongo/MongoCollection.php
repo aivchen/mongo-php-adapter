@@ -1,4 +1,5 @@
 <?php
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,7 +21,13 @@ if (class_exists('MongoCollection', false)) {
 use Alcaeus\MongoDbAdapter\ExceptionConverter;
 use Alcaeus\MongoDbAdapter\Helper;
 use Alcaeus\MongoDbAdapter\TypeConverter;
+use MongoDB\Collection;
+use MongoDB\DeleteResult;
 use MongoDB\Driver\Exception\CommandException;
+use MongoDB\Driver\Exception\ConnectionException;
+use MongoDB\Model\IndexInfo;
+use MongoDB\Operation\FindOneAndUpdate;
+use MongoDB\UpdateResult;
 
 /**
  * Represents a database collection.
@@ -31,7 +38,6 @@ class MongoCollection
     use Helper\ReadPreference;
     use Helper\SlaveOkay;
     use Helper\WriteConcern;
-
     public const ASCENDING = 1;
     public const DESCENDING = -1;
 
@@ -46,7 +52,7 @@ class MongoCollection
     protected $name;
 
     /**
-     * @var \MongoDB\Collection
+     * @var Collection
      */
     protected $collection;
 
@@ -74,7 +80,7 @@ class MongoCollection
      * Gets the underlying collection for this object.
      *
      * @internal This part is not of the ext-mongo API and should not be used
-     * @return \MongoDB\Collection
+     * @return Collection
      */
     public function getCollection()
     {
@@ -168,7 +174,7 @@ class MongoCollection
                 'result' => TypeConverter::toLegacy($cursor),
                 'waitedMS' => 0,
             ];
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (MongoDB\Driver\Exception\Exception $e) {
             throw ExceptionConverter::toLegacy($e, 'MongoResultException');
         }
     }
@@ -189,7 +195,7 @@ class MongoCollection
 
         // Convert cursor option
         if (!isset($options['cursor'])) {
-            $options['cursor'] = new \stdClass();
+            $options['cursor'] = new stdClass();
         }
 
         $command += $options;
@@ -280,7 +286,7 @@ class MongoCollection
                 TypeConverter::fromLegacy($a),
                 $this->convertWriteConcernOptions($options),
             );
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (MongoDB\Driver\Exception\Exception $e) {
             throw ExceptionConverter::toLegacy($e);
         }
 
@@ -308,7 +314,7 @@ class MongoCollection
     public function batchInsert(array &$a, array $options = [])
     {
         if (empty($a)) {
-            throw new \MongoException('No write ops were included in the batch');
+            throw new MongoException('No write ops were included in the batch');
         }
 
         $continueOnError = isset($options['continueOnError']) && $options['continueOnError'];
@@ -336,7 +342,7 @@ class MongoCollection
                 TypeConverter::fromLegacy(array_values($a)),
                 $this->convertWriteConcernOptions($options),
             );
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (MongoDB\Driver\Exception\Exception $e) {
             throw ExceptionConverter::toLegacy($e, 'MongoResultException');
         }
 
@@ -375,7 +381,7 @@ class MongoCollection
         $isReplace = !\MongoDB\is_first_key_operator($newobj);
 
         if ($isReplace && $multiple) {
-            throw new \MongoWriteConcernException('multi update only works with $ operators', 9);
+            throw new MongoWriteConcernException('multi update only works with $ operators', 9);
         }
         unset($options['multiple']);
 
@@ -383,13 +389,13 @@ class MongoCollection
         $method .= $multiple ? 'Many' : 'One';
 
         try {
-            /** @var \MongoDB\UpdateResult $result */
+            /** @var UpdateResult $result */
             $result = $this->collection->{$method}(
                 TypeConverter::fromLegacy($criteria),
                 TypeConverter::fromLegacy($newobj),
                 $this->convertWriteConcernOptions($options),
             );
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (MongoDB\Driver\Exception\Exception $e) {
             throw ExceptionConverter::toLegacy($e);
         }
 
@@ -424,12 +430,12 @@ class MongoCollection
         $method = $multiple ? 'deleteMany' : 'deleteOne';
 
         try {
-            /** @var \MongoDB\DeleteResult $result */
+            /** @var DeleteResult $result */
             $result = $this->collection->{$method}(
                 TypeConverter::fromLegacy($criteria),
                 $this->convertWriteConcernOptions($options),
             );
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (MongoDB\Driver\Exception\Exception $e) {
             throw ExceptionConverter::toLegacy($e);
         }
 
@@ -473,7 +479,7 @@ class MongoCollection
     {
         try {
             return array_map([TypeConverter::class, 'toLegacy'], $this->collection->distinct($key, TypeConverter::fromLegacy($query)));
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (MongoDB\Driver\Exception\Exception $e) {
             return false;
         }
     }
@@ -506,7 +512,7 @@ class MongoCollection
                 $update = TypeConverter::fromLegacy($update);
 
                 if (isset($options['new'])) {
-                    $options['returnDocument'] = \MongoDB\Operation\FindOneAndUpdate::RETURN_DOCUMENT_AFTER;
+                    $options['returnDocument'] = FindOneAndUpdate::RETURN_DOCUMENT_AFTER;
                     unset($options['new']);
                 }
 
@@ -518,9 +524,9 @@ class MongoCollection
                     $document = $this->collection->findOneAndUpdate($query, $update, $options);
                 }
             }
-        } catch (\MongoDB\Driver\Exception\ConnectionException $e) {
+        } catch (ConnectionException $e) {
             throw new MongoResultException($e->getMessage(), $e->getCode(), $e);
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (MongoDB\Driver\Exception\Exception $e) {
             throw ExceptionConverter::toLegacy($e, 'MongoResultException');
         }
 
@@ -552,7 +558,7 @@ class MongoCollection
 
         try {
             $document = $this->collection->findOne(TypeConverter::fromLegacy($query), $options);
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (MongoDB\Driver\Exception\Exception $e) {
             throw ExceptionConverter::toLegacy($e);
         }
 
@@ -618,7 +624,7 @@ class MongoCollection
             }
 
             $this->collection->createIndex($keys, $options);
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (MongoDB\Driver\Exception\Exception $e) {
             if (!$e instanceof CommandException || strpos($e->getMessage(), 'with a different name') === false) {
                 throw ExceptionConverter::toLegacy($e, 'MongoResultException');
             }
@@ -671,12 +677,12 @@ class MongoCollection
         } elseif (is_array($keys)) {
             $indexName = $this->generateIndexName($keys);
         } else {
-            throw new \InvalidArgumentException();
+            throw new InvalidArgumentException();
         }
 
         try {
             return TypeConverter::toLegacy($this->collection->dropIndex($indexName));
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (MongoDB\Driver\Exception\Exception $e) {
             return ExceptionConverter::toResultArray($e) + ['nIndexesWas' => count($this->getIndexInfo())];
         }
     }
@@ -691,7 +697,7 @@ class MongoCollection
     {
         try {
             return TypeConverter::toLegacy($this->collection->dropIndexes());
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (MongoDB\Driver\Exception\Exception $e) {
             return ExceptionConverter::toResultArray($e);
         }
     }
@@ -704,7 +710,7 @@ class MongoCollection
      */
     public function getIndexInfo()
     {
-        $convertIndex = static function (MongoDB\Model\IndexInfo $indexInfo) {
+        $convertIndex = static function (IndexInfo $indexInfo) {
             $infos = [
                 'v' => $indexInfo->getVersion(),
                 'key' => $indexInfo->getKey(),
@@ -767,7 +773,7 @@ class MongoCollection
             }
 
             return $this->collection->count(TypeConverter::fromLegacy($query), $options);
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (MongoDB\Driver\Exception\Exception $e) {
             throw ExceptionConverter::toLegacy($e);
         }
     }
@@ -793,7 +799,7 @@ class MongoCollection
         $options['upsert'] = true;
 
         try {
-            /** @var \MongoDB\UpdateResult $result */
+            /** @var UpdateResult $result */
             $result = $this->collection->replaceOne(
                 TypeConverter::fromLegacy(['_id' => $id]),
                 TypeConverter::fromLegacy($document),
@@ -817,7 +823,7 @@ class MongoCollection
             }
 
             return $resultArray;
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (MongoDB\Driver\Exception\Exception $e) {
             throw ExceptionConverter::toLegacy($e);
         }
     }
@@ -831,7 +837,7 @@ class MongoCollection
      */
     public function createDBRef($document_or_id)
     {
-        if ($document_or_id instanceof \MongoId) {
+        if ($document_or_id instanceof MongoId) {
             $id = $document_or_id;
         } elseif (is_object($document_or_id)) {
             if (!isset($document_or_id->_id)) {
@@ -929,11 +935,11 @@ class MongoCollection
 
     protected function notImplemented(): void
     {
-        throw new \Exception('Not implemented');
+        throw new Exception('Not implemented');
     }
 
     /**
-     * @return \MongoDB\Collection
+     * @return Collection
      */
     private function createCollectionObject()
     {
@@ -983,7 +989,7 @@ class MongoCollection
     {
         foreach ($array as $key => $value) {
             if (empty($key) && $key !== 0 && $key !== '0') {
-                throw new \MongoException('zero-length keys are not allowed, did you use $ with double quotes?');
+                throw new MongoException('zero-length keys are not allowed, did you use $ with double quotes?');
             }
 
             if (is_object($value) || is_array($value)) {
@@ -1000,7 +1006,7 @@ class MongoCollection
     {
         if (is_array($document) || $document instanceof ArrayObject) {
             if (!isset($document['_id'])) {
-                $document['_id'] = new \MongoId();
+                $document['_id'] = new MongoId();
             }
 
             $this->checkKeys((array) $document);
@@ -1008,15 +1014,15 @@ class MongoCollection
             return $document['_id'];
         }
         if (is_object($document)) {
-            $reflectionObject = new \ReflectionObject($document);
+            $reflectionObject = new ReflectionObject($document);
             foreach ($reflectionObject->getProperties() as $property) {
                 if (!$property->isPublic()) {
-                    throw new \MongoException('zero-length keys are not allowed, did you use $ with double quotes?');
+                    throw new MongoException('zero-length keys are not allowed, did you use $ with double quotes?');
                 }
             }
 
             if (!isset($document->_id)) {
-                $document->_id = new \MongoId();
+                $document->_id = new MongoId();
             }
 
             $this->checkKeys((array) $document);
@@ -1055,7 +1061,7 @@ class MongoCollection
     private function mustBeArrayOrObject($a): void
     {
         if (!is_array($a) && !is_object($a)) {
-            throw new \MongoException('document must be an array or object');
+            throw new MongoException('document must be an array or object');
         }
     }
 }

@@ -1,4 +1,5 @@
 <?php
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -218,7 +219,7 @@ class MongoId implements TypeInterface, JsonSerializable
             } else {
                 $this->objectID = new ObjectID();
             }
-        } catch (\Exception $e) {
+        } catch (Exception $e) {
             throw new MongoException('Invalid object ID', 19);
         }
     }

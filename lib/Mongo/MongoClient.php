@@ -1,4 +1,5 @@
 <?php
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +21,9 @@ if (class_exists('MongoClient', false)) {
 use Alcaeus\MongoDbAdapter\ExceptionConverter;
 use Alcaeus\MongoDbAdapter\Helper;
 use MongoDB\Client;
+use MongoDB\Driver\Command;
+use MongoDB\Driver\Manager;
+use MongoDB\Driver\Server;
 
 /**
  * A connection between PHP and MongoDB. This class is used to create and manage connections
@@ -30,7 +34,6 @@ class MongoClient
 {
     use Helper\ReadPreference;
     use Helper\WriteConcern;
-
     public const VERSION = '1.6.12';
     public const DEFAULT_HOST = 'localhost';
     public const DEFAULT_PORT = 27017;
@@ -61,7 +64,7 @@ class MongoClient
     private $client;
 
     /**
-     * @var \MongoDB\Driver\Manager
+     * @var Manager
      */
     private $manager;
 
@@ -204,7 +207,7 @@ class MongoClient
 
         try {
             $servers = $this->manager->getServers();
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (MongoDB\Driver\Exception\Exception $e) {
             throw ExceptionConverter::toLegacy($e);
         }
 
@@ -213,10 +216,10 @@ class MongoClient
             $info = $server->getInfo();
 
             switch ($server->getType()) {
-                case \MongoDB\Driver\Server::TYPE_RS_PRIMARY:
+                case Server::TYPE_RS_PRIMARY:
                     $state = 1;
                     break;
-                case \MongoDB\Driver\Server::TYPE_RS_SECONDARY:
+                case Server::TYPE_RS_SECONDARY:
                     $state = 2;
                     break;
 
@@ -260,7 +263,7 @@ class MongoClient
     {
         try {
             $databaseInfoIterator = $this->client->listDatabases();
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (MongoDB\Driver\Exception\Exception $e) {
             throw ExceptionConverter::toLegacy($e);
         }
 
@@ -353,16 +356,16 @@ class MongoClient
     private function forceConnect(): void
     {
         try {
-            $command = new \MongoDB\Driver\Command(['ping' => 1]);
+            $command = new Command(['ping' => 1]);
             $this->manager->executeCommand('db', $command);
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (MongoDB\Driver\Exception\Exception $e) {
             throw ExceptionConverter::toLegacy($e);
         }
     }
 
     private function notImplemented(): void
     {
-        throw new \Exception('Not implemented');
+        throw new Exception('Not implemented');
     }
 
     /**

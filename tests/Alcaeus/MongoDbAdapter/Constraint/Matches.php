@@ -55,7 +55,7 @@ class Matches extends Constraint
     private static function getOperatorName(BSONDocument $document)
     {
         foreach ($document as $key => $_) {
-            if (\strpos((string) $key, '$$') === 0) {
+            if (strpos((string) $key, '$$') === 0) {
                 return $key;
             }
         }
@@ -75,7 +75,7 @@ class Matches extends Constraint
         }
 
         foreach ($document as $key => $_) {
-            return \strpos((string) $key, '$$') === 0;
+            return strpos((string) $key, '$$') === 0;
         }
 
         throw new \LogicException('should not reach this point');
@@ -143,7 +143,7 @@ class Matches extends Constraint
             return true;
         }
 
-        return \array_keys($a) === \range(0, \count($a) - 1);
+        return array_keys($a) === range(0, \count($a) - 1);
     }
 
     private function doEvaluate($other, $description = '', $returnResult = false)

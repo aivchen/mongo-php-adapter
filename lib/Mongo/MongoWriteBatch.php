@@ -1,4 +1,5 @@
 <?php
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -33,7 +34,6 @@ use MongoDB\Driver\WriteResult;
 class MongoWriteBatch
 {
     use WriteConcernConverter;
-
     public const COMMAND_INSERT = 1;
     public const COMMAND_UPDATE = 2;
     public const COMMAND_DELETE = 3;
@@ -195,7 +195,7 @@ class MongoWriteBatch
         if (!$ok) {
             // Exception code is hardcoded to the value in ext-mongo, see
             // https://github.com/mongodb/mongo-php-driver-legacy/blob/ab4bc0d90e93b3f247f6bcb386d0abc8d2fa7d74/batch/write.c#L428
-            throw new \MongoWriteConcernException('Failed write', 911, null, $resultDocument);
+            throw new MongoWriteConcernException('Failed write', 911, null, $resultDocument);
         }
 
         return $resultDocument;

@@ -94,7 +94,7 @@ class MongoClientTest extends TestCase
     private static function makeOptionString(array $options)
     {
         return implode('&', array_map(
-            static fn ($key, $value) => $key . '=' . $value,
+            static fn($key, $value) => $key . '=' . $value,
             array_keys($options),
             array_values($options),
         ));
@@ -111,7 +111,7 @@ class MongoClientTest extends TestCase
 
     public function provideConnectionUriCases(): iterable
     {
-        yield ['default', sprintf('mongodb://%s:%d', \MongoClient::DEFAULT_HOST, \MongoClient::DEFAULT_PORT)];
+        yield ['default', \sprintf('mongodb://%s:%d', \MongoClient::DEFAULT_HOST, \MongoClient::DEFAULT_PORT)];
         yield ['localhost', 'mongodb://localhost'];
         yield ['mongodb://localhost', 'mongodb://localhost'];
     }

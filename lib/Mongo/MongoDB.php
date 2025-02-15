@@ -1,4 +1,5 @@
 <?php
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -20,6 +21,7 @@ if (class_exists('MongoDB', false)) {
 use Alcaeus\MongoDbAdapter\ExceptionConverter;
 use Alcaeus\MongoDbAdapter\Helper;
 use Alcaeus\MongoDbAdapter\TypeConverter;
+use MongoDB\Database;
 use MongoDB\Model\CollectionInfo;
 
 /**
@@ -31,7 +33,6 @@ class MongoDB
     use Helper\ReadPreference;
     use Helper\SlaveOkay;
     use Helper\WriteConcern;
-
     public const PROFILING_OFF = 0;
     public const PROFILING_SLOW = 1;
     public const PROFILING_ON = 2;
@@ -42,7 +43,7 @@ class MongoDB
     protected $connection;
 
     /**
-     * @var \MongoDB\Database
+     * @var Database
      */
     protected $db;
 
@@ -73,7 +74,7 @@ class MongoDB
     }
 
     /**
-     * @return \MongoDB\Database
+     * @return Database
      * @internal This method is not part of the ext-mongo API
      */
     public function getDb()
@@ -137,7 +138,7 @@ class MongoDB
 
         try {
             $collections = $this->db->listCollections($options);
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (MongoDB\Driver\Exception\Exception $e) {
             throw ExceptionConverter::toLegacy($e);
         }
 
@@ -153,7 +154,7 @@ class MongoDB
                     'info' => isset($info['info']) ? (array) $info['info'] : null,
                     'idIndex' => isset($info['idIndex']) ? (array) $info['idIndex'] : null,
                 ],
-                static fn ($item) => $item !== null,
+                static fn($item) => $item !== null,
             );
         };
 
@@ -183,11 +184,11 @@ class MongoDB
 
         try {
             $collections = $this->db->listCollections($options);
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (MongoDB\Driver\Exception\Exception $e) {
             throw ExceptionConverter::toLegacy($e);
         }
 
-        $getCollectionName = static fn (CollectionInfo $collectionInfo) => $collectionInfo->getName();
+        $getCollectionName = static fn(CollectionInfo $collectionInfo) => $collectionInfo->getName();
 
         $eligibleCollections = array_filter(
             iterator_to_array($collections),
@@ -215,7 +216,7 @@ class MongoDB
      */
     public function getGridFS($prefix = 'fs')
     {
-        return new \MongoGridFS($this, $prefix);
+        return new MongoGridFS($this, $prefix);
     }
 
     /**
@@ -304,7 +305,7 @@ class MongoDB
             }
 
             $this->db->createCollection($name, $options);
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (MongoDB\Driver\Exception\Exception $e) {
             return false;
         }
 
@@ -349,7 +350,7 @@ class MongoDB
      */
     public function createDBRef($collection, $document_or_id)
     {
-        if ($document_or_id instanceof \MongoId) {
+        if ($document_or_id instanceof MongoId) {
             $id = $document_or_id;
         } elseif (is_object($document_or_id)) {
             if (!isset($document_or_id->_id)) {
@@ -408,11 +409,11 @@ class MongoDB
     public function command(array $data, $options = [], &$hash = null)
     {
         try {
-            $cursor = new \MongoCommandCursor($this->connection, $this->name, $data);
+            $cursor = new MongoCommandCursor($this->connection, $this->name, $data);
             $cursor->setReadPreference($this->getReadPreference());
 
             return iterator_to_array($cursor)[0];
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (MongoDB\Driver\Exception\Exception $e) {
             return ExceptionConverter::toResultArray($e);
         }
     }
@@ -473,7 +474,7 @@ class MongoDB
      */
     public function authenticate($username, $password)
     {
-        throw new \Exception('The MongoDB::authenticate method is not supported. Please supply authentication credentials through the connection string');
+        throw new Exception('The MongoDB::authenticate method is not supported. Please supply authentication credentials through the connection string');
     }
 
     public function setReadPreference($readPreference, $tags = null)
@@ -502,11 +503,11 @@ class MongoDB
 
     protected function notImplemented(): void
     {
-        throw new \Exception('Not implemented');
+        throw new Exception('Not implemented');
     }
 
     /**
-     * @return \MongoDB\Database
+     * @return Database
      */
     private function createDatabaseObject()
     {
@@ -525,19 +526,19 @@ class MongoDB
     private function checkDatabaseName($name): void
     {
         if (empty($name)) {
-            throw new \Exception('Database name cannot be empty');
+            throw new Exception('Database name cannot be empty');
         }
         if (strlen($name) >= 64) {
-            throw new \Exception('Database name cannot exceed 63 characters');
+            throw new Exception('Database name cannot exceed 63 characters');
         }
         if (strpos($name, chr(0)) !== false) {
-            throw new \Exception('Database name cannot contain null bytes');
+            throw new Exception('Database name cannot contain null bytes');
         }
 
         $invalidCharacters = ['.', '$', '/', ' ', '\\'];
         foreach ($invalidCharacters as $char) {
             if (strstr($name, $char) !== false) {
-                throw new \Exception('Database name contains invalid characters');
+                throw new Exception('Database name contains invalid characters');
             }
         }
     }
@@ -548,6 +549,6 @@ class MongoDB
      */
     private function getSystemCollectionFilterClosure($includeSystemCollections = false)
     {
-        return static fn (CollectionInfo $collectionInfo) => $includeSystemCollections || !preg_match('#^system\.#', $collectionInfo->getName());
+        return static fn(CollectionInfo $collectionInfo) => $includeSystemCollections || !preg_match('#^system\.#', $collectionInfo->getName());
     }
 }

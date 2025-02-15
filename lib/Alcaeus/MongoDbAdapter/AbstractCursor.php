@@ -1,4 +1,5 @@
 <?php
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -17,7 +18,9 @@ namespace Alcaeus\MongoDbAdapter;
 
 use Alcaeus\MongoDbAdapter\Helper\ReadPreference;
 use MongoDB\Collection;
+use MongoDB\Database;
 use MongoDB\Driver\Cursor;
+use MongoDB\Driver\Server;
 
 /**
  * @internal
@@ -47,7 +50,7 @@ abstract class AbstractCursor
     protected $cursor;
 
     /**
-     * @var \MongoDB\Database
+     * @var Database
      */
     protected $db;
 
@@ -324,16 +327,16 @@ abstract class AbstractCursor
 
         if ($this->cursor !== null) {
             switch ($this->cursor->getServer()->getType()) {
-                case \MongoDB\Driver\Server::TYPE_RS_ARBITER:
+                case Server::TYPE_RS_ARBITER:
                     $typeString = 'ARBITER';
                     break;
-                case \MongoDB\Driver\Server::TYPE_MONGOS:
+                case Server::TYPE_MONGOS:
                     $typeString = 'MONGOS';
                     break;
-                case \MongoDB\Driver\Server::TYPE_RS_PRIMARY:
+                case Server::TYPE_RS_PRIMARY:
                     $typeString = 'PRIMARY';
                     break;
-                case \MongoDB\Driver\Server::TYPE_RS_SECONDARY:
+                case Server::TYPE_RS_SECONDARY:
                     $typeString = 'SECONDARY';
                     break;
 
@@ -346,7 +349,7 @@ abstract class AbstractCursor
                 'id' => (int) $cursorId,
                 'at' => $this->position,
                 'numReturned' => $this->position, // This can't be obtained from the new cursor
-                'server' => sprintf('%s:%d;-;.;%d', $this->cursor->getServer()->getHost(), $this->cursor->getServer()->getPort(), getmypid()),
+                'server' => \sprintf('%s:%d;-;.;%d', $this->cursor->getServer()->getHost(), $this->cursor->getServer()->getPort(), getmypid()),
                 'host' => $this->cursor->getServer()->getHost(),
                 'port' => $this->cursor->getServer()->getPort(),
                 'connection_type_desc' => $typeString,

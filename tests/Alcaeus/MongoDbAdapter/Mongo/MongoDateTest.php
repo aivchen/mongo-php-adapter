@@ -4,6 +4,7 @@ namespace Alcaeus\MongoDbAdapter\Tests\Mongo;
 
 use Alcaeus\MongoDbAdapter\Tests\TestCase;
 use Alcaeus\MongoDbAdapter\TypeInterface;
+use MongoDB\BSON\UTCDateTime;
 
 /**
  * @author alcaeus <alcaeus@alcaeus.org>
@@ -76,7 +77,7 @@ class MongoDateTest extends TestCase
     {
         $this->skipTestUnless(\in_array(TypeInterface::class, class_implements('MongoDate'), true));
 
-        $bsonDate = new \MongoDB\BSON\UTCDateTime(1234567890123);
+        $bsonDate = new UTCDateTime(1234567890123);
         $date = new \MongoDate($bsonDate);
 
         self::assertSame(1234567890, $date->sec);

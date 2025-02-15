@@ -4,7 +4,7 @@ namespace Alcaeus\MongoDbAdapter\Tests\Mongo;
 
 use Alcaeus\MongoDbAdapter\Tests\TestCase;
 
-class MongoLogTest extends Testcase
+class MongoLogTest extends TestCase
 {
     public function testSetCallback(): void
     {

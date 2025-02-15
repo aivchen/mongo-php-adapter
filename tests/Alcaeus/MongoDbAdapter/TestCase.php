@@ -4,13 +4,14 @@ namespace Alcaeus\MongoDbAdapter\Tests;
 
 use Alcaeus\MongoDbAdapter\Tests\Constraint\Matches;
 use MongoDB\Client;
+use MongoDB\Database;
+use MongoDB\Driver\Exception\Exception;
 use PHPUnit\Framework\TestCase as BaseTestCase;
 use Symfony\Bridge\PhpUnit\SetUpTearDownTrait;
 
 abstract class TestCase extends BaseTestCase
 {
     use SetUpTearDownTrait;
-
     public const INDEX_VERSION_1 = 1;
     public const INDEX_VERSION_2 = 2;
 
@@ -28,7 +29,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * @return \MongoDB\Client
+     * @return Client
      */
     protected function getCheckClient()
     {
@@ -36,7 +37,7 @@ abstract class TestCase extends BaseTestCase
     }
 
     /**
-     * @return \MongoDB\Database
+     * @return Database
      */
     protected function getCheckDatabase()
     {
@@ -146,7 +147,7 @@ abstract class TestCase extends BaseTestCase
 
         try {
             $database->command(['configureFailPoint' => 1]);
-        } catch (\MongoDB\Driver\Exception\Exception $e) {
+        } catch (Exception $e) {
             /* command not found */
             if ($e->getCode() == 59) {
                 self::markTestSkipped(

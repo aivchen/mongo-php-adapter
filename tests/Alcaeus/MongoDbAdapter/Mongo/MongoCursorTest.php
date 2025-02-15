@@ -18,32 +18,23 @@ class MongoCursorTest extends TestCase
     {
         function getMissingOptionCallback($optionName)
         {
-            return static function ($value) use ($optionName) {
-                return
-                    \is_array($value)
+            return static fn($value) => \is_array($value)
                     && !\array_key_exists($optionName, $value);
-            };
         }
 
         function getBasicCheckCallback($expected, $optionName)
         {
-            return static function ($value) use ($expected, $optionName) {
-                return
-                    \is_array($value)
+            return static fn($value) => \is_array($value)
                     && \array_key_exists($optionName, $value)
                     && $value[$optionName] == $expected;
-            };
         }
 
         function getModifierCheckCallback($expected, $modifierName)
         {
-            return static function ($value) use ($expected, $modifierName) {
-                return
-                    \is_array($value)
+            return static fn($value) => \is_array($value)
                     && \is_array($value['modifiers'])
                     && \array_key_exists($modifierName, $value['modifiers'])
                     && $value['modifiers'][$modifierName] == $expected;
-            };
         }
 
         $tests = [

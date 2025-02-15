@@ -13,7 +13,8 @@ $config = (new PhpCsFixer\Config())
     'final_public_method_for_abstract_class' => false,
     'date_time_immutable' => false,
     'declare_strict_types' => false,
-    'strict_comparison' => false
+    'strict_comparison' => false,
+    'php_unit_data_provider_static' => false
 ]);
 
 return $config;

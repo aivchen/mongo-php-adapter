@@ -1,4 +1,5 @@
 <?php
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -58,7 +59,7 @@ class MongoGridFS extends MongoCollection
      * @param MongoDB $db Database
      * @param string $prefix [optional] <p>Optional collection name prefix.</p>
      * @param mixed $chunks  [optional]
-     * @throws \Exception
+     * @throws Exception
      */
     public function __construct(MongoDB $db, $prefix = 'fs', $chunks = null)
     {
@@ -66,7 +67,7 @@ class MongoGridFS extends MongoCollection
             @trigger_error("The 'chunks' argument is deprecated and ignored", E_USER_DEPRECATED);
         }
         if (empty($prefix)) {
-            throw new \Exception('MongoGridFS::__construct(): invalid prefix');
+            throw new Exception('MongoGridFS::__construct(): invalid prefix');
         }
 
         $this->database = $db;
@@ -252,7 +253,7 @@ class MongoGridFS extends MongoCollection
                 throw new MongoGridFSException('could not open file: ' . $filename);
             }
         } elseif (!is_resource($filename)) {
-            throw new \Exception('first argument must be a string or stream resource');
+            throw new Exception('first argument must be a string or stream resource');
         } else {
             $handle = $filename;
         }
@@ -374,7 +375,7 @@ class MongoGridFS extends MongoCollection
         $result = $this->chunks->insert($chunk);
 
         if (!$this->isOKResult($result)) {
-            throw new \MongoException('error inserting chunk');
+            throw new MongoException('error inserting chunk');
         }
 
         return $result;
@@ -448,7 +449,7 @@ class MongoGridFS extends MongoCollection
         $result = $this->insert($record, $options);
 
         if (!$this->isOKResult($result)) {
-            throw new \MongoException('error inserting file');
+            throw new MongoException('error inserting file');
         }
 
         return $record;

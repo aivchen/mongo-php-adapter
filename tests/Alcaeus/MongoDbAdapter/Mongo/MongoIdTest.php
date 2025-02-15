@@ -32,14 +32,14 @@ class MongoIdTest extends TestCase
         self::assertSame($stringId, $id->{'$id'});
 
         $serialized = serialize($id);
-        self::assertSame(sprintf('O:7:"MongoId":1:{i:0;s:24:"%s";}', $stringId), $serialized);
+        self::assertSame(\sprintf('O:7:"MongoId":1:{i:0;s:24:"%s";}', $stringId), $serialized);
 
         $unserialized = unserialize($serialized);
         self::assertInstanceOf('MongoId', $unserialized);
         self::assertSame($stringId, (string) $unserialized);
 
         $json = json_encode($id);
-        self::assertSame(sprintf('{"$id":"%s"}', $stringId), $json);
+        self::assertSame(\sprintf('{"$id":"%s"}', $stringId), $json);
     }
 
     public function testCreateWithString(): void

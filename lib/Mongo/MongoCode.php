@@ -1,4 +1,5 @@
 <?php
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -14,12 +15,14 @@
  */
 
 use Alcaeus\MongoDbAdapter\TypeConverter;
+use Alcaeus\MongoDbAdapter\TypeInterface;
+use MongoDB\BSON\Javascript;
 
 if (class_exists('MongoCode', false)) {
     return;
 }
 
-class MongoCode implements \Alcaeus\MongoDbAdapter\TypeInterface
+class MongoCode implements TypeInterface
 {
     /**
      * @var string
@@ -38,7 +41,7 @@ class MongoCode implements \Alcaeus\MongoDbAdapter\TypeInterface
      */
     public function __construct($code, array $scope = [])
     {
-        if ($code instanceof \MongoDB\BSON\Javascript) {
+        if ($code instanceof Javascript) {
             $javascript = $code;
             $code = $javascript->getCode();
             $scope = TypeConverter::toLegacy($javascript->getScope());
@@ -60,11 +63,11 @@ class MongoCode implements \Alcaeus\MongoDbAdapter\TypeInterface
     /**
      * Converts this MongoCode to the new BSON JavaScript type.
      *
-     * @return \MongoDB\BSON\Javascript
+     * @return Javascript
      * @internal This method is not part of the ext-mongo API
      */
     public function toBSONType()
     {
-        return new \MongoDB\BSON\Javascript($this->code, !empty($this->scope) ? $this->scope : null);
+        return new Javascript($this->code, !empty($this->scope) ? $this->scope : null);
     }
 }

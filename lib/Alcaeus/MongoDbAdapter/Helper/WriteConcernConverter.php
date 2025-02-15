@@ -1,4 +1,5 @@
 <?php
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -15,12 +16,14 @@
 
 namespace Alcaeus\MongoDbAdapter\Helper;
 
+use MongoDB\Driver\WriteConcern;
+
 trait WriteConcernConverter
 {
     /**
      * @param string|int|bool $wstring
      * @param int $wtimeout
-     * @return \MongoDB\Driver\WriteConcern
+     * @return WriteConcern
      */
     protected function createWriteConcernFromParameters($wstring, $wtimeout)
     {
@@ -36,12 +39,12 @@ trait WriteConcernConverter
         }
 
         // Ensure wtimeout is not < 0
-        return new \MongoDB\Driver\WriteConcern($wstring, max($wtimeout, 0));
+        return new WriteConcern($wstring, max($wtimeout, 0));
     }
 
     /**
      * @param array $writeConcernArray
-     * @return \MongoDB\Driver\WriteConcern
+     * @return WriteConcern
      */
     protected function createWriteConcernFromArray($writeConcernArray)
     {

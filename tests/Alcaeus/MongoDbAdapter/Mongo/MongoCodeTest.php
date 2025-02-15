@@ -4,6 +4,7 @@ namespace Alcaeus\MongoDbAdapter\Tests\Mongo;
 
 use Alcaeus\MongoDbAdapter\Tests\TestCase;
 use Alcaeus\MongoDbAdapter\TypeInterface;
+use MongoDB\BSON\Javascript;
 
 /**
  * @author alcaeus <alcaeus@alcaeus.org>
@@ -62,7 +63,7 @@ class MongoCodeTest extends TestCase
     {
         $this->skipTestUnless(\in_array(TypeInterface::class, class_implements('MongoCode'), true));
 
-        $bsonCode = new \MongoDB\BSON\Javascript('code', ['scope' => 'bleh']);
+        $bsonCode = new Javascript('code', ['scope' => 'bleh']);
         $code = new \MongoCode($bsonCode);
 
         self::assertSame('code', $this->getAttributeValue($code, 'code'));

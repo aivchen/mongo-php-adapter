@@ -4,6 +4,7 @@ namespace Alcaeus\MongoDbAdapter\Tests\Mongo;
 
 use Alcaeus\MongoDbAdapter\Tests\TestCase;
 use Alcaeus\MongoDbAdapter\TypeInterface;
+use MongoDB\BSON\Binary;
 
 /**
  * @author alcaeus <alcaeus@alcaeus.org>
@@ -34,14 +35,14 @@ class MongoBinDataTest extends TestCase
         self::assertInstanceOf('MongoDB\BSON\Binary', $bsonBinary);
 
         self::assertSame(self::GUID, $bsonBinary->getData());
-        self::assertSame(\MongoDB\BSON\Binary::TYPE_FUNCTION, $bsonBinary->getType());
+        self::assertSame(Binary::TYPE_FUNCTION, $bsonBinary->getType());
     }
 
     public function testCreateWithBsonBinary(): void
     {
         $this->skipTestUnless(\in_array(TypeInterface::class, class_implements('MongoBinData'), true));
 
-        $bsonBinary = new \MongoDB\BSON\Binary(self::GUID, \MongoDB\BSON\Binary::TYPE_UUID);
+        $bsonBinary = new Binary(self::GUID, Binary::TYPE_UUID);
         $bin = new \MongoBinData($bsonBinary);
 
         self::assertSame(self::GUID, $bin->bin);

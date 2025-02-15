@@ -1,4 +1,5 @@
 <?php
+
 /*
  * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
  * "AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
@@ -87,13 +88,13 @@ class MongoDate implements TypeInterface
      */
     public function toDateTime()
     {
-        $datetime = new \DateTime();
-        $datetime->setTimezone(new \DateTimeZone('UTC'));
+        $datetime = new DateTime();
+        $datetime->setTimezone(new DateTimeZone('UTC'));
         $datetime->setTimestamp($this->sec);
 
         $microSeconds = $this->truncateMicroSeconds($this->usec);
         if ($microSeconds > 0) {
-            $datetime = \DateTime::createFromFormat('Y-m-d H:i:s.u e', $datetime->format('Y-m-d H:i:s') . '.' . str_pad($microSeconds, 6, '0', STR_PAD_LEFT) . ' UTC');
+            $datetime = DateTime::createFromFormat('Y-m-d H:i:s.u e', $datetime->format('Y-m-d H:i:s') . '.' . str_pad($microSeconds, 6, '0', STR_PAD_LEFT) . ' UTC');
         }
 
         return $datetime;
