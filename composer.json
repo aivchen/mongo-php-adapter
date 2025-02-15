@@ -9,11 +9,11 @@
         { "name": "Olivier Lechevalier", "email": "olivier.lechevalier@gmail.com" }
     ],
     "require": {
-        "php": "^5.6 || ^7.0 || ^8.0",
+        "php": "^8.1",
         "ext-ctype": "*",
         "ext-hash": "*",
-        "ext-mongodb": "^1.2.0",
-        "mongodb/mongodb": "^1.0.1"
+        "ext-mongodb": "^1.20.0",
+        "mongodb/mongodb": "^1.20.0"
     },
     "require-dev": {
         "symfony/phpunit-bridge": "^4.4.16 || ^5.2",
