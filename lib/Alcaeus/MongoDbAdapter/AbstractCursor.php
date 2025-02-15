@@ -353,7 +353,7 @@ abstract class AbstractCursor
                     $typeString = 'STANDALONE';
             }
 
-            $cursorId = (string) $this->cursor->getId();
+            $cursorId = (string) $this->cursor->getId(true);
             $iterationInfo += [
                 'id' => (int) $cursorId,
                 'at' => $this->position,
