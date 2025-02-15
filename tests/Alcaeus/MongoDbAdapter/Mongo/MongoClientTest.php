@@ -72,12 +72,13 @@ class MongoClientTest extends TestCase
 
     public function testGetHosts()
     {
+        $host = $this->getCurrentHost();
         $client = $this->getClient();
         $hosts = $client->getHosts();
         $this->assertMatches(
             [
-                'localhost:27017;-;.;' . getmypid() => [
-                    'host' => 'localhost',
+                "$host:27017;-;.;" . getmypid() => [
+                    'host' => $host,
                     'port' => 27017,
                     'health' => 1,
                     'state' => 0,
@@ -265,10 +266,11 @@ class MongoClientTest extends TestCase
 
     public function testConnectWithUsernameAndPasswordInConnectionUrl()
     {
+        $host = $this->getCurrentHost();
         $this->expectException(\MongoConnectionException::class);
         $this->expectExceptionMessage('Authentication failed');
 
-        $client = $this->getClient([], 'mongodb://alcaeus:mySuperSecurePassword@localhost');
+        $client = $this->getClient([], "mongodb://alcaeus:mySuperSecurePassword@$host");
         $collection = $client->selectCollection('test', 'foo');
 
         $document = ['foo' => 'bar'];

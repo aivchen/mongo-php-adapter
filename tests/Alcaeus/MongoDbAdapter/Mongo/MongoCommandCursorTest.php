@@ -22,6 +22,7 @@ class MongoCommandCursorTest extends TestCase
     public function testInfo()
     {
         $this->prepareData();
+        $host = $this->getCurrentHost();
         $cursor = $this->getCollection()->aggregateCursor([['$match' => ['foo' => 'bar']]]);
 
         $expected = [
@@ -53,8 +54,8 @@ class MongoCommandCursorTest extends TestCase
             'id' => 0,
             'at' => 0,
             'numReturned' => 0,
-            'server' => 'localhost:27017;-;.;' . getmypid(),
-            'host' => 'localhost',
+            'server' => "$host:27017;-;.;" . getmypid(),
+            'host' => $host,
             'port' => 27017,
             'connection_type_desc' => 'STANDALONE',
         ];
