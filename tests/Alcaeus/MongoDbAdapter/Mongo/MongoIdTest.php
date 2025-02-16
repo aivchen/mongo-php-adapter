@@ -42,6 +42,14 @@ class MongoIdTest extends TestCase
         self::assertSame(\sprintf('{"$id":"%s"}', $stringId), $json);
     }
 
+    public function testUnserializeBackwardCompatibility(): void
+    {
+        $stringId = (string) (new \MongoId());
+        $unserialized = unserialize(\sprintf('C:7:"MongoId":24:{%s}', $stringId));
+        self::assertInstanceOf('MongoId', $unserialized);
+        self::assertSame($stringId, (string) $unserialized);
+    }
+
     public function testCreateWithString(): void
     {
         $original = '54203e08d51d4a1f868b456e';
