@@ -13,7 +13,7 @@
         <!-- Disable deprecation warnings -->
         <!-- php -r 'echo -1 & ~E_USER_DEPRECATED & ~E_DEPRECATED;' -->
         <ini name="error_reporting" value="-24577"/>
-        <env name="MONGODB_URI" value="mongodb://localhost:27017"/>
+        <env name="MONGODB_URI" value="mongodb://mongo:27017"/>
     </php>
 
     <testsuites>
