@@ -9,6 +9,7 @@ use MongoDB\Model\BSONArray;
 use MongoDB\Model\BSONDocument;
 use PHPUnit\Framework\Assert;
 use PHPUnit\Framework\Constraint\Constraint;
+use PHPUnit\Framework\ExpectationFailedException;
 use SebastianBergmann\Comparator\ComparisonFailure;
 use SebastianBergmann\Comparator\Factory;
 use Symfony\Bridge\PhpUnit\ConstraintTrait;
@@ -36,6 +37,8 @@ class Matches extends Constraint
 
     /** @var ComparisonFailure|null */
     private $lastFailure;
+
+    private Factory $comparatorFactory;
 
     public function __construct($value, $allowExtraRootKeys = true, $allowExtraKeys = false, $allowOperators = true)
     {

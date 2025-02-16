@@ -315,7 +315,7 @@ class MongoGridFSTest extends TestCase
 
     public function testStoreByteExceptionWhileInsertingRecord(): void
     {
-        $id = new \MongoID();
+        $id = new \MongoId();
 
         $collection = $this->getGridFS();
 
@@ -346,7 +346,7 @@ class MongoGridFSTest extends TestCase
 
     public function testStoreFileExceptionWhileInsertingRecord(): void
     {
-        $id = new \MongoID();
+        $id = new \MongoId();
 
         $collection = $this->getGridFS();
         $document = ['_id' => $id];

@@ -13,6 +13,11 @@ abstract class TestCase extends BaseTestCase
     public const INDEX_VERSION_1 = 1;
     public const INDEX_VERSION_2 = 2;
 
+    public function getMongoUri()
+    {
+        return getenv('MONGODB_URI');
+    }
+
     protected function setUp(): void
     {
         $this->getCheckDatabase()->drop();
@@ -29,7 +34,7 @@ abstract class TestCase extends BaseTestCase
      */
     protected function getCheckClient()
     {
-        return new Client(MONGODB_URI, ['connect' => true]);
+        return new Client($this->getMongoUri(), ['connect' => true]);
     }
 
     /**
@@ -46,8 +51,11 @@ abstract class TestCase extends BaseTestCase
      * @param array|null $options
      * @return \MongoClient
      */
-    protected function getClient($options = null, $uri = MONGODB_URI)
+    protected function getClient($options = null, $uri = null)
     {
+        if ($uri === null) {
+            $uri = $this->getMongoUri();
+        }
         $args = [$uri];
         if ($options !== null) {
             $args[] = $options;
@@ -219,6 +227,6 @@ abstract class TestCase extends BaseTestCase
 
     protected function getCurrentHost(): string
     {
-        return parse_url(MONGODB_URI, PHP_URL_HOST);
+        return parse_url($this->getMongoUri(), PHP_URL_HOST);
     }
 }

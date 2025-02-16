@@ -77,7 +77,10 @@ class MongoId implements Serializable, TypeInterface, JsonSerializable
      * @param array $props <p>Theoretically, an array of properties used to create the new id. However, as MongoId instances have no properties, this is not used.</p>
      * @return MongoId a new id with the value "000000000000000000000000"
      */
-    public static function __set_state(array $props) {}
+    public static function __set_state(array $props)
+    {
+        return new self('000000000000000000000000');
+    }
 
     /**
      * Returns a hexidecimal representation of this id.

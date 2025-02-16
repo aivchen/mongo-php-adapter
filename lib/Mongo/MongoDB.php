@@ -506,10 +506,7 @@ class MongoDB
         throw new Exception('Not implemented');
     }
 
-    /**
-     * @return Database
-     */
-    private function createDatabaseObject()
+    private function createDatabaseObject(): void
     {
         $options = [
             'readPreference' => $this->readPreference,

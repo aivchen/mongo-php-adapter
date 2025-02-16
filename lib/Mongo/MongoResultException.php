@@ -31,5 +31,8 @@ class MongoResultException extends MongoException
      * http://php.net/manual/en/mongoresultexception.getdocument.php.
      * @return array <p>The full result document as an array, including partial data if available and additional keys.</p>
      */
-    public function getDocument() {}
+    public function getDocument()
+    {
+        throw new Exception('Not implemented');
+    }
 }

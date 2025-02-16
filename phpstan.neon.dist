@@ -1,0 +1,9 @@
+parameters:
+    level: 1
+    paths:
+        - lib
+        - tests
+    ignoreErrors:
+        -
+            identifier: unset.offset
+            path: tests
