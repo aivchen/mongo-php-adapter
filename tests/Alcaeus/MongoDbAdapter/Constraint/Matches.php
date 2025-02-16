@@ -8,9 +8,10 @@ use MongoDB\BSON\Type;
 use MongoDB\Model\BSONArray;
 use MongoDB\Model\BSONDocument;
 use PHPUnit\Framework\Assert;
-use PHPUnit\Framework\ExpectationFailedException;
+use PHPUnit\Framework\Constraint\Constraint;
 use SebastianBergmann\Comparator\ComparisonFailure;
 use SebastianBergmann\Comparator\Factory;
+use Symfony\Bridge\PhpUnit\ConstraintTrait;
 
 /**
  * Constraint that checks if one value matches another.
