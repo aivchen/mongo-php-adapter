@@ -360,7 +360,7 @@ abstract class AbstractCursor
     }
 
     /**
-     * @throws \Exception
+     * @return never-return
      */
     protected function notImplemented(): void
     {

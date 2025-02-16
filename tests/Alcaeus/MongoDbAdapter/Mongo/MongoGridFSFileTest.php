@@ -100,7 +100,7 @@ class MongoGridFSFileTest extends TestCase
     protected function getFile($extra = [])
     {
         $file = [
-            '_id' => new \MongoID(),
+            '_id' => new \MongoId(),
             'length' => 666,
             'filename' => 'file',
             'md5' => 'md5',
