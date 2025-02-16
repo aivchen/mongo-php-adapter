@@ -7,19 +7,15 @@ use MongoDB\Client;
 use MongoDB\Database;
 use MongoDB\Driver\Exception\Exception;
 use PHPUnit\Framework\TestCase as BaseTestCase;
-use Symfony\Bridge\PhpUnit\SetUpTearDownTrait;
 
 abstract class TestCase extends BaseTestCase
 {
-    use SetUpTearDownTrait;
     public const INDEX_VERSION_1 = 1;
     public const INDEX_VERSION_2 = 2;
 
-    private function doTearDown(): void
+    protected function setUp(): void
     {
         $this->getCheckDatabase()->drop();
-
-        parent::tearDown();
     }
 
     public function assertMatches($expected, $value, $message = ''): void
