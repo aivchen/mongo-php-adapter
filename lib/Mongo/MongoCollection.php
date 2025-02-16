@@ -579,17 +579,6 @@ class MongoCollection
      */
     public function createIndex($keys, array $options = [])
     {
-        if (is_string($keys)) {
-            if (empty($keys)) {
-                throw new MongoException('empty string passed as key field');
-            }
-            $keys = [$keys => 1];
-        }
-
-        if (is_object($keys)) {
-            $keys = (array) $keys;
-        }
-
         if (!is_array($keys) || !count($keys)) {
             throw new MongoException('index specification has no elements');
         }
@@ -933,15 +922,15 @@ class MongoCollection
         return ['db', 'name'];
     }
 
+    /**
+     * @return never-return
+     */
     protected function notImplemented(): void
     {
         throw new Exception('Not implemented');
     }
 
-    /**
-     * @return Collection
-     */
-    private function createCollectionObject()
+    private function createCollectionObject(): void
     {
         $options = [
             'readPreference' => $this->readPreference,

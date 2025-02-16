@@ -125,7 +125,7 @@ class MongoLog
      * <ul>
      * @return bool returns <b>TRUE</b> on success or <b>FALSE</b> on failure
      */
-    public static function setCallback(callable $log_function)
+    public static function setCallback(callable $log_function): bool
     {
         self::$callback = $log_function;
 

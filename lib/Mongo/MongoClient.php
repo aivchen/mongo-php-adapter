@@ -363,6 +363,9 @@ class MongoClient
         }
     }
 
+    /**
+     * @return never-return
+     */
     private function notImplemented(): void
     {
         throw new Exception('Not implemented');

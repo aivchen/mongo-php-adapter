@@ -458,7 +458,7 @@ class MongoCollectionTest extends TestCase
     public function testUpdateReplaceMultiple(): void
     {
         $this->expectException(\MongoWriteConcernException::class);
-        $this->expectErrorMessageMatches('/multi update only works with \$ operators/', 9);
+        $this->expectErrorMessageMatches('/multi update only works with \$ operators/');
         $this->getCollection()->update(['foo' => 'bar'], ['foo' => 'foo'], ['multiple' => true]);
     }
 
@@ -667,7 +667,7 @@ class MongoCollectionTest extends TestCase
     public function testFindWithProjectionAndSequentialNumericKeys(): void
     {
         $this->expectException(\MongoException::class);
-        $this->expectExceptionMessage('field names must be strings', 8);
+        $this->expectExceptionMessage('field names must be strings');
         $this->getCollection()->findOne([], [true, false]);
     }
 

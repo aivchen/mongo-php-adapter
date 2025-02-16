@@ -9,19 +9,19 @@ class MongoLogTest extends TestCase
     public function testSetCallback(): void
     {
         $foo = static function (): void {};
-        self::assertTrue(\MongoLog::setCallback($foo));
+        self::assertTrue(\MongoLog::setCallback($foo)); // @phpstan-ignore staticMethod.void
         self::assertSame($foo, \MongoLog::getCallback());
     }
 
     public function testLevel(): void
     {
         \MongoLog::setLevel(2);
-        self::assertSame(2, \MongoLog::getLevel(2));
+        self::assertSame(2, \MongoLog::getLevel());
     }
 
     public function testModule(): void
     {
         \MongoLog::setModule(2);
-        self::assertSame(2, \MongoLog::getModule(2));
+        self::assertSame(2, \MongoLog::getModule());
     }
 }

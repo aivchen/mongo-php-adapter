@@ -226,6 +226,9 @@ class Mongo extends MongoClient
         $this->notImplemented();
     }
 
+    /**
+     * @return never-return
+     */
     protected function notImplemented(): void
     {
         throw new Exception('The Mongo class is deprecated and not supported through mongo-php-adapter');

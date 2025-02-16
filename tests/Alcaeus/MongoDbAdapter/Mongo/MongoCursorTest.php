@@ -16,42 +16,33 @@ class MongoCursorTest extends TestCase
 {
     public static function provideCursorAppliesOptionsCases(): iterable
     {
-        function getMissingOptionCallback($optionName)
-        {
-            return static fn($value) => \is_array($value)
+        $getMissingOptionCallback = static fn($optionName) => static fn($value) => \is_array($value)
                     && !\array_key_exists($optionName, $value);
-        }
 
-        function getBasicCheckCallback($expected, $optionName)
-        {
-            return static fn($value) => \is_array($value)
+        $getBasicCheckCallback = static fn($expected, $optionName) => static fn($value) => \is_array($value)
                     && \array_key_exists($optionName, $value)
                     && $value[$optionName] == $expected;
-        }
 
-        function getModifierCheckCallback($expected, $modifierName)
-        {
-            return static fn($value) => \is_array($value)
+        $getModifierCheckCallback = static fn($expected, $modifierName) => static fn($value) => \is_array($value)
                     && \is_array($value['modifiers'])
                     && \array_key_exists($modifierName, $value['modifiers'])
                     && $value['modifiers'][$modifierName] == $expected;
-        }
 
         $tests = [
             'allowPartialResults' => [
-                getBasicCheckCallback(true, 'allowPartialResults'),
+                $getBasicCheckCallback(true, 'allowPartialResults'),
                 static function (\MongoCursor $cursor): void {
                     $cursor->partial(true);
                 },
             ],
             'batchSize' => [
-                getBasicCheckCallback(10, 'batchSize'),
+                $getBasicCheckCallback(10, 'batchSize'),
                 static function (\MongoCursor $cursor): void {
                     $cursor->batchSize(10);
                 },
             ],
             'cursorTypeNonTailable' => [
-                getMissingOptionCallback('cursorType'),
+                $getMissingOptionCallback('cursorType'),
                 static function (\MongoCursor $cursor): void {
                     $cursor
                         ->tailable(false)
@@ -59,49 +50,49 @@ class MongoCursorTest extends TestCase
                 },
             ],
             'cursorTypeTailable' => [
-                getBasicCheckCallback(Find::TAILABLE, 'cursorType'),
+                $getBasicCheckCallback(Find::TAILABLE, 'cursorType'),
                 static function (\MongoCursor $cursor): void {
                     $cursor->tailable(true);
                 },
             ],
             'cursorTypeTailableAwait' => [
-                getBasicCheckCallback(Find::TAILABLE_AWAIT, 'cursorType'),
+                $getBasicCheckCallback(Find::TAILABLE_AWAIT, 'cursorType'),
                 static function (\MongoCursor $cursor): void {
                     $cursor->tailable(true)->awaitData(true);
                 },
             ],
             'hint' => [
-                getModifierCheckCallback('index_name', '$hint'),
+                $getModifierCheckCallback('index_name', '$hint'),
                 static function (\MongoCursor $cursor): void {
                     $cursor->hint('index_name');
                 },
             ],
             'limit' => [
-                getBasicCheckCallback(5, 'limit'),
+                $getBasicCheckCallback(5, 'limit'),
                 static function (\MongoCursor $cursor): void {
                     $cursor->limit(5);
                 },
             ],
             'maxTimeMS' => [
-                getBasicCheckCallback(100, 'maxTimeMS'),
+                $getBasicCheckCallback(100, 'maxTimeMS'),
                 static function (\MongoCursor $cursor): void {
                     $cursor->maxTimeMS(100);
                 },
             ],
             'noCursorTimeout' => [
-                getBasicCheckCallback(true, 'noCursorTimeout'),
+                $getBasicCheckCallback(true, 'noCursorTimeout'),
                 static function (\MongoCursor $cursor): void {
                     $cursor->immortal(true);
                 },
             ],
             'slaveOkay' => [
-                getBasicCheckCallback(new ReadPreference(ReadPreference::SECONDARY_PREFERRED), 'readPreference'),
+                $getBasicCheckCallback(new ReadPreference(ReadPreference::SECONDARY_PREFERRED), 'readPreference'),
                 static function (\MongoCursor $cursor): void {
                     $cursor->slaveOkay(true);
                 },
             ],
             'slaveOkayWithReadPreferenceSet' => [
-                getBasicCheckCallback(new ReadPreference(ReadPreference::SECONDARY), 'readPreference'),
+                $getBasicCheckCallback(new ReadPreference(ReadPreference::SECONDARY), 'readPreference'),
                 static function (\MongoCursor $cursor): void {
                     $cursor
                         ->setReadPreference(\MongoClient::RP_SECONDARY)
@@ -109,28 +100,28 @@ class MongoCursorTest extends TestCase
                 },
             ],
             'projectionDefaultFields' => [
-                getBasicCheckCallback(new BSONDocument(['_id' => false, 'foo' => true]), 'projection'),
+                $getBasicCheckCallback(new BSONDocument(['_id' => false, 'foo' => true]), 'projection'),
             ],
             'projectionDifferentFields' => [
-                getBasicCheckCallback(new BSONDocument(['_id' => false, 'foo' => true, 'bar' => true]), 'projection'),
+                $getBasicCheckCallback(new BSONDocument(['_id' => false, 'foo' => true, 'bar' => true]), 'projection'),
                 static function (\MongoCursor $cursor): void {
                     $cursor->fields(['_id' => false, 'foo' => true, 'bar' => true]);
                 },
             ],
             'readPreferencePrimary' => [
-                getBasicCheckCallback(new ReadPreference(ReadPreference::PRIMARY), 'readPreference'),
+                $getBasicCheckCallback(new ReadPreference(ReadPreference::PRIMARY), 'readPreference'),
                 static function (\MongoCursor $cursor): void {
                     $cursor->setReadPreference(\MongoClient::RP_PRIMARY);
                 },
             ],
             'skip' => [
-                getBasicCheckCallback(5, 'skip'),
+                $getBasicCheckCallback(5, 'skip'),
                 static function (\MongoCursor $cursor): void {
                     $cursor->skip(5);
                 },
             ],
             'sort' => [
-                getBasicCheckCallback(['foo' => -1], 'sort'),
+                $getBasicCheckCallback(['foo' => -1], 'sort'),
                 static function (\MongoCursor $cursor): void {
                     $cursor->sort(['foo' => -1]);
                 },
@@ -512,7 +503,7 @@ class MongoCursorTest extends TestCase
      */
     protected function getCollectionMock()
     {
-        return $this->createMock('MongoDB\Collection', [], [], '', false);
+        return $this->createMock('MongoDB\Collection');
     }
 
     private function assertCursorIteration($cursor): void
