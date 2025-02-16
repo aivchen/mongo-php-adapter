@@ -19,7 +19,8 @@
         "symfony/phpunit-bridge": "^4.4.16 || ^5.2",
         "friendsofphp/php-cs-fixer": "^3.39",
         "phpyh/coding-standard": "^2.5",
-        "phpstan/phpstan": "^2.1"
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^9.6"
     },
     "provide": {
         "ext-mongo": "1.6.14"
