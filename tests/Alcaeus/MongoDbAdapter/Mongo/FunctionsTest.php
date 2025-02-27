@@ -10,6 +10,22 @@ use Alcaeus\MongoDbAdapter\Tests\TestCase;
 class FunctionsTest extends TestCase
 {
     /**
+     * @dataProvider data
+     */
+    public function testEncode($encoded, $decoded): void
+    {
+        self::assertEquals($encoded, bson_encode($decoded));
+    }
+
+    /**
+     * @dataProvider data
+     */
+    public function testDecode($encoded, $decoded): void
+    {
+        self::assertEquals($decoded, bson_decode($encoded));
+    }
+
+    /**
      * @return array Returns tupels: [$encoded, $decoded]
      */
     public static function data(): iterable
@@ -25,21 +41,5 @@ class FunctionsTest extends TestCase
             'simpleArray' => [base64_decode($simpleArrayEncoded, true), $simpleArray],
             'arrayWithObjectId' => [base64_decode($arrayWithObjectIdEncoded, true), $arrayWithObjectId],
         ];
-    }
-
-    /**
-     * @dataProvider data
-     */
-    public function testEncode($encoded, $decoded): void
-    {
-        self::assertEquals($encoded, bson_encode($decoded));
-    }
-
-    /**
-     * @dataProvider data
-     */
-    public function testDecode($encoded, $decoded): void
-    {
-        self::assertEquals($decoded, bson_decode($encoded));
     }
 }

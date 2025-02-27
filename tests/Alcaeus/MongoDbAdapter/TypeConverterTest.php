@@ -8,6 +8,15 @@ use MongoDB\Model\BSONDocument;
 
 class TypeConverterTest extends TestCase
 {
+    /**
+     * @dataProvider provideFromLegacyCases
+     */
+    public function testFromLegacy($legacyValue, $modernValue): void
+    {
+        $this->skipTestIf(\extension_loaded('mongo'));
+        self::assertEquals($modernValue, TypeConverter::fromLegacy($legacyValue));
+    }
+
     public static function provideFromLegacyCases(): iterable
     {
         $id = str_repeat('0123', 6);
@@ -39,6 +48,14 @@ class TypeConverterTest extends TestCase
         ];
     }
 
+    /**
+     * @dataProvider provideIsNumericArrayCases
+     */
+    public function testIsNumericArray($expected, $array): void
+    {
+        self::assertSame($expected, TypeConverter::isNumericArray($array));
+    }
+
     public static function provideIsNumericArrayCases(): iterable
     {
         return [
@@ -48,22 +65,5 @@ class TypeConverterTest extends TestCase
             'arrayWithStringKeys' => [false, ['foo' => 'bar']],
             'arrayWithRandomNumbers' => [false, [15 => 'foo', 20 => 'bar']],
         ];
-    }
-
-    /**
-     * @dataProvider provideFromLegacyCases
-     */
-    public function testFromLegacy($legacyValue, $modernValue): void
-    {
-        $this->skipTestIf(\extension_loaded('mongo'));
-        self::assertEquals($modernValue, TypeConverter::fromLegacy($legacyValue));
-    }
-
-    /**
-     * @dataProvider provideIsNumericArrayCases
-     */
-    public function testIsNumericArray($expected, $array): void
-    {
-        self::assertSame($expected, TypeConverter::isNumericArray($array));
     }
 }

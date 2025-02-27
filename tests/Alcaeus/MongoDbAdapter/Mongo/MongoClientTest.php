@@ -9,85 +9,6 @@ use Alcaeus\MongoDbAdapter\Tests\TestCase;
  */
 class MongoClientTest extends TestCase
 {
-    public static function provideReadPreferenceOptionsAreInheritedCases(): iterable
-    {
-        $options = [
-            'readPreference' => \MongoClient::RP_SECONDARY_PREFERRED,
-            'readPreferenceTags' => 'a:b',
-        ];
-
-        $overriddenOptions = [
-            'readPreference' => \MongoClient::RP_NEAREST,
-            'readPreferenceTags' => 'c:d',
-        ];
-
-        $multipleTagsets = [
-            'readPreference' => \MongoClient::RP_SECONDARY_PREFERRED,
-            'readPreferenceTags' => 'a:b,c:d',
-        ];
-
-        return [
-            'optionsArray' => [
-                'options' => $options,
-                'uri' => 'mongodb://localhost',
-                'expectedTagsets' => [['a' => 'b']],
-            ],
-            'queryString' => [
-                'options' => [],
-                'uri' => 'mongodb://localhost/?' . self::makeOptionString($options),
-                'expectedTagsets' => [['a' => 'b']],
-            ],
-            'multipleInQueryString' => [
-                'options' => [],
-                'uri' => 'mongodb://localhost/?' . self::makeOptionString($options) . '&readPreferenceTags=c:d',
-                'expectedTagsets' => [['a' => 'b'], ['c' => 'd']],
-            ],
-            'overridden' => [
-                'options' => $options,
-                'uri' => 'mongodb://localhost/?' . self::makeOptionString($overriddenOptions),
-                'expectedTagsets' => [['c' => 'd'], ['a' => 'b']],
-            ],
-            'multipleTagsetsOptions' => [
-                'options' => $multipleTagsets,
-                'uri' => 'mongodb://localhost',
-                'expectedTagsets' => [['a' => 'b', 'c' => 'd']],
-            ],
-            'multipleTagsetsQueryString' => [
-                'options' => null,
-                'uri' => 'mongodb://localhost/?' . self::makeOptionString($multipleTagsets),
-                'expectedTagsets' => [['a' => 'b', 'c' => 'd']],
-            ],
-        ];
-    }
-
-    public static function provideWriteConcernOptionsAreInheritedCases(): iterable
-    {
-        $options = [
-            'w' => 'majority',
-            'wTimeoutMs' => 666,
-        ];
-
-        $overriddenOptions = [
-            'w' => '2',
-            'wTimeoutMs' => 333,
-        ];
-
-        return [
-            'optionsArray' => [
-                'options' => $options,
-                'uri' => 'mongodb://localhost',
-            ],
-            'queryString' => [
-                'options' => [],
-                'uri' => 'mongodb://localhost/?' . self::makeOptionString($options),
-            ],
-            'overridden' => [
-                'options' => $options,
-                'uri' => 'mongodb://localhost/?' . self::makeOptionString($overriddenOptions),
-            ],
-        ];
-    }
-
     /**
      * @return string
      */
@@ -253,6 +174,57 @@ class MongoClientTest extends TestCase
         );
     }
 
+    public static function provideReadPreferenceOptionsAreInheritedCases(): iterable
+    {
+        $options = [
+            'readPreference' => \MongoClient::RP_SECONDARY_PREFERRED,
+            'readPreferenceTags' => 'a:b',
+        ];
+
+        $overriddenOptions = [
+            'readPreference' => \MongoClient::RP_NEAREST,
+            'readPreferenceTags' => 'c:d',
+        ];
+
+        $multipleTagsets = [
+            'readPreference' => \MongoClient::RP_SECONDARY_PREFERRED,
+            'readPreferenceTags' => 'a:b,c:d',
+        ];
+
+        return [
+            'optionsArray' => [
+                'options' => $options,
+                'uri' => 'mongodb://localhost',
+                'expectedTagsets' => [['a' => 'b']],
+            ],
+            'queryString' => [
+                'options' => [],
+                'uri' => 'mongodb://localhost/?' . self::makeOptionString($options),
+                'expectedTagsets' => [['a' => 'b']],
+            ],
+            'multipleInQueryString' => [
+                'options' => [],
+                'uri' => 'mongodb://localhost/?' . self::makeOptionString($options) . '&readPreferenceTags=c:d',
+                'expectedTagsets' => [['a' => 'b'], ['c' => 'd']],
+            ],
+            'overridden' => [
+                'options' => $options,
+                'uri' => 'mongodb://localhost/?' . self::makeOptionString($overriddenOptions),
+                'expectedTagsets' => [['c' => 'd'], ['a' => 'b']],
+            ],
+            'multipleTagsetsOptions' => [
+                'options' => $multipleTagsets,
+                'uri' => 'mongodb://localhost',
+                'expectedTagsets' => [['a' => 'b', 'c' => 'd']],
+            ],
+            'multipleTagsetsQueryString' => [
+                'options' => null,
+                'uri' => 'mongodb://localhost/?' . self::makeOptionString($multipleTagsets),
+                'expectedTagsets' => [['a' => 'b', 'c' => 'd']],
+            ],
+        ];
+    }
+
     /**
      * @dataProvider provideWriteConcernOptionsAreInheritedCases
      */
@@ -262,6 +234,34 @@ class MongoClientTest extends TestCase
         $collection = $client->selectCollection('test', 'foo');
 
         self::assertSame(['w' => 'majority', 'wtimeout' => 666], $collection->getWriteConcern());
+    }
+
+    public static function provideWriteConcernOptionsAreInheritedCases(): iterable
+    {
+        $options = [
+            'w' => 'majority',
+            'wTimeoutMs' => 666,
+        ];
+
+        $overriddenOptions = [
+            'w' => '2',
+            'wTimeoutMs' => 333,
+        ];
+
+        return [
+            'optionsArray' => [
+                'options' => $options,
+                'uri' => 'mongodb://localhost',
+            ],
+            'queryString' => [
+                'options' => [],
+                'uri' => 'mongodb://localhost/?' . self::makeOptionString($options),
+            ],
+            'overridden' => [
+                'options' => $options,
+                'uri' => 'mongodb://localhost/?' . self::makeOptionString($overriddenOptions),
+            ],
+        ];
     }
 
     public function testConnectWithUsernameAndPassword(): void
