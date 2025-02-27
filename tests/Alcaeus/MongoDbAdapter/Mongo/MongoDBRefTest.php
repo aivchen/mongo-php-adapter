@@ -9,41 +9,6 @@ use Alcaeus\MongoDbAdapter\Tests\TestCase;
  */
 class MongoDBRefTest extends TestCase
 {
-    public static function provideCreateThroughMongoDBCases(): iterable
-    {
-        $id = new \MongoId();
-        $validRef = ['$ref' => 'test', '$id' => $id];
-
-        $object = new \stdClass();
-        $object->_id = $id;
-
-        $objectWithoutId = new \stdClass();
-
-        return [
-            'simpleId' => [$validRef, $id],
-            'arrayWithIdProperty' => [$validRef, ['_id' => $id]],
-            'objectWithIdProperty' => [$validRef, $object],
-            'arrayWithoutId' => [null, []],
-            'objectWithoutId' => [['$ref' => 'test', '$id' => $objectWithoutId], $objectWithoutId],
-        ];
-    }
-
-    public static function provideIsRefCases(): iterable
-    {
-        $objectRef = new \stdClass();
-        $objectRef->{'$ref'} = 'coll';
-        $objectRef->{'$id'} = 'id';
-
-        return [
-            'validRef' => [true, ['$ref' => 'coll', '$id' => 'id']],
-            'validRefWithDatabase' => [true, ['$ref' => 'coll', '$id' => 'id', '$db' => 'db']],
-            'refMissing' => [false, ['$id' => 'id']],
-            'idMissing' => [false, ['$ref' => 'coll']],
-            'objectRef' => [true, $objectRef],
-            'int' => [false, 5],
-        ];
-    }
-
     public function testCreate(): void
     {
         $id = new \MongoId();
@@ -68,12 +33,47 @@ class MongoDBRefTest extends TestCase
         self::assertEquals($expected, $ref);
     }
 
+    public static function provideCreateThroughMongoDBCases(): iterable
+    {
+        $id = new \MongoId();
+        $validRef = ['$ref' => 'test', '$id' => $id];
+
+        $object = new \stdClass();
+        $object->_id = $id;
+
+        $objectWithoutId = new \stdClass();
+
+        return [
+            'simpleId' => [$validRef, $id],
+            'arrayWithIdProperty' => [$validRef, ['_id' => $id]],
+            'objectWithIdProperty' => [$validRef, $object],
+            'arrayWithoutId' => [null, []],
+            'objectWithoutId' => [['$ref' => 'test', '$id' => $objectWithoutId], $objectWithoutId],
+        ];
+    }
+
     /**
      * @dataProvider provideIsRefCases
      */
     public function testIsRef($expected, $ref): void
     {
         self::assertSame($expected, \MongoDBRef::isRef($ref));
+    }
+
+    public static function provideIsRefCases(): iterable
+    {
+        $objectRef = new \stdClass();
+        $objectRef->{'$ref'} = 'coll';
+        $objectRef->{'$id'} = 'id';
+
+        return [
+            'validRef' => [true, ['$ref' => 'coll', '$id' => 'id']],
+            'validRefWithDatabase' => [true, ['$ref' => 'coll', '$id' => 'id', '$db' => 'db']],
+            'refMissing' => [false, ['$id' => 'id']],
+            'idMissing' => [false, ['$ref' => 'coll']],
+            'objectRef' => [true, $objectRef],
+            'int' => [false, 5],
+        ];
     }
 
     public function testGet(): void

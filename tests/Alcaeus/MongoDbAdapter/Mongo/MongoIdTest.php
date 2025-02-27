@@ -10,19 +10,6 @@ use MongoDB\BSON\ObjectID;
  */
 class MongoIdTest extends TestCase
 {
-    public static function provideIsValidCases(): iterable
-    {
-        $original = '54203e08d51d4a1f868b456e';
-
-        return [
-            'validId' => [true, '' . $original . ''],
-            'MongoId' => [true, new \MongoId($original)],
-            'ObjectID' => [true, new ObjectID($original)],
-            'invalidString' => [false, 'abc'],
-            'object' => [false, new \stdClass()],
-        ];
-    }
-
     public function testCreateWithoutParameter(): void
     {
         $id = new \MongoId();
@@ -89,6 +76,19 @@ class MongoIdTest extends TestCase
     {
         $this->skipTestIf($value instanceof ObjectID && \extension_loaded('mongo'));
         self::assertSame($expected, \MongoId::isValid($value));
+    }
+
+    public static function provideIsValidCases(): iterable
+    {
+        $original = '54203e08d51d4a1f868b456e';
+
+        return [
+            'validId' => [true, '' . $original . ''],
+            'MongoId' => [true, new \MongoId($original)],
+            'ObjectID' => [true, new ObjectID($original)],
+            'invalidString' => [false, 'abc'],
+            'object' => [false, new \stdClass()],
+        ];
     }
 
     private function getAttributeValue(\MongoId $id, $attribute)

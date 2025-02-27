@@ -11,55 +11,6 @@ use MongoDB\Driver\ReadPreference;
  */
 class MongoCollectionTest extends TestCase
 {
-    public static function provideFindWithProjectionCases(): iterable
-    {
-        return [
-            'projection' => [['bar' => true]],
-            'intProjection' => [['bar' => 1]],
-            'legacyProjection' => [['bar']],
-        ];
-    }
-
-    public static function provideFindWithProjectionAndNumericKeysCases(): iterable
-    {
-        return [
-            'sequentialIntegersStartingWithOne' => [
-                ['0' => 'foo', '1' => 'bar', '2' => 'foobar'],
-                [1 => true, 2 => true],
-                ['1' => 'bar', '2' => 'foobar'],
-            ],
-            'nonSequentialIntegers' => [
-                ['0' => 'foo', '1' => 'bar', '2' => 'foobar', '3' => 'barfoo'],
-                [1 => true, 3 => true],
-                ['1' => 'bar', '3' => 'barfoo'],
-            ],
-        ];
-    }
-
-    public static function provideFindWithProjectionExcludeIdCases(): iterable
-    {
-        return [
-            'projection' => [['_id' => false, 'bar' => true]],
-            'intProjection' => [['_id' => 0, 'bar' => 1]],
-        ];
-    }
-
-    public static function provideCreateIndexesWithIgnoredOptionsCases(): iterable
-    {
-        return [
-            'background' => ['background'],
-            'dropDups' => ['dropDups'],
-        ];
-    }
-
-    public static function provideFindWithRegexCases(): iterable
-    {
-        return [
-            'MongoRegex' => [new \MongoRegex('/^foo.*/i')],
-            'BSONRegex' => [new Regex('^foo.*', 'i')],
-        ];
-    }
-
     public function testSerialize(): void
     {
         self::assertIsString(serialize($this->getCollection()));
@@ -184,14 +135,6 @@ class MongoCollectionTest extends TestCase
         $this->getCollection()->insert($document);
 
         self::assertSame(1, $this->getCollection()->count(['*' => 'foo']));
-    }
-
-    public function getDocumentsWithEmptyKey(): iterable
-    {
-        return [
-            'array' => [['' => 'foo']],
-            'object' => [(object) ['' => 'foo']],
-        ];
     }
 
     /**
@@ -570,6 +513,14 @@ class MongoCollectionTest extends TestCase
         $this->getCollection()->update($document, ['$set' => $updateDocument]);
     }
 
+    public function getDocumentsWithEmptyKey(): iterable
+    {
+        return [
+            'array' => [['' => 'foo']],
+            'object' => [(object) ['' => 'foo']],
+        ];
+    }
+
     public function testRemoveMultiple(): void
     {
         $document = ['change' => true, 'foo' => 'bar'];
@@ -652,6 +603,15 @@ class MongoCollectionTest extends TestCase
         }
     }
 
+    public static function provideFindWithProjectionCases(): iterable
+    {
+        return [
+            'projection' => [['bar' => true]],
+            'intProjection' => [['bar' => 1]],
+            'legacyProjection' => [['bar']],
+        ];
+    }
+
     /**
      * @dataProvider provideFindWithProjectionAndNumericKeysCases
      */
@@ -662,6 +622,22 @@ class MongoCollectionTest extends TestCase
         $document = $this->getCollection()->findOne([], $projection);
         unset($document['_id']);
         self::assertSame($expected, $document);
+    }
+
+    public static function provideFindWithProjectionAndNumericKeysCases(): iterable
+    {
+        return [
+            'sequentialIntegersStartingWithOne' => [
+                ['0' => 'foo', '1' => 'bar', '2' => 'foobar'],
+                [1 => true, 2 => true],
+                ['1' => 'bar', '2' => 'foobar'],
+            ],
+            'nonSequentialIntegers' => [
+                ['0' => 'foo', '1' => 'bar', '2' => 'foobar', '3' => 'barfoo'],
+                [1 => true, 3 => true],
+                ['1' => 'bar', '3' => 'barfoo'],
+            ],
+        ];
     }
 
     public function testFindWithProjectionAndSequentialNumericKeys(): void
@@ -687,6 +663,14 @@ class MongoCollectionTest extends TestCase
             self::assertArrayNotHasKey('_id', $document);
             $this->assertMatches(['bar' => 'bar'], $document);
         }
+    }
+
+    public static function provideFindWithProjectionExcludeIdCases(): iterable
+    {
+        return [
+            'projection' => [['_id' => false, 'bar' => true]],
+            'intProjection' => [['_id' => 0, 'bar' => 1]],
+        ];
     }
 
     public function testCount(): void
@@ -1329,6 +1313,14 @@ class MongoCollectionTest extends TestCase
         self::assertSame($expected, $this->getCollection()->createIndex(['foo' => 1], [$option => true]));
     }
 
+    public static function provideCreateIndexesWithIgnoredOptionsCases(): iterable
+    {
+        return [
+            'background' => ['background'],
+            'dropDups' => ['dropDups'],
+        ];
+    }
+
     public function testCreateIndexWithSameNameAndDifferentOptions(): void
     {
         $this->expectException(\MongoResultException::class);
@@ -1460,6 +1452,29 @@ class MongoCollectionTest extends TestCase
         }
     }
 
+    /**
+     * @dataProvider provideGetIndexInfoCases
+     */
+    public function testGetIndexInfo($expectedIndex, $fields, $options): void
+    {
+        $idIndex = [
+            'v' => $this->getDefaultIndexVersion(),
+            'key' => ['_id' => 1],
+            'name' => '_id_',
+            'ns' => 'mongo-php-adapter.test',
+        ];
+
+        $expectedIndexInfo = [$idIndex, $expectedIndex];
+
+        $collection = $this->getCollection();
+        $collection->createIndex($fields, $options);
+
+        self::assertEquals(
+            $expectedIndexInfo,
+            $collection->getIndexInfo(),
+        );
+    }
+
     public function provideGetIndexInfoCases(): iterable
     {
         $indexVersion = $this->getDefaultIndexVersion();
@@ -1565,29 +1580,6 @@ class MongoCollectionTest extends TestCase
                 'options' => ['bucketSize' => 10],
             ],
         ];
-    }
-
-    /**
-     * @dataProvider provideGetIndexInfoCases
-     */
-    public function testGetIndexInfo($expectedIndex, $fields, $options): void
-    {
-        $idIndex = [
-            'v' => $this->getDefaultIndexVersion(),
-            'key' => ['_id' => 1],
-            'name' => '_id_',
-            'ns' => 'mongo-php-adapter.test',
-        ];
-
-        $expectedIndexInfo = [$idIndex, $expectedIndex];
-
-        $collection = $this->getCollection();
-        $collection->createIndex($fields, $options);
-
-        self::assertEquals(
-            $expectedIndexInfo,
-            $collection->getIndexInfo(),
-        );
     }
 
     public function testFindAndModifyUpdate(): void
@@ -2022,6 +2014,14 @@ class MongoCollectionTest extends TestCase
 
         $cursor = $this->getCollection()->find(['name' => $regex]);
         self::assertSame(1, $cursor->count());
+    }
+
+    public static function provideFindWithRegexCases(): iterable
+    {
+        return [
+            'MongoRegex' => [new \MongoRegex('/^foo.*/i')],
+            'BSONRegex' => [new Regex('^foo.*', 'i')],
+        ];
     }
 }
 
