@@ -9,7 +9,7 @@ class MongoLogTest extends TestCase
     public function testSetCallback(): void
     {
         $foo = static function (): void {};
-        self::assertTrue(\MongoLog::setCallback($foo)); // @phpstan-ignore staticMethod.void
+        self::assertTrue(\MongoLog::setCallback($foo));
         self::assertSame($foo, \MongoLog::getCallback());
     }
 
