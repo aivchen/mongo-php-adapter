@@ -15,6 +15,7 @@
  */
 
 use Alcaeus\MongoDbAdapter\TypeConverter;
+use MongoDB\BSON\Document;
 
 if (!function_exists('bson_decode')) {
     /**
@@ -25,7 +26,7 @@ if (!function_exists('bson_decode')) {
      */
     function bson_decode($bson)
     {
-        return TypeConverter::toLegacy(\MongoDB\BSON\toPHP($bson));
+        return TypeConverter::toLegacy(Document::fromBSON($bson)->toPHP());
     }
 }
 
@@ -38,6 +39,6 @@ if (!function_exists('bson_encode')) {
      */
     function bson_encode($anything)
     {
-        return \MongoDB\BSON\fromPHP(TypeConverter::fromLegacy($anything));
+        return Document::fromPHP(TypeConverter::fromLegacy($anything));
     }
 }
