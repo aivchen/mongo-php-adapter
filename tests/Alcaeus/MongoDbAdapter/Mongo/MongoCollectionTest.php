@@ -1207,7 +1207,6 @@ class MongoCollectionTest extends TestCase
         self::assertCount(2, $indexes);
         $index = $indexes[1];
         self::assertSame(['foo' => 1], $index->getKey());
-        self::assertSame('mongo-php-adapter.test', $index->getNamespace());
     }
 
     public function testCreateIndexInvalid(): void
@@ -1348,7 +1347,6 @@ class MongoCollectionTest extends TestCase
         $index = $indexes[1];
         self::assertSame(['bar' => 1], $index->getKey());
         self::assertTrue($index->isUnique());
-        self::assertSame('mongo-php-adapter.test', $index->getNamespace());
     }
 
     public function testEnsureIndexAlreadyExists(): void
@@ -1461,7 +1459,6 @@ class MongoCollectionTest extends TestCase
             'v' => $this->getDefaultIndexVersion(),
             'key' => ['_id' => 1],
             'name' => '_id_',
-            'ns' => 'mongo-php-adapter.test',
         ];
 
         $expectedIndexInfo = [$idIndex, $expectedIndex];
@@ -1485,7 +1482,6 @@ class MongoCollectionTest extends TestCase
                     'v' => $indexVersion,
                     'key' => ['foo' => 1],
                     'name' => 'foo_1',
-                    'ns' => 'mongo-php-adapter.test',
                 ],
                 'fields' => ['foo' => 1],
                 'options' => [],
@@ -1495,7 +1491,6 @@ class MongoCollectionTest extends TestCase
                     'v' => $indexVersion,
                     'key' => ['foo' => 1],
                     'name' => 'foo_1',
-                    'ns' => 'mongo-php-adapter.test',
                     'unique' => true,
                 ],
                 'fields' => ['foo' => 1],
@@ -1506,7 +1501,6 @@ class MongoCollectionTest extends TestCase
                     'v' => $indexVersion,
                     'key' => ['foo' => 1],
                     'name' => 'foo_1',
-                    'ns' => 'mongo-php-adapter.test',
                     'sparse' => true,
                 ],
                 'fields' => ['foo' => 1],
@@ -1517,7 +1511,6 @@ class MongoCollectionTest extends TestCase
                     'v' => $indexVersion,
                     'key' => ['foo' => 1],
                     'name' => 'foo_1',
-                    'ns' => 'mongo-php-adapter.test',
                     'expireAfterSeconds' => 86400,
                 ],
                 'fields' => ['foo' => 1],
@@ -1531,7 +1524,6 @@ class MongoCollectionTest extends TestCase
                         '_ftsx' => 1,
                     ],
                     'name' => 'foo_text',
-                    'ns' => 'mongo-php-adapter.test',
                     'weights' => [
                         'foo' => 1,
                     ],
@@ -1547,7 +1539,6 @@ class MongoCollectionTest extends TestCase
                     'v' => $indexVersion,
                     'key' => ['foo' => 1],
                     'name' => 'foo_1',
-                    'ns' => 'mongo-php-adapter.test',
                     'partialFilterExpression' => [
                         'bar' => ['$gt' => 1],
                     ],
@@ -1562,7 +1553,6 @@ class MongoCollectionTest extends TestCase
                     'v' => $indexVersion,
                     'key' => ['foo' => '2dsphere'],
                     'name' => 'foo_2dsphere',
-                    'ns' => 'mongo-php-adapter.test',
                     '2dsphereIndexVersion' => version_compare($this->getServerVersion(), '3.2.0', '>=') ? 3 : 2,
                 ],
                 'fields' => ['foo' => '2dsphere'],
@@ -1573,7 +1563,6 @@ class MongoCollectionTest extends TestCase
                     'v' => $indexVersion,
                     'key' => ['foo' => 'geoHaystack', 'bar' => 1],
                     'name' => 'foo_geoHaystack_bar_1',
-                    'ns' => 'mongo-php-adapter.test',
                     'bucketSize' => 10,
                 ],
                 'fields' => ['foo' => 'geoHaystack', 'bar' => 1],
@@ -1883,7 +1872,6 @@ class MongoCollectionTest extends TestCase
 
         $this->assertMatches(
             [
-                'ns' => 'mongo-php-adapter.test',
                 'nrecords' => 1,
                 'nIndexes' => 1,
                 'valid' => true,

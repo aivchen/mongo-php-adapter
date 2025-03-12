@@ -704,7 +704,6 @@ class MongoCollection
                 'v' => $indexInfo->getVersion(),
                 'key' => $indexInfo->getKey(),
                 'name' => $indexInfo->getName(),
-                'ns' => $indexInfo->getNamespace(),
             ];
 
             $additionalKeys = [
