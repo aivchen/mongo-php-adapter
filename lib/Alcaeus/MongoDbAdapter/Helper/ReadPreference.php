@@ -27,7 +27,7 @@ trait ReadPreference
     protected $readPreference;
 
     /**
-     * @return array
+     * @return array{type: string, tagsets?: array<array-key, mixed>}
      */
     public function getReadPreference()
     {
@@ -65,7 +65,7 @@ trait ReadPreference
 
     /**
      * @param string $readPreference
-     * @param array $tags
+     * @param null|array<array-key, mixed> $tags
      * @return bool
      */
     abstract public function setReadPreference($readPreference, $tags = null);
@@ -79,11 +79,10 @@ trait ReadPreference
     }
 
     /**
-     * @param string $readPreference
-     * @param array $tags
-     * @return bool
+     * @param string|array{type: string, tagsets?:array<array-key, mixed>} $readPreference
+     * @param null|array<array-key, mixed> $tags
      */
-    protected function setReadPreferenceFromParameters($readPreference, $tags = null)
+    protected function setReadPreferenceFromParameters(string|array $readPreference, $tags = null): bool
     {
         /**
          * @internal Passing an array for $readPreference is necessary to avoid conversion voodoo
@@ -128,10 +127,10 @@ trait ReadPreference
     }
 
     /**
-     * @param array $readPreferenceArray
+     * @param array{type: string, tagsets?: array<array-key, mixed>} $readPreferenceArray
      * @return bool
      */
-    protected function setReadPreferenceFromArray($readPreferenceArray)
+    protected function setReadPreferenceFromArray(array $readPreferenceArray)
     {
         $readPreference = $readPreferenceArray['type'];
         $tags = $readPreferenceArray['tagsets'] ?? [];

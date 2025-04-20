@@ -79,10 +79,8 @@ abstract class AbstractCursor
      */
     protected $position = 0;
 
-    /**
-     * @var array
-     */
-    protected $optionNames = [
+    /** @var list<string> */
+    protected array $optionNames = [
         'batchSize',
         'readPreference',
     ];
