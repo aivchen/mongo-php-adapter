@@ -18,16 +18,12 @@ if (class_exists('MongoTimestamp', false)) {
     return;
 }
 
+use Alcaeus\MongoDbAdapter\GlobalInc;
 use Alcaeus\MongoDbAdapter\TypeInterface;
 use MongoDB\BSON\Timestamp;
 
 class MongoTimestamp implements TypeInterface
 {
-    /**
-     * @var int
-     */
-    private static $globalInc = 0;
-
     /**
      * @see http://php.net/manual/en/class.mongotimestamp.php#mongotimestamp.props.sec
      * @var int
@@ -66,8 +62,7 @@ class MongoTimestamp implements TypeInterface
         }
 
         if (func_num_args() <= 1) {
-            $inc = static::$globalInc;
-            ++static::$globalInc;
+            $inc = GlobalInc::next();
         }
 
         $this->sec = (int) $sec;
