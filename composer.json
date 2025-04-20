@@ -39,5 +39,11 @@
     },
     "extra": {
         "branch-version": "1.x"
+    },
+    "scripts": {
+        "cs-fix": "php-cs-fixer fix",
+        "phpstan": "phpstan analyse",
+        "test": "simple-phpunit",
+        "check": ["@cs-fix", "@phpstan", "@test"]
     }
 }
