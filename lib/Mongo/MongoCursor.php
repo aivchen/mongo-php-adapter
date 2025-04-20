@@ -43,10 +43,7 @@ class MongoCursor extends AbstractCursor implements Iterator, Countable, MongoCu
      */
     public static $timeout = 30000;
 
-    /**
-     * @var array
-     */
-    protected $optionNames = [
+    protected array $optionNames = [
         'allowPartialResults',
         'batchSize',
         'cursorType',

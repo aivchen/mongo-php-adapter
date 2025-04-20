@@ -1,12 +1,6 @@
 parameters:
 	ignoreErrors:
 		-
-			message: '#^Call to function is_array\(\) with string will always evaluate to false\.$#'
-			identifier: function.impossibleType
-			count: 1
-			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
-
-		-
 			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:current\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -43,12 +37,6 @@ parameters:
 			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
 
 		-
-			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:getReadPreference\(\) return type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
-
-		-
 			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:info\(\) return type has no value type specified in iterable type array\.$#'
 			identifier: missingType.iterableValue
 			count: 1
@@ -79,18 +67,6 @@ parameters:
 			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
 
 		-
-			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:setReadPreferenceFromArray\(\) has parameter \$readPreferenceArray with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
-
-		-
-			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:setReadPreferenceFromParameters\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
-
-		-
 			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:storeIteratorState\(\) has no return type specified\.$#'
 			identifier: missingType.return
 			count: 1
@@ -109,19 +85,7 @@ parameters:
 			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
 
 		-
-			message: '#^Parameter \#1 \$readPreference of method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:setReadPreferenceFromParameters\(\) expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
-
-		-
 			message: '#^Parameter \#1 \$string of function ucfirst expects string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
-
-		-
-			message: '#^Parameter \#2 \$tags of method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:setReadPreferenceFromParameters\(\) expects array\|null, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
@@ -147,12 +111,6 @@ parameters:
 		-
 			message: '#^Property Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:\$key has no type specified\.$#'
 			identifier: missingType.property
-			count: 1
-			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
-
-		-
-			message: '#^Property Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:\$optionNames type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
 
@@ -343,7 +301,7 @@ parameters:
 			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
 
 		-
-			message: '#^Parameter \#1 \$input of class MongoDB\\Model\\BSONDocument constructor expects array\<string, mixed\>, array given\.$#'
+			message: '#^Parameter \#1 \$input of class MongoDB\\Model\\BSONDocument constructor expects array\<string, mixed\>\|stdClass, array given\.$#'
 			identifier: argument.type
 			count: 1
 			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
@@ -425,12 +383,6 @@ parameters:
 			identifier: missingType.property
 			count: 1
 			path: lib/Mongo/MongoBinData.php
-
-		-
-			message: '#^Call to function is_array\(\) with string will always evaluate to false\.$#'
-			identifier: function.impossibleType
-			count: 1
-			path: lib/Mongo/MongoClient.php
 
 		-
 			message: '#^Call to function is_int\(\) with int will always evaluate to true\.$#'
@@ -529,24 +481,6 @@ parameters:
 			path: lib/Mongo/MongoClient.php
 
 		-
-			message: '#^Method MongoClient\:\:setReadPreference\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: lib/Mongo/MongoClient.php
-
-		-
-			message: '#^Method MongoClient\:\:setReadPreferenceFromArray\(\) has parameter \$readPreferenceArray with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: lib/Mongo/MongoClient.php
-
-		-
-			message: '#^Method MongoClient\:\:setReadPreferenceFromParameters\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: lib/Mongo/MongoClient.php
-
-		-
 			message: '#^Method MongoClient\:\:setWriteConcern\(\) has parameter \$wstring with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
@@ -571,9 +505,9 @@ parameters:
 			path: lib/Mongo/MongoClient.php
 
 		-
-			message: '#^Parameter \#1 \$readPreference of method MongoClient\:\:setReadPreferenceFromParameters\(\) expects string, mixed given\.$#'
+			message: '#^Parameter \#1 \$readPreference of method MongoClient\:\:setReadPreferenceFromParameters\(\) expects array\{type\: string, tagsets\?\: array\<mixed\>\}\|string, mixed given\.$#'
 			identifier: argument.type
-			count: 2
+			count: 1
 			path: lib/Mongo/MongoClient.php
 
 		-
@@ -607,9 +541,9 @@ parameters:
 			path: lib/Mongo/MongoClient.php
 
 		-
-			message: '#^Parameter \#2 \$tags of method MongoClient\:\:setReadPreferenceFromParameters\(\) expects array\|null, mixed given\.$#'
+			message: '#^Parameter \#2 \$tags of method MongoClient\:\:setReadPreferenceFromParameters\(\) expects array\<mixed\>\|null, mixed given\.$#'
 			identifier: argument.type
-			count: 2
+			count: 1
 			path: lib/Mongo/MongoClient.php
 
 		-
@@ -694,12 +628,6 @@ parameters:
 			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
 			identifier: function.alreadyNarrowedType
 			count: 4
-			path: lib/Mongo/MongoCollection.php
-
-		-
-			message: '#^Call to function is_array\(\) with string will always evaluate to false\.$#'
-			identifier: function.impossibleType
-			count: 1
 			path: lib/Mongo/MongoCollection.php
 
 		-
@@ -1153,24 +1081,6 @@ parameters:
 			path: lib/Mongo/MongoCollection.php
 
 		-
-			message: '#^Method MongoCollection\:\:setReadPreference\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: lib/Mongo/MongoCollection.php
-
-		-
-			message: '#^Method MongoCollection\:\:setReadPreferenceFromArray\(\) has parameter \$readPreferenceArray with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: lib/Mongo/MongoCollection.php
-
-		-
-			message: '#^Method MongoCollection\:\:setReadPreferenceFromParameters\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: lib/Mongo/MongoCollection.php
-
-		-
 			message: '#^Method MongoCollection\:\:setWriteConcern\(\) has parameter \$wstring with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
@@ -1327,7 +1237,7 @@ parameters:
 			path: lib/Mongo/MongoCollection.php
 
 		-
-			message: '#^Parameter \#1 \$readPreference of method MongoCollection\:\:setReadPreferenceFromParameters\(\) expects string, mixed given\.$#'
+			message: '#^Parameter \#1 \$readPreferenceArray of method MongoCollection\:\:setReadPreferenceFromArray\(\) expects array\{type\: string, tagsets\?\: array\<mixed\>\}, array given\.$#'
 			identifier: argument.type
 			count: 1
 			path: lib/Mongo/MongoCollection.php
@@ -1360,12 +1270,6 @@ parameters:
 			message: '#^Parameter \#2 \$replacement of method MongoDB\\Collection\:\:replaceOne\(\) expects array\|object, mixed given\.$#'
 			identifier: argument.type
 			count: 2
-			path: lib/Mongo/MongoCollection.php
-
-		-
-			message: '#^Parameter \#2 \$tags of method MongoCollection\:\:setReadPreferenceFromParameters\(\) expects array\|null, mixed given\.$#'
-			identifier: argument.type
-			count: 1
 			path: lib/Mongo/MongoCollection.php
 
 		-
@@ -1591,7 +1495,7 @@ parameters:
 			path: lib/Mongo/MongoCursor.php
 
 		-
-			message: '#^Property Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:\$cursor \(MongoDB\\Driver\\Cursor\) does not accept Iterator&MongoDB\\Driver\\CursorInterface\.$#'
+			message: '#^Property Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:\$cursor \(MongoDB\\Driver\\Cursor\) does not accept MongoDB\\Driver\\CursorInterface\.$#'
 			identifier: assign.propertyType
 			count: 1
 			path: lib/Mongo/MongoCursor.php
@@ -1635,12 +1539,6 @@ parameters:
 		-
 			message: '#^Property MongoCursor\:\:\$noCursorTimeout has no type specified\.$#'
 			identifier: missingType.property
-			count: 1
-			path: lib/Mongo/MongoCursor.php
-
-		-
-			message: '#^Property MongoCursor\:\:\$optionNames type has no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
 			count: 1
 			path: lib/Mongo/MongoCursor.php
 
@@ -1709,12 +1607,6 @@ parameters:
 			identifier: missingType.iterableValue
 			count: 1
 			path: lib/Mongo/MongoCursorInterface.php
-
-		-
-			message: '#^Call to function is_array\(\) with string will always evaluate to false\.$#'
-			identifier: function.impossibleType
-			count: 1
-			path: lib/Mongo/MongoDB.php
 
 		-
 			message: '#^Call to function is_int\(\) with int will always evaluate to true\.$#'
@@ -1939,24 +1831,6 @@ parameters:
 			path: lib/Mongo/MongoDB.php
 
 		-
-			message: '#^Method MongoDB\:\:setReadPreference\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: lib/Mongo/MongoDB.php
-
-		-
-			message: '#^Method MongoDB\:\:setReadPreferenceFromArray\(\) has parameter \$readPreferenceArray with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: lib/Mongo/MongoDB.php
-
-		-
-			message: '#^Method MongoDB\:\:setReadPreferenceFromParameters\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
-			identifier: missingType.iterableValue
-			count: 1
-			path: lib/Mongo/MongoDB.php
-
-		-
 			message: '#^Method MongoDB\:\:setWriteConcern\(\) has parameter \$wstring with no type specified\.$#'
 			identifier: missingType.parameter
 			count: 1
@@ -2011,7 +1885,7 @@ parameters:
 			path: lib/Mongo/MongoDB.php
 
 		-
-			message: '#^Parameter \#1 \$readPreference of method MongoDB\:\:setReadPreferenceFromParameters\(\) expects string, mixed given\.$#'
+			message: '#^Parameter \#1 \$readPreferenceArray of method MongoDB\:\:setReadPreferenceFromArray\(\) expects array\{type\: string, tagsets\?\: array\<mixed\>\}, array given\.$#'
 			identifier: argument.type
 			count: 1
 			path: lib/Mongo/MongoDB.php
@@ -2030,12 +1904,6 @@ parameters:
 
 		-
 			message: '#^Parameter \#1 \$wstring of method MongoDB\:\:setWriteConcernFromParameters\(\) expects int\|string, mixed given\.$#'
-			identifier: argument.type
-			count: 1
-			path: lib/Mongo/MongoDB.php
-
-		-
-			message: '#^Parameter \#2 \$tags of method MongoDB\:\:setReadPreferenceFromParameters\(\) expects array\|null, mixed given\.$#'
 			identifier: argument.type
 			count: 1
 			path: lib/Mongo/MongoDB.php
@@ -3163,7 +3031,7 @@ parameters:
 			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
 
 		-
-			message: '#^Parameter \#1 \$input of class MongoDB\\Model\\BSONDocument constructor expects array\<string, mixed\>, array given\.$#'
+			message: '#^Parameter \#1 \$input of class MongoDB\\Model\\BSONDocument constructor expects array\<string, mixed\>\|stdClass, array given\.$#'
 			identifier: argument.type
 			count: 1
 			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
@@ -4383,13 +4251,7 @@ parameters:
 		-
 			message: '#^Cannot access property \$data on array\|object\.$#'
 			identifier: property.nonObject
-			count: 4
-			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
-
-		-
-			message: '#^Cannot access property \$data on mixed\.$#'
-			identifier: property.nonObject
-			count: 4
+			count: 8
 			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
 
 		-
@@ -4401,13 +4263,7 @@ parameters:
 		-
 			message: '#^Cannot access property \$files_id on array\|object\.$#'
 			identifier: property.nonObject
-			count: 4
-			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
-
-		-
-			message: '#^Cannot access property \$files_id on mixed\.$#'
-			identifier: property.nonObject
-			count: 4
+			count: 8
 			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
 
 		-
@@ -4431,13 +4287,7 @@ parameters:
 		-
 			message: '#^Cannot access property \$n on array\|object\.$#'
 			identifier: property.nonObject
-			count: 2
-			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
-
-		-
-			message: '#^Cannot access property \$n on mixed\.$#'
-			identifier: property.nonObject
-			count: 2
+			count: 4
 			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
 
 		-
@@ -4801,7 +4651,7 @@ parameters:
 			path: tests/Alcaeus/MongoDbAdapter/TypeConverterTest.php
 
 		-
-			message: '#^Parameter \#1 \$input of class MongoDB\\Model\\BSONDocument constructor expects array\<string, mixed\>, array\<int, string\> given\.$#'
+			message: '#^Parameter \#1 \$input of class MongoDB\\Model\\BSONDocument constructor expects array\<string, mixed\>\|stdClass, array\<int, string\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: tests/Alcaeus/MongoDbAdapter/TypeConverterTest.php
