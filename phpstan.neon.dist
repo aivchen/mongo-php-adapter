@@ -1,5 +1,7 @@
+includes:
+    - phpstan-baseline.neon
 parameters:
-    level: 1
+    level: 10
     paths:
         - lib
         - tests
@@ -7,3 +9,5 @@ parameters:
         -
             identifier: unset.offset
             path: tests
+        - '#^Method MongoDB\\Driver\\Cursor\:\:getId\(\) invoked with 1 parameter, 0 required\.$#'
+

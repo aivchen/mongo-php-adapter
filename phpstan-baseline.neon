@@ -1,0 +1,4807 @@
+parameters:
+	ignoreErrors:
+		-
+			message: '#^Call to function is_array\(\) with string will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:current\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:current\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:getCursorInfo\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:getIterationInfo\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:getOptions\(\) has parameter \$optionNames with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:getOptions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:getReadPreference\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:info\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:key\(\) should return string but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:next\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:next\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:setReadPreference\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:setReadPreferenceFromArray\(\) has parameter \$readPreferenceArray with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:setReadPreferenceFromParameters\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:storeIteratorState\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:valid\(\) should return bool but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:wrapTraversable\(\) has parameter \$traversable with no value type specified in iterable type Traversable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Parameter \#1 \$readPreference of method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:setReadPreferenceFromParameters\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Parameter \#1 \$string of function ucfirst expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Parameter \#2 \$tags of method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:setReadPreferenceFromParameters\(\) expects array\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Property Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:\$current has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Property Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:\$cursor \(MongoDB\\Driver\\Cursor\) does not accept null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Property Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:\$iterator \(Alcaeus\\MongoDbAdapter\\CursorIterator\) does not accept null\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Property Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:\$key has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Property Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:\$optionNames type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Property Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:\$valid has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Return type \(\$this\(Alcaeus\\MongoDbAdapter\\AbstractCursor\)\) of method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:setReadPreference\(\) should be compatible with return type \(bool\) of method Alcaeus\\MongoDbAdapter\\Helper\\ReadPreference\:\:setReadPreference\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between array and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/AbstractCursor.php
+
+		-
+			message: '#^Cannot access property \$_id on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/CursorIterator.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/CursorIterator.php
+
+		-
+			message: '#^Class Alcaeus\\MongoDbAdapter\\CursorIterator extends generic class IteratorIterator but does not specify its types\: TKey, TValue, TIterator$#'
+			identifier: missingType.generics
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/CursorIterator.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\CursorIterator\:\:__construct\(\) has parameter \$iterator with no value type specified in iterable type Traversable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/CursorIterator.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\CursorIterator\:\:__construct\(\) has parameter \$useIdAsKey with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/CursorIterator.php
+
+		-
+			message: '#^Property Alcaeus\\MongoDbAdapter\\CursorIterator\:\:\$useIdAsKey \(bool\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/CursorIterator.php
+
+		-
+			message: '#^Call to function is_array\(\) with array\<MongoDB\\Driver\\WriteError\> will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/ExceptionConverter.php
+
+		-
+			message: '#^Instanceof between MongoDB\\Driver\\WriteError and MongoDB\\Driver\\WriteError will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/ExceptionConverter.php
+
+		-
+			message: '#^Instanceof between MongoDB\\Driver\\WriteResult and MongoDB\\Driver\\WriteResult will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/ExceptionConverter.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\ExceptionConverter\:\:toLegacy\(\) should return MongoException but returns object\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/ExceptionConverter.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\ExceptionConverter\:\:toResultArray\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/ExceptionConverter.php
+
+		-
+			message: '#^Result of && is always true\.$#'
+			identifier: booleanAnd.alwaysTrue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/ExceptionConverter.php
+
+		-
+			message: '#^Argument of an invalid type array\<mixed, mixed\>\|object supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 2
+			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
+
+		-
+			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\TypeConverter\:\:convertBSONObjectToLegacy\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\TypeConverter\:\:convertProjection\(\) has parameter \$fields with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\TypeConverter\:\:convertProjection\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\TypeConverter\:\:convertProjection\(\) should return array\|null but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\TypeConverter\:\:ensureCorrectType\(\) has parameter \$array with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\TypeConverter\:\:ensureCorrectType\(\) never returns MongoDB\\Model\\BSONArray so it can be removed from the return type\.$#'
+			identifier: return.unusedType
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\TypeConverter\:\:ensureCorrectType\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\TypeConverter\:\:ensureCorrectType\(\) return type has no value type specified in iterable type array\|MongoDB\\Model\\BSONArray\|MongoDB\\Model\\BSONDocument\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\TypeConverter\:\:fromLegacy\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\TypeConverter\:\:fromLegacy\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\TypeConverter\:\:isNumericArray\(\) has parameter \$array with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\TypeConverter\:\:toLegacy\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\TypeConverter\:\:toLegacy\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
+
+		-
+			message: '#^Parameter \#1 \$array \(non\-empty\-list\<\(int\|string\)\>\) of array_values is already a list, call has no effect\.$#'
+			identifier: arrayValues.list
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
+
+		-
+			message: '#^Parameter \#1 \$input of class MongoDB\\Model\\BSONDocument constructor expects array\<string, mixed\>, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
+
+		-
+			message: '#^Parameter \#1 \$sec of class MongoDate constructor expects int, MongoDB\\BSON\\UTCDateTime given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
+
+		-
+			message: '#^Parameter \#1 \$sec of class MongoTimestamp constructor expects int, MongoDB\\BSON\\Timestamp given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\TypeInterface\:\:toBSONType\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: lib/Alcaeus/MongoDbAdapter/TypeInterface.php
+
+		-
+			message: '#^Method Mongo\:\:lastError\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/Mongo.php
+
+		-
+			message: '#^Method Mongo\:\:poolDebug\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/Mongo.php
+
+		-
+			message: '#^Method Mongo\:\:prevError\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/Mongo.php
+
+		-
+			message: '#^Method Mongo\:\:resetError\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/Mongo.php
+
+		-
+			message: '#^Method Mongo\:\:setPoolSize\(\) has parameter \$size with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Mongo/Mongo.php
+
+		-
+			message: '#^Instanceof between string and MongoDB\\BSON\\Binary will always evaluate to false\.$#'
+			identifier: instanceof.alwaysFalse
+			count: 1
+			path: lib/Mongo/MongoBinData.php
+
+		-
+			message: '#^Parameter \#1 \$data of class MongoDB\\BSON\\Binary constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoBinData.php
+
+		-
+			message: '#^Parameter \#2 \$type of class MongoDB\\BSON\\Binary constructor expects int, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoBinData.php
+
+		-
+			message: '#^Property MongoBinData\:\:\$bin has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoBinData.php
+
+		-
+			message: '#^Property MongoBinData\:\:\$type has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoBinData.php
+
+		-
+			message: '#^Call to function is_array\(\) with string will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Call to function is_int\(\) with int will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Cannot access an offset on int\|list\<array\>\|string\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Method MongoClient\:\:__construct\(\) has parameter \$driverOptions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Method MongoClient\:\:__construct\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Method MongoClient\:\:applyConnectionOptions\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Method MongoClient\:\:connect\(\) has MongoConnectionException in PHPDoc @throws tag but it''s not thrown\.$#'
+			identifier: throws.unusedType
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Method MongoClient\:\:createWriteConcernFromArray\(\) has parameter \$writeConcernArray with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Method MongoClient\:\:createWriteConcernFromParameters\(\) should return MongoDB\\Driver\\WriteConcern but returns false\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Method MongoClient\:\:dropDB\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Method MongoClient\:\:extractUrlOptions\(\) has parameter \$server with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Method MongoClient\:\:extractUrlOptions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Method MongoClient\:\:getConnections\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Method MongoClient\:\:getHosts\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Method MongoClient\:\:getReadPreferenceTags\(\) has parameter \$readPreferenceTagString with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Method MongoClient\:\:getReadPreferenceTags\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Method MongoClient\:\:listDBs\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Method MongoClient\:\:setReadPreference\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Method MongoClient\:\:setReadPreferenceFromArray\(\) has parameter \$readPreferenceArray with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Method MongoClient\:\:setReadPreferenceFromParameters\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Method MongoClient\:\:setWriteConcern\(\) has parameter \$wstring with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Method MongoClient\:\:setWriteConcernFromArray\(\) has parameter \$writeConcernArray with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Parameter \#1 \$name of method MongoClient\:\:selectDB\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Parameter \#1 \$ok of method MongoClient\:\:setReadPreferenceFromSlaveOkay\(\) expects bool, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Parameter \#1 \$readPreference of method MongoClient\:\:setReadPreferenceFromParameters\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Parameter \#1 \$url of function parse_url expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Parameter \#1 \$wstring of method MongoClient\:\:createWriteConcernFromParameters\(\) expects bool\|int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Parameter \#1 \$wstring of method MongoClient\:\:setWriteConcernFromParameters\(\) expects int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Parameter \#1 \.\.\.\$arrays of function array_merge expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Parameter \#2 \$string of function explode expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Parameter \#2 \$tags of method MongoClient\:\:setReadPreferenceFromParameters\(\) expects array\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Parameter \#2 \$wtimeout of method MongoClient\:\:createWriteConcernFromParameters\(\) expects int, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Parameter \#2 \$wtimeout of method MongoClient\:\:setWriteConcern\(\) expects int, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Parameter \#2 \.\.\.\$arrays of function array_merge expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Property MongoClient\:\:\$manager \(MongoDB\\Driver\\Manager\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Property MongoClient\:\:\$persistent has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Property MongoClient\:\:\$status has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: lib/Mongo/MongoClient.php
+
+		-
+			message: '#^Instanceof between string and MongoDB\\BSON\\Javascript will always evaluate to false\.$#'
+			identifier: instanceof.alwaysFalse
+			count: 1
+			path: lib/Mongo/MongoCode.php
+
+		-
+			message: '#^Method MongoCode\:\:__construct\(\) has parameter \$scope with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCode.php
+
+		-
+			message: '#^Property MongoCode\:\:\$scope type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCode.php
+
+		-
+			message: '#^Access to an undefined property object\:\:\$_id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Call to an undefined method MongoDB\\Collection\:\:replaceMany\(\)\.$#'
+			identifier: method.notFound
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Call to function is_array\(\) with array will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 4
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Call to function is_array\(\) with string will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Call to function is_int\(\) with int will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Call to function is_object\(\) with object will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Cannot access offset ''batchSize'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Cannot cast mixed to int\.$#'
+			identifier: cast.int
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:__get\(\) should return MongoCollection but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:__set\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:aggregate\(\) has parameter \$op with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:aggregate\(\) has parameter \$pipeline with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:aggregate\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:aggregate\(\) should return array but empty return statement found\.$#'
+			identifier: return.empty
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:aggregateCursor\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:aggregateCursor\(\) has parameter \$pipeline with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:batchInsert\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:batchInsert\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:checkCollectionName\(\) has parameter \$name with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:checkKeys\(\) has parameter \$array with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:convertWriteConcernOptions\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:convertWriteConcernOptions\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:count\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:count\(\) has parameter \$query with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:createDBRef\(\) has parameter \$document_or_id with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:createDBRef\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:createDBRef\(\) should return array but returns null\.$#'
+			identifier: return.type
+			count: 2
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:createIndex\(\) has parameter \$keys with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:createIndex\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:createIndex\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:createWriteConcernFromArray\(\) has parameter \$writeConcernArray with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:createWriteConcernFromParameters\(\) should return MongoDB\\Driver\\WriteConcern but returns false\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:deleteIndex\(\) has parameter \$keys with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:deleteIndex\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:deleteIndex\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:deleteIndexes\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:deleteIndexes\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:distinct\(\) has parameter \$query with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:distinct\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:drop\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:drop\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:ensureDocumentHasMongoId\(\) has parameter \$document with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:ensureDocumentHasMongoId\(\) should return MongoId but returns mixed\.$#'
+			identifier: return.type
+			count: 2
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:ensureIndex\(\) has parameter \$keys with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:ensureIndex\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:ensureIndex\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:ensureIndex\(\) should return array but returns bool\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:find\(\) has parameter \$fields with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:find\(\) has parameter \$query with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:findAndModify\(\) has parameter \$fields with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:findAndModify\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:findAndModify\(\) has parameter \$query with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:findAndModify\(\) has parameter \$update with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:findAndModify\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:findAndModify\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:findOne\(\) has parameter \$fields with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:findOne\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:findOne\(\) has parameter \$query with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:findOne\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:findOne\(\) should return array\|null but empty return statement found\.$#'
+			identifier: return.empty
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:findOne\(\) should return array\|null but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:generateIndexName\(\) has parameter \$keys with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:getDBRef\(\) has parameter \$ref with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:getDBRef\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:getIndexInfo\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:group\(\) has parameter \$condition with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:group\(\) has parameter \$initial with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:group\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:insert\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:insert\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:insert\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:insert\(\) should return array\|bool but empty return statement found\.$#'
+			identifier: return.empty
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:mustBeArrayOrObject\(\) has parameter \$a with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:remove\(\) has parameter \$criteria with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:remove\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:remove\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:save\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:save\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:save\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:setReadPreference\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:setReadPreferenceFromArray\(\) has parameter \$readPreferenceArray with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:setReadPreferenceFromParameters\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:setWriteConcern\(\) has parameter \$wstring with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:setWriteConcernFromArray\(\) has parameter \$writeConcernArray with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:update\(\) has parameter \$criteria with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:update\(\) has parameter \$newobj with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:update\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:update\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Method MongoCollection\:\:validate\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Negated boolean expression is always false\.$#'
+			identifier: booleanNot.alwaysFalse
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#1 \$document of function MongoDB\\is_first_key_operator expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#1 \$document of method MongoCollection\:\:ensureDocumentHasMongoId\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#1 \$document of method MongoDB\\Collection\:\:insertOne\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#1 \$documents of method MongoDB\\Collection\:\:insertMany\(\) expects list\<array\|object\>, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#1 \$fields of static method Alcaeus\\MongoDbAdapter\\TypeConverter\:\:convertProjection\(\) expects array, array\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#1 \$filter of method MongoDB\\Collection\:\:count\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#1 \$filter of method MongoDB\\Collection\:\:deleteMany\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#1 \$filter of method MongoDB\\Collection\:\:deleteOne\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#1 \$filter of method MongoDB\\Collection\:\:findOne\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#1 \$filter of method MongoDB\\Collection\:\:findOneAndDelete\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#1 \$filter of method MongoDB\\Collection\:\:findOneAndReplace\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#1 \$filter of method MongoDB\\Collection\:\:findOneAndUpdate\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#1 \$filter of method MongoDB\\Collection\:\:replaceOne\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#1 \$filter of method MongoDB\\Collection\:\:updateMany\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#1 \$filter of method MongoDB\\Collection\:\:updateOne\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#1 \$haystack of function strpos expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#1 \$pipeline of method MongoDB\\Collection\:\:aggregate\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#1 \$readPreference of method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:setReadPreference\(\) expects string, array given\.$#'
+			identifier: argument.type
+			count: 2
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#1 \$readPreference of method MongoCollection\:\:setReadPreferenceFromParameters\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#1 \$wstring of method MongoCollection\:\:createWriteConcernFromParameters\(\) expects bool\|int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#1 \$wstring of method MongoCollection\:\:setWriteConcernFromParameters\(\) expects int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#2 \$filter of method MongoDB\\Collection\:\:distinct\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#2 \$replacement of method MongoDB\\Collection\:\:findOneAndReplace\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#2 \$replacement of method MongoDB\\Collection\:\:replaceOne\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#2 \$tags of method MongoCollection\:\:setReadPreferenceFromParameters\(\) expects array\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#2 \$update of method MongoDB\\Collection\:\:findOneAndUpdate\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#2 \$update of method MongoDB\\Collection\:\:updateMany\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#2 \$update of method MongoDB\\Collection\:\:updateOne\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Parameter \#2 \$wtimeout of method MongoCollection\:\:createWriteConcernFromParameters\(\) expects int, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between \*NEVER\* and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Strict comparison using \=\=\= between MongoId and null will always evaluate to false\.$#'
+			identifier: identical.alwaysFalse
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: lib/Mongo/MongoCollection.php
+
+		-
+			message: '#^Cannot access property \$cursor on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: lib/Mongo/MongoCommandCursor.php
+
+		-
+			message: '#^Method MongoCommandCursor\:\:__construct\(\) has parameter \$command with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCommandCursor.php
+
+		-
+			message: '#^Method MongoCommandCursor\:\:createFromDocument\(\) has parameter \$document with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCommandCursor.php
+
+		-
+			message: '#^Method MongoCommandCursor\:\:getCursorInfo\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCommandCursor.php
+
+		-
+			message: '#^Method MongoCommandCursor\:\:getIterationInfo\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCommandCursor.php
+
+		-
+			message: '#^Parameter \#1 \$command of method MongoDB\\Database\:\:command\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCommandCursor.php
+
+		-
+			message: '#^Property MongoCommandCursor\:\:\$command type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCommandCursor.php
+
+		-
+			message: '#^Binary operation "\+" between array and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Cannot access offset ''\$hint''\|''\$snapshot'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Cannot access offset ''ok'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Cannot access offset string on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Class MongoCursor implements generic interface Iterator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Method MongoCursor\:\:__construct\(\) has parameter \$fields with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Method MongoCursor\:\:__construct\(\) has parameter \$query with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Method MongoCursor\:\:convertModifiers\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Method MongoCursor\:\:convertModifiers\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Method MongoCursor\:\:convertProjection\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Method MongoCursor\:\:convertProjection\(\) should return array but returns array\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Method MongoCursor\:\:explain\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Method MongoCursor\:\:explain\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Method MongoCursor\:\:fields\(\) has parameter \$f with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Method MongoCursor\:\:getCursorInfo\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Method MongoCursor\:\:getNext\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Method MongoCursor\:\:hint\(\) has parameter \$keyPattern with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Method MongoCursor\:\:sort\(\) has parameter \$fields with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Method MongoCursor\:\:wrapTraversable\(\) has parameter \$traversable with no value type specified in iterable type Traversable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Parameter \#1 \$filter of method MongoDB\\Collection\:\:count\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Parameter \#1 \$filter of method MongoDB\\Collection\:\:find\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Parameter \#2 \$array of function array_key_exists expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Property Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:\$cursor \(MongoDB\\Driver\\Cursor\) does not accept Iterator&MongoDB\\Driver\\CursorInterface\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Property MongoCursor\:\:\$allowPartialResults has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Property MongoCursor\:\:\$awaitData has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Property MongoCursor\:\:\$flags has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Property MongoCursor\:\:\$hint has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Property MongoCursor\:\:\$limit has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Property MongoCursor\:\:\$maxTimeMS has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Property MongoCursor\:\:\$noCursorTimeout has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Property MongoCursor\:\:\$optionNames type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Property MongoCursor\:\:\$options has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Property MongoCursor\:\:\$projection type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Property MongoCursor\:\:\$query type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Property MongoCursor\:\:\$skip has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Property MongoCursor\:\:\$snapshot has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Property MongoCursor\:\:\$sort has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Property MongoCursor\:\:\$tailable has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoCursor.php
+
+		-
+			message: '#^Interface MongoCursorInterface extends generic interface Iterator but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: lib/Mongo/MongoCursorInterface.php
+
+		-
+			message: '#^Method MongoCursorInterface\:\:getReadPreference\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCursorInterface.php
+
+		-
+			message: '#^Method MongoCursorInterface\:\:info\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCursorInterface.php
+
+		-
+			message: '#^Method MongoCursorInterface\:\:setReadPreference\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoCursorInterface.php
+
+		-
+			message: '#^Call to function is_array\(\) with string will always evaluate to false\.$#'
+			identifier: function.impossibleType
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Call to function is_int\(\) with int will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:__get\(\) should return MongoCollection but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:__set\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:authenticate\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:checkDatabaseName\(\) has parameter \$name with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:command\(\) has parameter \$data with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:command\(\) has parameter \$hash with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:command\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:command\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:command\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:createCollection\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:createCollection\(\) should return MongoCollection but returns false\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:createDBRef\(\) has parameter \$document_or_id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:createDBRef\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:createDBRef\(\) should return array but returns null\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:createWriteConcernFromArray\(\) has parameter \$writeConcernArray with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:createWriteConcernFromParameters\(\) should return MongoDB\\Driver\\WriteConcern but returns false\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:drop\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:drop\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:dropCollection\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:dropCollection\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:execute\(\) has parameter \$args with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:execute\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:forceError\(\) should return bool but returns array\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:getCollectionInfo\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:getCollectionInfo\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:getCollectionNames\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:getCollectionNames\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:getDBRef\(\) has parameter \$ref with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:getDBRef\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:getProfilingLevel\(\) should return int but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:lastError\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:listCollections\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:prevError\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:repair\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:resetError\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:setProfilingLevel\(\) should return int but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:setReadPreference\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:setReadPreferenceFromArray\(\) has parameter \$readPreferenceArray with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:setReadPreferenceFromParameters\(\) has parameter \$tags with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:setWriteConcern\(\) has parameter \$wstring with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDB\:\:setWriteConcernFromArray\(\) has parameter \$writeConcernArray with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Offset 0 does not exist on array\<string, array\>\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Parameter \#1 \$callback of function array_map expects \(callable\(mixed\)\: mixed\)\|null, array\{\$this\(MongoDB\), ''selectCollection''\} given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Parameter \#1 \$haystack of function strpos expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Parameter \#1 \$haystack of function strstr expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Parameter \#1 \$includeSystemCollections of method MongoDB\:\:getSystemCollectionFilterClosure\(\) expects bool, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Parameter \#1 \$name of method MongoClient\:\:selectDB\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Parameter \#1 \$readPreference of method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:setReadPreference\(\) expects string, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Parameter \#1 \$readPreference of method MongoDB\:\:setReadPreferenceFromParameters\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Parameter \#1 \$string of function strlen expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Parameter \#1 \$wstring of method MongoDB\:\:createWriteConcernFromParameters\(\) expects bool\|int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Parameter \#1 \$wstring of method MongoDB\:\:setWriteConcernFromParameters\(\) expects int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Parameter \#2 \$tags of method MongoDB\:\:setReadPreferenceFromParameters\(\) expects array\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Parameter \#2 \$wtimeout of method MongoDB\:\:createWriteConcernFromParameters\(\) expects int, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: lib/Mongo/MongoDB.php
+
+		-
+			message: '#^Method MongoDBRef\:\:create\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDBRef.php
+
+		-
+			message: '#^Method MongoDBRef\:\:get\(\) has parameter \$ref with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDBRef.php
+
+		-
+			message: '#^Method MongoDBRef\:\:get\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDBRef.php
+
+		-
+			message: '#^Parameter \#1 \$key of function array_key_exists expects int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: lib/Mongo/MongoDBRef.php
+
+		-
+			message: '#^Parameter \#1 \$name of method MongoDB\:\:selectCollection\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoDBRef.php
+
+		-
+			message: '#^Property MongoDBRef\:\:\$idKey has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoDBRef.php
+
+		-
+			message: '#^Property MongoDBRef\:\:\$refKey has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoDBRef.php
+
+		-
+			message: '#^Instanceof between int and MongoDB\\BSON\\UTCDateTime will always evaluate to false\.$#'
+			identifier: instanceof.alwaysFalse
+			count: 1
+			path: lib/Mongo/MongoDate.php
+
+		-
+			message: '#^Method MongoDate\:\:toDateTime\(\) should return DateTime but returns DateTime\|false\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoDate.php
+
+		-
+			message: '#^Parameter \#1 \$string of function str_pad expects string, int\<1, max\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoDate.php
+
+		-
+			message: '#^Parameter \#1 \$usec of method MongoDate\:\:truncateMicroSeconds\(\) expects int, float\|int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoDate.php
+
+		-
+			message: '#^Method MongoDeleteBatch\:\:__construct\(\) has parameter \$writeOptions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoDeleteBatch.php
+
+		-
+			message: '#^Parameter \#2 \$batchType of method MongoWriteBatch\:\:__construct\(\) expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoDeleteBatch.php
+
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Binary operation "\+\=" between \(float\|int\) and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Binary operation "\+\=" between mixed and array\{_id\: MongoId, uploadDate\: MongoDate, chunkSize\: mixed\} results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Call to function is_string\(\) with string will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Cannot access offset ''error'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Cannot access offset ''name'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Cannot access offset ''tmp_name'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 6
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Dead catch \- MongoException is never thrown in the try block\.$#'
+			identifier: catch.neverThrown
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:delete\(\) should return bool but returns array\|bool\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:drop\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:find\(\) has parameter \$fields with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:find\(\) has parameter \$query with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:findOne\(\) has parameter \$fields with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:findOne\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:findOne\(\) should return MongoGridFSFile\|null but returns array\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:insertChunk\(\) has parameter \$fileId with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:insertChunk\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:insertChunksFromBytes\(\) has parameter \$record with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:insertChunksFromFile\(\) has parameter \$record with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:insertFile\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:insertFile\(\) has parameter \$record with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:insertFile\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:isOKResult\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:isOKResult\(\) has parameter \$result with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:put\(\) has parameter \$extra with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:put\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:remove\(\) has parameter \$criteria with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:remove\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:remove\(\) should return bool but returns array\|bool\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:storeBytes\(\) has parameter \$extra with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:storeBytes\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:storeFile\(\) has parameter \$extra with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:storeFile\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Method MongoGridFS\:\:storeUpload\(\) has parameter \$metadata with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Parameter \#1 \$array of function array_pop expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Parameter \#1 \$filename of method MongoGridFS\:\:storeFile\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Parameter \#1 \$readPreference of method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:setReadPreference\(\) expects string, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Parameter \#1 \$string of function strlen expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Parameter \#1 \$value of function count expects array\|Countable, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Parameter \#2 \$connection of class MongoGridFSCursor constructor expects resource, MongoClient given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Parameter \#2 \$data of function hash_update expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Parameter \#2 \$data of method MongoGridFS\:\:insertChunk\(\) expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Parameter \#2 \$length of function str_split expects int\<1, max\>, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Parameter \#2 \$length of function stream_get_contents expects int\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Parameter \#3 \$md5 of method MongoGridFS\:\:insertChunksFromFile\(\) expects string, null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Property MongoGridFS\:\:\$database is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Property MongoGridFS\:\:\$defaultChunkSize has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Property MongoGridFS\:\:\$prefix has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Property MongoGridFS\:\:\$prefix is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: lib/Mongo/MongoGridFS.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: lib/Mongo/MongoGridFSCursor.php
+
+		-
+			message: '#^Method MongoGridFSCursor\:\:__construct\(\) has parameter \$fields with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFSCursor.php
+
+		-
+			message: '#^Method MongoGridFSCursor\:\:__construct\(\) has parameter \$query with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFSCursor.php
+
+		-
+			message: '#^Parameter \#1 \$gridfs of class MongoGridFSFile constructor expects MongoGridFS, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoGridFSCursor.php
+
+		-
+			message: '#^Property MongoGridFSCursor\:\:\$gridfs has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoGridFSCursor.php
+
+		-
+			message: '#^Return type \(MongoGridFSFile\) of method MongoGridFSCursor\:\:current\(\) should be compatible with return type \(array\) of method Alcaeus\\MongoDbAdapter\\AbstractCursor\:\:current\(\)$#'
+			identifier: method.childReturnType
+			count: 1
+			path: lib/Mongo/MongoGridFSCursor.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between MongoGridFSFile and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: lib/Mongo/MongoGridFSCursor.php
+
+		-
+			message: '#^Strict comparison using \!\=\= between array and null will always evaluate to true\.$#'
+			identifier: notIdentical.alwaysTrue
+			count: 1
+			path: lib/Mongo/MongoGridFSCursor.php
+
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 2
+			path: lib/Mongo/MongoGridFSFile.php
+
+		-
+			message: '#^Binary operation "\.\=" between string and mixed results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: lib/Mongo/MongoGridFSFile.php
+
+		-
+			message: '#^Cannot access offset ''data'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: lib/Mongo/MongoGridFSFile.php
+
+		-
+			message: '#^Cannot access property \$bin on mixed\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: lib/Mongo/MongoGridFSFile.php
+
+		-
+			message: '#^Cannot access property \$chunks on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: lib/Mongo/MongoGridFSFile.php
+
+		-
+			message: '#^Cannot call method find\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: lib/Mongo/MongoGridFSFile.php
+
+		-
+			message: '#^Method MongoGridFSFile\:\:__construct\(\) has parameter \$file with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFSFile.php
+
+		-
+			message: '#^Method MongoGridFSFile\:\:copyToResource\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: lib/Mongo/MongoGridFSFile.php
+
+		-
+			message: '#^Method MongoGridFSFile\:\:copyToResource\(\) has parameter \$handle with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Mongo/MongoGridFSFile.php
+
+		-
+			message: '#^Method MongoGridFSFile\:\:getChunks\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: lib/Mongo/MongoGridFSFile.php
+
+		-
+			message: '#^Method MongoGridFSFile\:\:getFilename\(\) should return string but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoGridFSFile.php
+
+		-
+			message: '#^Method MongoGridFSFile\:\:getResource\(\) should return resource but returns resource\|false\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoGridFSFile.php
+
+		-
+			message: '#^Method MongoGridFSFile\:\:getSize\(\) should return int but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoGridFSFile.php
+
+		-
+			message: '#^Method MongoGridFSFile\:\:write\(\) should return int but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoGridFSFile.php
+
+		-
+			message: '#^Parameter \#1 \$stream of function fwrite expects resource, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoGridFSFile.php
+
+		-
+			message: '#^Parameter \#1 \$stream of function rewind expects resource, resource\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoGridFSFile.php
+
+		-
+			message: '#^Parameter \#2 \$data of function fwrite expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoGridFSFile.php
+
+		-
+			message: '#^Property MongoGridFSFile\:\:\$file type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoGridFSFile.php
+
+		-
+			message: '#^Property MongoGridFSFile\:\:\$gridfs has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoGridFSFile.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: lib/Mongo/MongoGridFSFile.php
+
+		-
+			message: '#^Method MongoId\:\:__set\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Mongo/MongoId.php
+
+		-
+			message: '#^Method MongoId\:\:__set_state\(\) has parameter \$props with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoId.php
+
+		-
+			message: '#^Method MongoId\:\:__unserialize\(\) has parameter \$serialized with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoId.php
+
+		-
+			message: '#^Method MongoId\:\:createObjectID\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: lib/Mongo/MongoId.php
+
+		-
+			message: '#^Method MongoId\:\:getHostname\(\) should return string but returns string\|false\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoId.php
+
+		-
+			message: '#^Method MongoId\:\:getInc\(\) should return int but returns float\|int\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoId.php
+
+		-
+			message: '#^Method MongoId\:\:getPID\(\) should return int but returns float\|int\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoId.php
+
+		-
+			message: '#^Method MongoId\:\:getTimestamp\(\) should return int but returns float\|int\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoId.php
+
+		-
+			message: '#^Method MongoInsertBatch\:\:__construct\(\) has parameter \$writeOptions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoInsertBatch.php
+
+		-
+			message: '#^Parameter \#2 \$batchType of method MongoWriteBatch\:\:__construct\(\) expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoInsertBatch.php
+
+		-
+			message: '#^Method MongoLog\:\:getCallback\(\) should return \(callable\(\)\: mixed\)\|null but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoLog.php
+
+		-
+			message: '#^Method MongoLog\:\:getLevel\(\) should return int but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoLog.php
+
+		-
+			message: '#^Method MongoLog\:\:getModule\(\) should return int but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoLog.php
+
+		-
+			message: '#^Property MongoLog\:\:\$callback has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoLog.php
+
+		-
+			message: '#^Property MongoLog\:\:\$level has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoLog.php
+
+		-
+			message: '#^Property MongoLog\:\:\$module has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoLog.php
+
+		-
+			message: '#^Method MongoPool\:\:info\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoPool.php
+
+		-
+			message: '#^Method MongoPool\:\:setSize\(\) should return bool but returns int\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoPool.php
+
+		-
+			message: '#^Method MongoResultException\:\:getDocument\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoResultException.php
+
+		-
+			message: '#^Property MongoResultException\:\:\$document has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoResultException.php
+
+		-
+			message: '#^Instanceof between int and MongoDB\\BSON\\Timestamp will always evaluate to false\.$#'
+			identifier: instanceof.alwaysFalse
+			count: 1
+			path: lib/Mongo/MongoTimestamp.php
+
+		-
+			message: '#^Method MongoUpdateBatch\:\:__construct\(\) has parameter \$writeOptions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoUpdateBatch.php
+
+		-
+			message: '#^Parameter \#2 \$batchType of method MongoWriteBatch\:\:__construct\(\) expects string, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoUpdateBatch.php
+
+		-
+			message: '#^Call to function is_int\(\) with int will always evaluate to true\.$#'
+			identifier: function.alreadyNarrowedType
+			count: 1
+			path: lib/Mongo/MongoWriteBatch.php
+
+		-
+			message: '#^Cannot access offset ''writeConcern'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: lib/Mongo/MongoWriteBatch.php
+
+		-
+			message: '#^Method MongoWriteBatch\:\:__construct\(\) has parameter \$writeOptions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoWriteBatch.php
+
+		-
+			message: '#^Method MongoWriteBatch\:\:add\(\) has parameter \$item with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoWriteBatch.php
+
+		-
+			message: '#^Method MongoWriteBatch\:\:addItem\(\) has parameter \$item with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoWriteBatch.php
+
+		-
+			message: '#^Method MongoWriteBatch\:\:convertWriteErrors\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoWriteBatch.php
+
+		-
+			message: '#^Method MongoWriteBatch\:\:createWriteConcernFromArray\(\) has parameter \$writeConcernArray with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoWriteBatch.php
+
+		-
+			message: '#^Method MongoWriteBatch\:\:createWriteConcernFromParameters\(\) should return MongoDB\\Driver\\WriteConcern but returns false\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoWriteBatch.php
+
+		-
+			message: '#^Method MongoWriteBatch\:\:execute\(\) has parameter \$writeOptions with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoWriteBatch.php
+
+		-
+			message: '#^Method MongoWriteBatch\:\:execute\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoWriteBatch.php
+
+		-
+			message: '#^Method MongoWriteBatch\:\:validate\(\) has parameter \$item with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoWriteBatch.php
+
+		-
+			message: '#^Parameter \#1 \$operations of method MongoDB\\Collection\:\:bulkWrite\(\) expects array\<array\>, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoWriteBatch.php
+
+		-
+			message: '#^Parameter \#1 \$wstring of method MongoWriteBatch\:\:createWriteConcernFromParameters\(\) expects bool\|int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoWriteBatch.php
+
+		-
+			message: '#^Parameter \#2 \$wtimeout of method MongoWriteBatch\:\:createWriteConcernFromParameters\(\) expects int, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/MongoWriteBatch.php
+
+		-
+			message: '#^Property MongoWriteBatch\:\:\$items type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoWriteBatch.php
+
+		-
+			message: '#^Property MongoWriteBatch\:\:\$writeOptions type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoWriteBatch.php
+
+		-
+			message: '#^Result of && is always false\.$#'
+			identifier: booleanAnd.alwaysFalse
+			count: 1
+			path: lib/Mongo/MongoWriteBatch.php
+
+		-
+			message: '#^Method MongoWriteConcernException\:\:getDocument\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/MongoWriteConcernException.php
+
+		-
+			message: '#^Method MongoWriteConcernException\:\:getDocument\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/MongoWriteConcernException.php
+
+		-
+			message: '#^Property MongoWriteConcernException\:\:\$document has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: lib/Mongo/MongoWriteConcernException.php
+
+		-
+			message: '#^Function bson_decode\(\) return type has no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: lib/Mongo/functions.php
+
+		-
+			message: '#^Function bson_decode\(\) should return array but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: lib/Mongo/functions.php
+
+		-
+			message: '#^Parameter \#1 \$value of static method MongoDB\\BSON\\Document\:\:fromPHP\(\) expects array\|object, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: lib/Mongo/functions.php
+
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Binary operation "\." between ''unsupported…'' and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Binary operation "\." between mixed and ''\.'' results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Cannot access offset int on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Cannot access offset string on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Cannot call method offsetExists\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Instanceof between array\<mixed\>\|object and MongoDB\\Model\\BSONDocument will always evaluate to false\.$#'
+			identifier: instanceof.alwaysFalse
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:__construct\(\) has parameter \$allowExtraKeys with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:__construct\(\) has parameter \$allowExtraRootKeys with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:__construct\(\) has parameter \$allowOperators with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:__construct\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:assertEquals\(\) has parameter \$actual with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:assertEquals\(\) has parameter \$expected with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:assertEquals\(\) has parameter \$keyPath with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:assertMatches\(\) has parameter \$actual with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:assertMatches\(\) has parameter \$expected with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:assertMatches\(\) has parameter \$keyPath with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:assertMatchesArray\(\) has parameter \$actual with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:assertMatchesArray\(\) has parameter \$keyPath with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:assertMatchesDocument\(\) has parameter \$actual with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:assertMatchesDocument\(\) has parameter \$keyPath with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:assertMatchesOperator\(\) has parameter \$actual with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:assertMatchesOperator\(\) has parameter \$keyPath with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:doAdditionalFailureDescription\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:doAdditionalFailureDescription\(\) has parameter \$other with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:doAdditionalFailureDescription\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:doEvaluate\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:doEvaluate\(\) has parameter \$description with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:doEvaluate\(\) has parameter \$other with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:doEvaluate\(\) has parameter \$returnResult with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:doEvaluate\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:doFailureDescription\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:doFailureDescription\(\) has parameter \$other with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:doFailureDescription\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:doMatches\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:doMatches\(\) has parameter \$other with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:doMatches\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:doToString\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:doToString\(\) is unused\.$#'
+			identifier: method.unused
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:getOperatorName\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:isArrayEmptyOrIndexed\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:isArrayEmptyOrIndexed\(\) has parameter \$a with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:isNumeric\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:isNumeric\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:isOperator\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:prepare\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:prepare\(\) has parameter \$bson with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Parameter \#1 \$array of class MongoDB\\Model\\BSONArray constructor expects array\<int, mixed\>\|object, array\<mixed, mixed\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Parameter \#1 \$input of class MongoDB\\Model\\BSONDocument constructor expects array\<string, mixed\>, array given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Parameter \#1 \$key of method ArrayObject\<string,mixed\>\:\:offsetExists\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Parameter \#1 \$value of function count expects array\|Countable, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Parameter \#2 \$description of method PHPUnit\\Framework\\Constraint\\Constraint\:\:fail\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Parameter \#2 \$keyPath of static method Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:failAt\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 9
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Parameter \#2 \.\.\.\$values of function sprintf expects bool\|float\|int\|string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Property Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:\$allowExtraKeys \(bool\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Property Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:\$allowExtraRootKeys \(bool\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Property Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:\$allowOperators \(bool\) does not accept mixed\.$#'
+			identifier: assign.propertyType
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Property Alcaeus\\MongoDbAdapter\\Tests\\Constraint\\Matches\:\:\$value has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
+
+		-
+			message: '#^Cannot call method getCode\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/ExceptionConverterTest.php
+
+		-
+			message: '#^Cannot call method getMessage\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/ExceptionConverterTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\ExceptionConverterTest\:\:provideConvertExceptionCases\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/ExceptionConverterTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\ExceptionConverterTest\:\:testConvertException\(\) has parameter \$e with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/ExceptionConverterTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\ExceptionConverterTest\:\:testConvertException\(\) has parameter \$expectedClass with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/ExceptionConverterTest.php
+
+		-
+			message: '#^Parameter \#1 \$e of static method Alcaeus\\MongoDbAdapter\\ExceptionConverter\:\:toLegacy\(\) expects MongoDB\\Driver\\Exception\\Exception, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/ExceptionConverterTest.php
+
+		-
+			message: '#^Parameter \#1 \$expected of static method PHPUnit\\Framework\\Assert\:\:assertInstanceOf\(\) expects class\-string\<object\>, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/ExceptionConverterTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\FunctionsTest\:\:data\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/FunctionsTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\FunctionsTest\:\:testDecode\(\) has parameter \$decoded with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/FunctionsTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\FunctionsTest\:\:testDecode\(\) has parameter \$encoded with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/FunctionsTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\FunctionsTest\:\:testEncode\(\) has parameter \$decoded with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/FunctionsTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\FunctionsTest\:\:testEncode\(\) has parameter \$encoded with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/FunctionsTest.php
+
+		-
+			message: '#^Parameter \#1 \$bson of function bson_decode expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/FunctionsTest.php
+
+		-
+			message: '#^Instanceof between MongoBinData and Alcaeus\\MongoDbAdapter\\TypeInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoBinDataTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoBinDataTest\:\:testCreate\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoBinDataTest.php
+
+		-
+			message: '#^Access to an undefined property MongoClient\:\:\$mongo\-php\-adapter\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoClientTest.php
+
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoClientTest.php
+
+		-
+			message: '#^Binary operation "\." between non\-falsy\-string and mixed results in an error\.$#'
+			identifier: binaryOp.invalid
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoClientTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertIsString\(\) with string will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoClientTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertNotNull\(\) with MongoClient will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoClientTest.php
+
+		-
+			message: '#^Cannot access offset ''empty'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoClientTest.php
+
+		-
+			message: '#^Cannot access offset ''name'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoClientTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoClientTest\:\:makeOptionString\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoClientTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoClientTest\:\:provideConnectionUriCases\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoClientTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoClientTest\:\:provideReadPreferenceOptionsAreInheritedCases\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoClientTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoClientTest\:\:provideWriteConcernOptionsAreInheritedCases\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoClientTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoClientTest\:\:testConnectionUri\(\) has parameter \$expected with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoClientTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoClientTest\:\:testConnectionUri\(\) has parameter \$uri with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoClientTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoClientTest\:\:testReadPreferenceOptionsAreInherited\(\) has parameter \$expectedTagsets with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoClientTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoClientTest\:\:testReadPreferenceOptionsAreInherited\(\) has parameter \$options with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoClientTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoClientTest\:\:testReadPreferenceOptionsAreInherited\(\) has parameter \$uri with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoClientTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoClientTest\:\:testWriteConcernOptionsAreInherited\(\) has parameter \$options with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoClientTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoClientTest\:\:testWriteConcernOptionsAreInherited\(\) has parameter \$uri with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoClientTest.php
+
+		-
+			message: '#^Parameter \#1 \$options of method Alcaeus\\MongoDbAdapter\\Tests\\TestCase\:\:getClient\(\) expects array\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoClientTest.php
+
+		-
+			message: '#^Parameter \#1 \$server of class MongoClient constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoClientTest.php
+
+		-
+			message: '#^Parameter \#2 \$array of static method PHPUnit\\Framework\\Assert\:\:assertArrayHasKey\(\) expects array\|ArrayAccess, mixed given\.$#'
+			identifier: argument.type
+			count: 3
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoClientTest.php
+
+		-
+			message: '#^Instanceof between MongoCode and Alcaeus\\MongoDbAdapter\\TypeInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCodeTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCodeTest\:\:getAttributeValue\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCodeTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCodeTest\:\:getAttributeValue\(\) has parameter \$attribute with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCodeTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCodeTest\:\:testCreate\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCodeTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCodeTest\:\:testCreateWithoutScope\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCodeTest.php
+
+		-
+			message: '#^Parameter \#2 \$property of class ReflectionProperty constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCodeTest.php
+
+		-
+			message: '#^Access to an undefined property MongoCollection\:\:\$foo\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertIsArray\(\) with array will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 4
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertIsString\(\) with string will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Cannot access offset ''_id'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Cannot access offset ''code'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Cannot access property \$_id on array\|object\.$#'
+			identifier: property.nonObject
+			count: 6
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Cannot access property \$bar on array\|object\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Cannot access property \$bar on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Cannot access property \$foo on array\|object\.$#'
+			identifier: property.nonObject
+			count: 7
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Cannot call method getModeString\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Cannot call method getTagSets\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Cannot call method getW\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Cannot call method getWtimeout\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Class Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\ArrayObjectWithProtectedProperties extends generic class ArrayObject but does not specify its types\: TKey, TValue$#'
+			identifier: missingType.generics
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:getDocumentsWithEmptyKey\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:provideCreateIndexesWithIgnoredOptionsCases\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:provideFindWithProjectionAndNumericKeysCases\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:provideFindWithProjectionCases\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:provideFindWithProjectionExcludeIdCases\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:provideFindWithRegexCases\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:provideGetIndexInfoCases\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:provideInsertArrayWithEmptyIdsCases\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:testAtomicUpdateWithEmptyKey\(\) has parameter \$updateDocument with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:testBatchInsertWithEmptyKey\(\) has parameter \$document with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:testCreateIndexesWithIgnoredOptions\(\) has parameter \$option with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:testFindWithProjection\(\) has parameter \$projection with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:testFindWithProjectionAndNumericKeys\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:testFindWithProjectionAndNumericKeys\(\) has parameter \$expected with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:testFindWithProjectionAndNumericKeys\(\) has parameter \$projection with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:testFindWithProjectionExcludeId\(\) has parameter \$projection with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:testFindWithRegex\(\) has parameter \$regex with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:testGetIndexInfo\(\) has parameter \$expectedIndex with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:testGetIndexInfo\(\) has parameter \$fields with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:testGetIndexInfo\(\) has parameter \$options with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:testInsertArrayWithEmptyIds\(\) has parameter \$id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:testInsertWithEmptyKey\(\) has parameter \$document with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCollectionTest\:\:testUpdateWithEmptyKey\(\) has parameter \$updateDocument with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Offset ''_id'' does not exist on array\{1\: ''foo''\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Offset ''_id'' does not exist on array\{bar\: ''foo''\}\|array\{foo\: ''bar''\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Offset ''_id'' does not exist on array\{foo\: ''bar''\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 4
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Offset ''_id'' does not exist on array\{foo\: ''foo''\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Offset ''loveItems'' might not exist on array\|null\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#1 \$a of method MongoCollection\:\:insert\(\) expects array, Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\ArrayObjectWithProtectedProperties given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#1 \$a of method MongoCollection\:\:insert\(\) expects array, Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\PrivatePropertiesStub given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#1 \$a of method MongoCollection\:\:insert\(\) expects array, int given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#1 \$a of method MongoCollection\:\:insert\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#1 \$a of method MongoCollection\:\:insert\(\) expects array, object\{\}&stdClass given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#1 \$array of function usort expects TArray of array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#1 \$keys of method MongoCollection\:\:createIndex\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#1 \$string1 of function strcasecmp expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#2 \$array of static method PHPUnit\\Framework\\Assert\:\:assertArrayHasKey\(\) expects array\|ArrayAccess, array\|null given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#2 \$array of static method PHPUnit\\Framework\\Assert\:\:assertArrayNotHasKey\(\) expects array\|ArrayAccess, array\|object given\.$#'
+			identifier: argument.type
+			count: 4
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#2 \$fields of method MongoCollection\:\:find\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#2 \$fields of method MongoCollection\:\:findOne\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#2 \$haystack of static method PHPUnit\\Framework\\Assert\:\:assertCount\(\) expects Countable\|iterable, array\|null given\.$#'
+			identifier: argument.type
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#2 \$haystack of static method PHPUnit\\Framework\\Assert\:\:assertCount\(\) expects Countable\|iterable, mixed given\.$#'
+			identifier: argument.type
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#2 \$newobj of method MongoCollection\:\:update\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#2 \$options of method MongoCollection\:\:count\(\) expects int, array\<string, int\> given\.$#'
+			identifier: argument.type
+			count: 7
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#2 \$options of method MongoCollection\:\:count\(\) expects int, null given\.$#'
+			identifier: argument.type
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#2 \$options of method MongoCollection\:\:createIndex\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#2 \$string of static method PHPUnit\\Framework\\Assert\:\:assertMatchesRegularExpression\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#2 \$string2 of function strcasecmp expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#2 \$update of method MongoCollection\:\:findAndModify\(\) expects array, null given\.$#'
+			identifier: argument.type
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#3 \$fields of method MongoCollection\:\:findAndModify\(\) expects array, null given\.$#'
+			identifier: argument.type
+			count: 3
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Parameter \#3 \$reduce of method MongoCollection\:\:group\(\) expects MongoCode, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Property Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\ArrayObjectWithProtectedProperties\:\:\$something has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Property Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\PrivatePropertiesStub\:\:\$foo has no type specified\.$#'
+			identifier: missingType.property
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Property Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\PrivatePropertiesStub\:\:\$foo is never read, only written\.$#'
+			identifier: property.onlyWritten
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Unreachable statement \- code above always terminates\.$#'
+			identifier: deadCode.unreachable
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCollectionTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertIsString\(\) with string will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCommandCursorTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCommandCursorTest\:\:provideCommandAppliesCorrectReadPreferenceCases\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCommandCursorTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCommandCursorTest\:\:testCommandAppliesCorrectReadPreference\(\) has parameter \$command with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCommandCursorTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCommandCursorTest\:\:testCommandAppliesCorrectReadPreference\(\) has parameter \$expectedReadPreference with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCommandCursorTest.php
+
+		-
+			message: '#^Parameter \#3 \$command of class MongoCommandCursor constructor expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCommandCursorTest.php
+
+		-
+			message: '#^Argument of an invalid type mixed supplied for foreach, only iterables are supported\.$#'
+			identifier: foreach.nonIterable
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Call to method expects\(\) on an unknown class PHPUnit_Framework_MockObject_MockObject\.$#'
+			identifier: class.notFound
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertIsString\(\) with string will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertNotNull\(\) with \*NEVER\* will always evaluate to false\.$#'
+			identifier: staticMethod.impossibleType
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertNotNull\(\) with array will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 5
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertNull\(\) with array and ''Cursor should be…'' will always evaluate to false\.$#'
+			identifier: staticMethod.impossibleType
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertNull\(\) with array will always evaluate to false\.$#'
+			identifier: staticMethod.impossibleType
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertNull\(\) with string and ''Cursor should be…'' will always evaluate to false\.$#'
+			identifier: staticMethod.impossibleType
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Cannot access offset ''_id'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Cannot access offset ''at'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Cannot access offset ''foo'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Cannot call method info\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Cannot call method method\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Cannot call method willReturn\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Cannot call method with\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCursorTest\:\:assertCursorIteration\(\) has parameter \$cursor with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCursorTest\:\:getCollectionMock\(\) has invalid return type PHPUnit_Framework_MockObject_MockObject\.$#'
+			identifier: class.notFound
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCursorTest\:\:getCollectionMock\(\) should return PHPUnit_Framework_MockObject_MockObject but returns MongoDB\\Collection&PHPUnit\\Framework\\MockObject\\MockObject\.$#'
+			identifier: return.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCursorTest\:\:provideCursorAppliesOptionsCases\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoCursorTest\:\:testCursorAppliesOptions\(\) has parameter \$checkOptionCallback with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Parameter \#1 \$callback of static method PHPUnit\\Framework\\Assert\:\:callback\(\) expects callable\(mixed\)\: bool, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Parameter \#1 \$key of function array_key_exists expects int\|string, mixed given\.$#'
+			identifier: argument.type
+			count: 3
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Parameter \#1 \$keyPattern of method MongoCursor\:\:hint\(\) expects array, string given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Unable to resolve the template type CallbackInput in call to method static method PHPUnit\\Framework\\Assert\:\:callback\(\)$#'
+			identifier: argument.templateType
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoCursorTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertIsArray\(\) with array will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDBRefTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertNull\(\) with array will always evaluate to false\.$#'
+			identifier: staticMethod.impossibleType
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDBRefTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoDBRefTest\:\:provideCreateThroughMongoDBCases\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDBRefTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoDBRefTest\:\:provideIsRefCases\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDBRefTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoDBRefTest\:\:testCreateThroughMongoDB\(\) has parameter \$document_or_id with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDBRefTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoDBRefTest\:\:testCreateThroughMongoDB\(\) has parameter \$expected with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDBRefTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoDBRefTest\:\:testIsRef\(\) has parameter \$expected with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDBRefTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoDBRefTest\:\:testIsRef\(\) has parameter \$ref with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDBRefTest.php
+
+		-
+			message: '#^Offset ''_id'' does not exist on array\{foo\: ''bar''\}\.$#'
+			identifier: offsetAccess.notFound
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDBRefTest.php
+
+		-
+			message: '#^Access to an undefined property MongoDB\:\:\$test\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDBTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertIsString\(\) with string will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDBTest.php
+
+		-
+			message: '#^Cannot access offset ''name'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDBTest.php
+
+		-
+			message: '#^Cannot access offset ''ok'' on bool\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDBTest.php
+
+		-
+			message: '#^Cannot call method getModeString\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDBTest.php
+
+		-
+			message: '#^Cannot call method getTagSets\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDBTest.php
+
+		-
+			message: '#^Cannot call method getW\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDBTest.php
+
+		-
+			message: '#^Cannot call method getWtimeout\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDBTest.php
+
+		-
+			message: '#^Method MongoDB\:\:listCollections\(\) invoked with 1 parameter, 0 required\.$#'
+			identifier: arguments.count
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDBTest.php
+
+		-
+			message: '#^Parameter \#2 \$options of method MongoDB\:\:createCollection\(\) expects bool, array\<string, int\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDBTest.php
+
+		-
+			message: '#^Parameter \#2 \$options of method MongoDB\:\:createCollection\(\) expects bool, array\<string, int\|true\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDBTest.php
+
+		-
+			message: '#^Instanceof between MongoDate and Alcaeus\\MongoDbAdapter\\TypeInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDateTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoDateTest\:\:testCreate\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDateTest.php
+
+		-
+			message: '#^Parameter \#1 \$sec of class MongoDate constructor expects int, MongoDB\\BSON\\UTCDateTime given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDateTest.php
+
+		-
+			message: '#^Parameter \#1 \$sec of class MongoDate constructor expects int, int\|false given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDateTest.php
+
+		-
+			message: '#^Parameter \#1 \$sec of class MongoDate constructor expects int, string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDateTest.php
+
+		-
+			message: '#^Parameter \#2 \$usec of class MongoDate constructor expects int, string given\.$#'
+			identifier: argument.type
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDateTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertIsString\(\) with string will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDeleteBatchTest.php
+
+		-
+			message: '#^Method MongoWriteBatch\:\:execute\(\) invoked with 0 parameters, 1 required\.$#'
+			identifier: arguments.count
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoDeleteBatchTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertIsString\(\) with string will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSCursorTest.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSCursorTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertIsString\(\) with string will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSFileTest.php
+
+		-
+			message: '#^Cannot access property \$file on mixed\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSFileTest.php
+
+		-
+			message: '#^Cannot call method getBytes\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSFileTest.php
+
+		-
+			message: '#^Cannot call method getFilename\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSFileTest.php
+
+		-
+			message: '#^Cannot call method getSize\(\) on mixed\.$#'
+			identifier: method.nonObject
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSFileTest.php
+
+		-
+			message: '#^Class MongoId referenced with incorrect case\: MongoID\.$#'
+			identifier: class.nameCase
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSFileTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoGridFSFileTest\:\:getFile\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSFileTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoGridFSFileTest\:\:getFile\(\) has parameter \$extra with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSFileTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoGridFSFileTest\:\:prepareFile\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSFileTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoGridFSFileTest\:\:prepareFile\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSFileTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoGridFSFileTest\:\:prepareFile\(\) has parameter \$extra with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSFileTest.php
+
+		-
+			message: '#^PHPDoc tag @var above a method has no effect\.$#'
+			identifier: varTag.misplaced
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSFileTest.php
+
+		-
+			message: '#^PHPDoc tag @var does not specify variable name\.$#'
+			identifier: varTag.noVariable
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSFileTest.php
+
+		-
+			message: '#^Parameter \#1 \$bytes of method MongoGridFS\:\:storeBytes\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSFileTest.php
+
+		-
+			message: '#^Parameter \#2 \$array of static method PHPUnit\\Framework\\Assert\:\:assertArrayHasKey\(\) expects array\|ArrayAccess, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSFileTest.php
+
+		-
+			message: '#^Parameter \#2 \$extra of method MongoGridFS\:\:storeBytes\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSFileTest.php
+
+		-
+			message: '#^Parameter \#2 \.\.\.\$arrays of function array_merge expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSFileTest.php
+
+		-
+			message: '#^Binary operation "\+\=" between mixed and array\{chunkSize\: 2\} results in an error\.$#'
+			identifier: assignOp.invalid
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertIsString\(\) with string will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertNull\(\) with MongoGridFSFile will always evaluate to false\.$#'
+			identifier: staticMethod.impossibleType
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Cannot access property \$_id on array\|object\.$#'
+			identifier: property.nonObject
+			count: 8
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Cannot access property \$chunkSize on array\|object\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Cannot access property \$data on array\|object\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Cannot access property \$data on mixed\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Cannot access property \$filename on array\|object\.$#'
+			identifier: property.nonObject
+			count: 3
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Cannot access property \$files_id on array\|object\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Cannot access property \$files_id on mixed\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Cannot access property \$foo on array\|object\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Cannot access property \$length on array\|object\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Cannot access property \$md5 on array\|object\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Cannot access property \$n on array\|object\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Cannot access property \$n on mixed\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Cannot cast mixed to string\.$#'
+			identifier: cast.string
+			count: 8
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Class MongoId referenced with incorrect case\: MongoID\.$#'
+			identifier: class.nameCase
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoGridFSTest\:\:prepareFile\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoGridFSTest\:\:prepareFile\(\) has parameter \$extra with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoGridFSTest\:\:prepareFile\(\) should return MongoId but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Parameter \#1 \$bytes of method MongoGridFS\:\:storeBytes\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Parameter \#1 \$filename of method MongoGridFS\:\:storeFile\(\) expects string, resource\|false given\.$#'
+			identifier: argument.type
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Parameter \#1 \$string of function substr expects string, string\|false given\.$#'
+			identifier: argument.type
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Parameter \#2 \$metadata of method MongoGridFS\:\:storeUpload\(\) expects string, array\<string, int\|string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoGridFSTest.php
+
+		-
+			message: '#^Access to an undefined property MongoId\:\:\$\$id\.$#'
+			identifier: property.notFound
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoIdTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoIdTest\:\:getAttributeValue\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoIdTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoIdTest\:\:getAttributeValue\(\) has parameter \$attribute with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoIdTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoIdTest\:\:provideIsValidCases\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoIdTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoIdTest\:\:testIsValid\(\) has parameter \$expected with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoIdTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoIdTest\:\:testIsValid\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoIdTest.php
+
+		-
+			message: '#^Parameter \#2 \$property of class ReflectionProperty constructor expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoIdTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertIsString\(\) with string will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoInsertBatchTest.php
+
+		-
+			message: '#^Cannot access property \$foo on array\|object\.$#'
+			identifier: property.nonObject
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoInsertBatchTest.php
+
+		-
+			message: '#^Method MongoWriteBatch\:\:execute\(\) invoked with 0 parameters, 1 required\.$#'
+			identifier: arguments.count
+			count: 2
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoInsertBatchTest.php
+
+		-
+			message: '#^Instanceof between MongoMaxKey and Alcaeus\\MongoDbAdapter\\TypeInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoMaxKeyTest.php
+
+		-
+			message: '#^Instanceof between MongoMinKey and Alcaeus\\MongoDbAdapter\\TypeInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoMinKeyTest.php
+
+		-
+			message: '#^Instanceof between MongoRegex and Alcaeus\\MongoDbAdapter\\TypeInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoRegexTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoRegexTest\:\:testCreate\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoRegexTest.php
+
+		-
+			message: '#^Instanceof between MongoTimestamp and Alcaeus\\MongoDbAdapter\\TypeInterface will always evaluate to true\.$#'
+			identifier: instanceof.alwaysTrue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoTimestampTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\Mongo\\MongoTimestampTest\:\:testCreate\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoTimestampTest.php
+
+		-
+			message: '#^Parameter \#1 \$sec of class MongoTimestamp constructor expects int, MongoDB\\BSON\\Timestamp given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoTimestampTest.php
+
+		-
+			message: '#^Call to static method PHPUnit\\Framework\\Assert\:\:assertIsString\(\) with string will always evaluate to true\.$#'
+			identifier: staticMethod.alreadyNarrowedType
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoUpdateBatchTest.php
+
+		-
+			message: '#^Cannot access offset ''_id'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoUpdateBatchTest.php
+
+		-
+			message: '#^Cannot access offset 0 on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoUpdateBatchTest.php
+
+		-
+			message: '#^Cannot access property \$foo on array\|object\.$#'
+			identifier: property.nonObject
+			count: 4
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoUpdateBatchTest.php
+
+		-
+			message: '#^Method MongoWriteBatch\:\:execute\(\) invoked with 0 parameters, 1 required\.$#'
+			identifier: arguments.count
+			count: 5
+			path: tests/Alcaeus/MongoDbAdapter/Mongo/MongoUpdateBatchTest.php
+
+		-
+			message: '#^Cannot access offset ''version'' on mixed\.$#'
+			identifier: offsetAccess.nonOffsetAccessible
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Cannot access property \$ok on mixed\.$#'
+			identifier: property.nonObject
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Expression "self\:\:INDEX_VERSION_1" on a separate line does not do anything\.$#'
+			identifier: expr.resultUnused
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\TestCase\:\:assertMatches\(\) has parameter \$expected with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\TestCase\:\:assertMatches\(\) has parameter \$message with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\TestCase\:\:assertMatches\(\) has parameter \$value with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\TestCase\:\:configureFailPoint\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\TestCase\:\:configureFailPoint\(\) has parameter \$data with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\TestCase\:\:configureFailPoint\(\) has parameter \$failPoint with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\TestCase\:\:configureFailPoint\(\) has parameter \$mode with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\TestCase\:\:failMaxTimeMS\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\TestCase\:\:getClient\(\) has parameter \$options with no value type specified in iterable type array\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\TestCase\:\:getClient\(\) has parameter \$uri with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\TestCase\:\:getCurrentHost\(\) should return string but returns string\|false\|null\.$#'
+			identifier: return.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\TestCase\:\:getFeatureCompatibilityVersion\(\) should return string but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\TestCase\:\:getMongoUri\(\) has no return type specified\.$#'
+			identifier: missingType.return
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\TestCase\:\:getServerVersion\(\) should return string but returns mixed\.$#'
+			identifier: return.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\TestCase\:\:skipTestUnless\(\) has parameter \$message with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Parameter \#1 \$uri of class MongoDB\\Client constructor expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Parameter \#1 \$url of function parse_url expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Parameter \#2 \$message of method Alcaeus\\MongoDbAdapter\\Tests\\TestCase\:\:skipTestIf\(\) expects string\|null, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Parameter \#3 \$message of static method PHPUnit\\Framework\\Assert\:\:assertThat\(\) expects string, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TestCase.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\TypeConverterTest\:\:provideFromLegacyCases\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TypeConverterTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\TypeConverterTest\:\:provideIsNumericArrayCases\(\) return type has no value type specified in iterable type iterable\.$#'
+			identifier: missingType.iterableValue
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TypeConverterTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\TypeConverterTest\:\:testFromLegacy\(\) has parameter \$legacyValue with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TypeConverterTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\TypeConverterTest\:\:testFromLegacy\(\) has parameter \$modernValue with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TypeConverterTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\TypeConverterTest\:\:testIsNumericArray\(\) has parameter \$array with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TypeConverterTest.php
+
+		-
+			message: '#^Method Alcaeus\\MongoDbAdapter\\Tests\\TypeConverterTest\:\:testIsNumericArray\(\) has parameter \$expected with no type specified\.$#'
+			identifier: missingType.parameter
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TypeConverterTest.php
+
+		-
+			message: '#^Parameter \#1 \$array of static method Alcaeus\\MongoDbAdapter\\TypeConverter\:\:isNumericArray\(\) expects array, mixed given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TypeConverterTest.php
+
+		-
+			message: '#^Parameter \#1 \$input of class MongoDB\\Model\\BSONDocument constructor expects array\<string, mixed\>, array\<int, string\> given\.$#'
+			identifier: argument.type
+			count: 1
+			path: tests/Alcaeus/MongoDbAdapter/TypeConverterTest.php
