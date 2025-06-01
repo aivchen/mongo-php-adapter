@@ -27,6 +27,9 @@ jobs:
           coverage: "none"
           php-version: "8.1"
 
+      - name: "phpinfo"
+        run: "php -i"
+
       - name: "Cache dependencies installed with Composer"
         uses: "actions/cache@v4"
         with:
