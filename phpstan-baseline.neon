@@ -301,7 +301,7 @@ parameters:
 			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
 
 		-
-			message: '#^Parameter \#1 \$input of class MongoDB\\Model\\BSONDocument constructor expects array\<string, mixed\>, array given\.$#'
+			message: '#^Parameter \#1 \$input of class MongoDB\\Model\\BSONDocument constructor expects array\<string, mixed\>\|stdClass, array given\.$#'
 			identifier: argument.type
 			count: 1
 			path: lib/Alcaeus/MongoDbAdapter/TypeConverter.php
@@ -3031,7 +3031,7 @@ parameters:
 			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
 
 		-
-			message: '#^Parameter \#1 \$input of class MongoDB\\Model\\BSONDocument constructor expects array\<string, mixed\>, array given\.$#'
+			message: '#^Parameter \#1 \$input of class MongoDB\\Model\\BSONDocument constructor expects array\<string, mixed\>\|stdClass, array given\.$#'
 			identifier: argument.type
 			count: 1
 			path: tests/Alcaeus/MongoDbAdapter/Constraint/Matches.php
@@ -4651,7 +4651,7 @@ parameters:
 			path: tests/Alcaeus/MongoDbAdapter/TypeConverterTest.php
 
 		-
-			message: '#^Parameter \#1 \$input of class MongoDB\\Model\\BSONDocument constructor expects array\<string, mixed\>, array\<int, string\> given\.$#'
+			message: '#^Parameter \#1 \$input of class MongoDB\\Model\\BSONDocument constructor expects array\<string, mixed\>\|stdClass, array\<int, string\> given\.$#'
 			identifier: argument.type
 			count: 1
 			path: tests/Alcaeus/MongoDbAdapter/TypeConverterTest.php
